@@ -13,4 +13,3 @@ Route::get('/form', function () {
 Route::get('/table', function () {
     return view('table-datatable');
 });
-

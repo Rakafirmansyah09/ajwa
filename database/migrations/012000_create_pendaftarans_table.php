@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('pendaftarans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('jemaah_id')->constrained();
+            $table->foreignId('kategori_id')->constrained();
+            $table->string('no_hp');
+            $table->text('alamat');
+            $table->string('kecamatan');
+            $table->string('file_ktp');
+            $table->string('file_kk');
+            $table->string('file_foto');
+            $table->string('file_ijazah');
+            $table->string('file_pasport');
             $table->timestamps();
         });
     }

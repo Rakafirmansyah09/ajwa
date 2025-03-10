@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('jemaahs', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_lengkap');
+            $table->date('tanggal_lahir');
+            $table->string('tempat_lahir');
             $table->timestamps();
         });
     }
