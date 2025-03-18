@@ -17,7 +17,6 @@ return new class extends Migration
             $table->date('tanggal');
             $table->integer('durasi');
             $table->decimal('harga', 10, 2);
-            $table->decimal('dp', 10, 2);
             $table->text('detail');
             $table->timestamps();
         });

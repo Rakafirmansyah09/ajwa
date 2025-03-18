@@ -13,7 +13,6 @@ class kategori extends Model
         'tanggal',
         'durasi',
         'harga',
-        'dp',
         'detail',
     ];
 

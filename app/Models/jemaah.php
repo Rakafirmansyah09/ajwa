@@ -10,8 +10,11 @@ class jemaah extends Model
 
     protected $fillable = [
         'nama_lengkap',
+        'nik',
         'tanggal_lahir',
         'tempat_lahir',
+        'file_ktp',
+        'file_paspor',
     ];
 
     // Relasi ke tabel pendaftarans

@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('jemaahs', function (Blueprint $table) {
             $table->id();
             $table->string('nama_lengkap');
+            $table->string('nik');
             $table->date('tanggal_lahir');
             $table->string('tempat_lahir');
+            $table->string('file_ktp')->nullable();
+            $table->string('file_paspor')->nullable();
             $table->timestamps();
         });
     }

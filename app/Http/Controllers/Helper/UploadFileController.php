@@ -8,7 +8,7 @@ use Illuminate\Http\UploadedFile;
 
 class UploadFileController extends Controller
 {
-    public function create(string $type = "id", string $folder = "pendaki", UploadedFile $file)
+    public function create(string $type = "id", string $folder = "jemaah", UploadedFile $file)
     {
 
         if ($file) {

@@ -14,11 +14,9 @@ class pendaftaran extends Model
         'no_hp',
         'alamat',
         'kecamatan',
-        'file_ktp',
         'file_kk',
         'file_foto',
         'file_ijazah',
-        'file_pasport',
     ];
 
     // Relasi ke tabel jemaahs
