@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helper\UploadFileController;
+use App\Models\kategori;
 use App\Models\pendaftaran;
 use Illuminate\Http\Request;
+
+use function App\Providers\admin_abort;
 
 class PendaftaranController extends Controller
 {
@@ -24,27 +27,30 @@ class PendaftaranController extends Controller
         ]);
     }
 
-    public function daftar1()
+    public function detail($id)
     {
-        return view('Admin.DataPendaftaran.daftar1');
-    }
-    public function daftar2()
-    {
-        return view('Admin.DataPendaftaran.daftar2');
-    }
-    public function daftar3()
-    {
-        return view('Admin.DataPendaftaran.daftar3');
-    }
-    public function detail()
-    {
-        return view('Admin.DataPendaftaran.detail');
+        $paket = kategori::with('pendaftar')->find($id);
+        if (!$paket) {
+            return admin_abort(404, 'Paket tidak ditemukan');
+        }
+
+        return view('Admin.DataPendaftaran.detailPaket', ['paket' => $paket]);
     }
 
-    public function store(Request $request)
+    public function createByPaket($id)
     {
-        return $request;
+        $paket = kategori::find($id);
+        if (!$paket) {
+            return admin_abort(404, 'Paket tidak ditemukan');
+        }
+
+        return view('Admin.DataPendaftaran.pendaftaranPaket', ['paket' => $paket]);
+        return $paket;
     }
+
+    public function inputCode(Request $request) {}
+
+    public function store(Request $request) {}
 
     public function edit($id) {}
 

@@ -48,20 +48,12 @@
                    <span>Dashboard</span>
                 </a>
              </li>
-             <li class="sidebar-item  has-sub">
-                <a href="#" class='sidebar-link'>
-                   <i class="bi bi-file-earmark-medical-fill"></i>
-                   <span>Pendaftaran</span>
-                </a>
-                <ul class="submenu ">
-                   <li class="submenu-item  ">
-                      <a href="{{route('admin.pendaftaran.daftar1')}}" class="submenu-link">Daftar </a>
-                   </li>
 
-                   <li class="submenu-item  ">
-                      <a href="{{route('admin.pendaftaran.list')}}" class="submenu-link">List Pendaftaran</a>
-                   </li>
-                </ul>
+             <li class="sidebar-item">
+                <a href="{{route('admin.pendaftaran.list')}}" class='sidebar-link'>
+                   <i class="bi bi-file-earmark-medical-fill"></i>
+                   <span>List Pendaftaran</span>
+                </a>
              </li>
 
              <li class="sidebar-title">Data Master</li>
@@ -71,7 +63,7 @@
                    <i class="bi bi-file-earmark-medical-fill"></i>
                    <span>Data Jemaah</span>
                 </a>
-                <ul class="submenu ">
+                <ul class="submenu">
                    <li class="submenu-item  ">
                       <a href="{{route('admin.jemaah.create')}}" class="submenu-link">Tambah Jemaah</a>
                    </li>
@@ -87,7 +79,7 @@
              <li class="sidebar-item  has-sub">
                 <a href="#" class='sidebar-link'>
                    <i class="bi bi-grid-1x2-fill"></i>
-                   <span>Data Paket Umroh</span>
+                   <span>Data Paket</span>
                 </a>
 
                 <ul class="submenu ">

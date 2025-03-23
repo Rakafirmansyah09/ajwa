@@ -17,6 +17,10 @@ class pendaftaran extends Model
         'file_kk',
         'file_foto',
         'file_ijazah',
+
+        'sumber_info',
+        'sumber_ket',
+        'detail_info',
     ];
 
     // Relasi ke tabel jemaahs

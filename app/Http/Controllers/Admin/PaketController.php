@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\kategori;
 use Illuminate\Http\Request;
 
+use function App\Providers\admin_abort;
+
 class PaketController extends Controller
 {
     public function index()
@@ -25,9 +27,9 @@ class PaketController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'tanggal' => 'required|date|before:today',
+            'tanggal' => 'required|date|after:today',
             'durasi' => 'required|integer',
-            'harga' => 'required|integer',
+            'harga' => 'required|numeric|min:0',
             'detail' => 'required|string',
         ]);
 
@@ -40,12 +42,51 @@ class PaketController extends Controller
         ]);
 
         // return $request;
-        return redirect()->back()->with('success', 'Berhasil menambah paket');
+        return redirect()->route('admin.paket.list')->with('success', 'Berhasil menambah paket');
     }
 
-    public function edit($id) {}
+    public function edit($id)
+    {
+        $paket = kategori::find($id);
+        return view('Admin.DataPaket.update', [
+            'paket' => $paket
+        ]);
+    }
 
-    public function update(Request $request) {}
+    public function update(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer|exists:kategoris,id',
+            'nama' => 'required|string|max:255',
+            'tanggal' => 'required|date|after:today',
+            'durasi' => 'required|integer',
+            'harga' => 'required|numeric|min:0',
+            'detail' => 'required|string',
+        ]);
 
-    public function delete(Request $request) {}
+        $paket = kategori::find($request->id);
+        $paket->update([
+            'nama' => $request->nama,
+            'tanggal' => $request->tanggal,
+            'durasi' => $request->durasi,
+            'harga' => $request->harga,
+            'detail' => $request->detail,
+        ]);
+
+        return redirect()->route('admin.paket.list')->with('success', 'Berhasil mengubah paket');
+    }
+
+    public function delete(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer|exists:kategoris,id',
+        ]);
+
+        $paket = kategori::with('pendaftar')->find($request->id);
+        if ($paket->pendaftar->count() > 0) {
+            return redirect()->back()->with('error', 'Tidak dapat menghapus paket karena sudah ada pendaftaran');
+        }
+        $paket->delete();
+        return redirect()->back()->with('success', 'Berhasil menghapus paket');
+    }
 }

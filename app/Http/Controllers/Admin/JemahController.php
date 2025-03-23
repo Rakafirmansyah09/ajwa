@@ -53,12 +53,68 @@ class JemahController extends Controller
             'file_paspor' => $filePaspor
         ]);
 
-        return redirect()->back()->with('success', 'Berhasil menambahakan data jemaah baru');
+        return redirect()->route('admin.jemaah.list')->with('success', 'Berhasil menambahakan data jemaah baru');
     }
 
-    public function edit($id) {}
+    public function edit($id)
+    {
+        $data = jemaah::find($id);
+        // return $data;
+        return view('Admin.DataJamaah.update', [
+            'jemaah' => $data
+        ]);
+    }
 
-    public function update(Request $request) {}
+    public function update(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer',
+            'namaLengkap' => 'required|string|max:255',
+            'nik' => 'required|string|max:16',
+            'tanggalLahir' => 'required|date|before:today',
+            'tempatLahir' => 'required|string|max:255',
+            'file_ktp' => 'file|mimes:jpg,jpeg,png,pdf|max:1048',
+            'file_paspor' => 'file|mimes:jpg,jpeg,png,pdf|max:1048',
+        ]);
+        $jemaah = jemaah::find($request->id);
+        $jemaah->update([
+            'nama_lengkap' => $request->namaLengkap,
+            'nik' => $request->nik,
+            'tanggal_lahir' => $request->tanggalLahir,
+            'tempat_lahir' => $request->tempatLahir
+        ]);
+        if ($request->file('file_ktp')) {
+            $fileKtp = $this->upload->update($jemaah->file_ktp, $request->file('file_ktp'));
+            $jemaah->update([
+                'file_ktp' => $fileKtp
+            ]);
+        }
+        if ($request->file('file_paspor')) {
+            $filePaspor = $this->upload->update($jemaah->file_paspor, $request->file('file_paspor'));
+            $jemaah->update([
+                'file_paspor' => $filePaspor
+            ]);
+        }
+        return redirect()->route('admin.jemaah.list')->with('success', 'Berhasil mengubah data jemaah');
+    }
 
-    public function delete(Request $request) {}
+    public function delete(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer|exists:kategoris,id',
+        ]);
+        $jemaah = jemaah::find($request->id);
+        $this->upload->delete($jemaah->file_ktp);
+        $this->upload->delete($jemaah->file_paspor);
+        $jemaah->delete();
+        return redirect()->route('admin.jemaah.list')->with('success', 'Berhasil menghapus data jemaah');
+    }
+
+    public function detail($id)
+    {
+        $data = jemaah::find($id);
+        return view('Admin.DataJamaah.detail', [
+            'data' => $data
+        ]);
+    }
 }

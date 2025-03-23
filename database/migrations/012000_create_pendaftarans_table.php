@@ -21,6 +21,11 @@ return new class extends Migration
             $table->string('file_kk');
             $table->string('file_foto');
             $table->string('file_ijazah');
+
+            $table->string('sumber_info')->nullable();
+            $table->string('sumber_ket')->nullable();
+            $table->text('detail_info')->nullable();
+
             $table->timestamps();
         });
     }

@@ -22,7 +22,7 @@ class UploadFileController extends Controller
         return null;
     }
 
-    public function upadate(string $url, UploadedFile $file)
+    public function update(string $url, UploadedFile $file)
     {
         if ($file && file_exists(public_path($url))) {
             // ambil folder dan type dari url

@@ -12,7 +12,7 @@
    <link rel="stylesheet" href="{{ asset('mazer/compiled/css/app.css') }}">
    <link rel="stylesheet" href="{{ asset('mazer/compiled/css/app-dark.css') }}">
    <link rel="stylesheet" href="{{ asset('mazer/compiled/css/iconly.css') }}">
-   <link rel="stylesheet" href="{{ asset('mazer/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
+   <link rel="stylesheet" href="{{ asset('mazer/extensions/@fortawesome/fontawesome-free/css/all.css') }}">
    <style>
       /* template toast */
       .toast-container {
@@ -20,6 +20,16 @@
          top: 1rem;
          right: 1rem;
          z-index: 1050;
+      }
+
+      /* page conten */
+      #main .card .card-header {
+         padding-bottom: 10px;
+         /* border-bottom: solid 2px #f2f7ff; */
+      }
+
+      #main-body {
+         min-height: calc(100vh - 110px);
       }
    </style>
    @yield('css')
@@ -31,7 +41,9 @@
       @include('template.sidebar')
 
       <div id="main">
-         @yield('main')
+         <div id="main-body">
+            @yield('main')
+         </div>
 
          @include('template.footer')
       </div>

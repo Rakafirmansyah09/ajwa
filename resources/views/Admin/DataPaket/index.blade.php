@@ -14,44 +14,53 @@
    </div>
 </div>
 
-<div class="page-content">
-   <div class="card">
-      <div class="card-header">
-         <h5 class="card-title">
-            Tabel Paket
-         </h5>
+<div class="card">
+   <div class="card-header">
+      <h5 class="card-title">
+         Tabel Paket
+      </h5>
+   </div>
+   <div class="card-body">
+      <table class="table table-striped" id="table1">
+         <thead>
+            <tr>
+               <th>Name</th>
+               <th>Tanggal</th>
+               <th>Durasi</th>
+               <th>Harga</th>
+               <th>Aksi</th>
+            </tr>
+         </thead>
+         <tbody>
+            @foreach ($data as $j)
+            <tr>
+               <td>{{$j->nama}}</td>
+               <td>{{$j->tanggal}}</td>
+               <td>{{$j->durasi}} hari</td>
+               <td>Rp. {{ number_format($j->harga)}}</td>
+               <td>
+                  <a href="{{route('admin.paket.edit', ['id' => $j->id]) }}" class="btn btn-outline-primary btn-sm">
+                     <i class="fas fa-pencil-alt"></i>
+                  </a>
+                  <form method="post" action="{{ route('admin.paket.delete') }}" class="d-inline">
+                     @csrf
+                     <input type="hidden" name="id" value="{{$j->id}}">
+                     <button type="submit" class="btn btn-outline-danger btn-sm">
+                        <i class="fas fa-trash-alt"></i>
+                     </button>
+                  </form>
+                  <a href="{{route('admin.pendaftaran.detailPaket', ['id' => $j->id])}}" class="btn btn-outline-info btn-sm">
+                     <i class="fas fa-info-circle"></i>
+                  </a>
+               </td>
+            </tr>
+            @endforeach
+         </tbody>
+      </table>
+      <div class="d-flex justify-content-center mt-3">
+         {{ $data->links('pagination::bootstrap-5') }}
       </div>
-      <div class="card-body">
-         <table class="table table-striped" id="table1">
-            <thead>
-               <tr>
-                  <th>Name</th>
-                  <th>Tanggal</th>
-                  <th>Durasi</th>
-                  <th>Harga</th>
-                  <th>Aksi</th>
-               </tr>
-            </thead>
-            <tbody>
-               @foreach ($data as $j)
-               <tr>
-                  <td>{{$j->nama}}</td>
-                  <td>{{$j->tanggal}}</td>
-                  <td>{{$j->durasi}} hari</td>
-                  <td>Rp. {{ number_format($j->harga)}}</td>
-                  <td>
-                     <a href=""><span class="fa-fw select-all fas"></span></a>
-                     <a href="google.com"><span class="fa-fw select-all fas"></span></a>
-                  </td>
-               </tr>
-               @endforeach
-            </tbody>
-         </table>
-         <div class="d-flex justify-content-center mt-3">
-            {{ $data->links('pagination::bootstrap-5') }}
-         </div>
 
-      </div>
    </div>
 </div>
 
