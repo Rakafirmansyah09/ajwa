@@ -68,7 +68,7 @@ class JemahController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'id' => 'required|integer',
+            'id' => 'required|string',
             'namaLengkap' => 'required|string|max:255',
             'nik' => 'required|string|max:16',
             'tanggalLahir' => 'required|date|before:today',
@@ -101,7 +101,7 @@ class JemahController extends Controller
     public function delete(Request $request)
     {
         $request->validate([
-            'id' => 'required|integer|exists:kategoris,id',
+            'id' => 'required|string|exists:kategoris,id',
         ]);
         $jemaah = jemaah::find($request->id);
         $this->upload->delete($jemaah->file_ktp);

@@ -83,7 +83,7 @@ class PaketController extends Controller
     public function delete(Request $request)
     {
         $request->validate([
-            'id' => 'required|integer|exists:kategoris,id',
+            'id' => 'required|string|exists:kategoris,id',
         ]);
 
         $paket = kategori::with('pendaftarans')->find($request->id);
