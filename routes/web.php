@@ -6,6 +6,10 @@ use App\Http\Controllers\Admin\PaketController;
 use App\Http\Controllers\Admin\PendaftaranController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function () {
+   return redirect()->route('admin.dashboard');
+});
+
 // dashboard
 Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
