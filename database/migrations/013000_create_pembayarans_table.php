@@ -13,14 +13,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pembayarans', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('pembayaran_id');
+            $table->uuid('id')->primary(); // ID sebagai UUID
+            $table->string('pendaftaran_id', 7); // Sesuaikan dengan id di tabel pendaftarans
             $table->decimal('harga', 10, 2);
             $table->string('bukti');
             $table->string('method');
             $table->string('key');
             $table->text('detail');
             $table->timestamps();
+
+            // Foreign key constraint yang sesuai
+            $table->foreign('pendaftaran_id')->references('id')->on('pendaftarans')->onDelete('cascade');
         });
     }
 

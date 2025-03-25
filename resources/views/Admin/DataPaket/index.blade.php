@@ -24,6 +24,7 @@
       <table class="table table-striped" id="table1">
          <thead>
             <tr>
+               <th>Code</th>
                <th>Name</th>
                <th>Tanggal</th>
                <th>Durasi</th>
@@ -34,6 +35,7 @@
          <tbody>
             @foreach ($data as $j)
             <tr>
+               <td>{{$j->code}}</td>
                <td>{{$j->nama}}</td>
                <td>{{$j->tanggal}}</td>
                <td>{{$j->durasi}} hari</td>
@@ -49,7 +51,7 @@
                         <i class="fas fa-trash-alt"></i>
                      </button>
                   </form>
-                  <a href="{{route('admin.pendaftaran.detailPaket', ['id' => $j->id])}}" class="btn btn-outline-info btn-sm">
+                  <a href="{{route('admin.paket.detail', ['id' => $j->id])}}" class="btn btn-outline-info btn-sm">
                      <i class="fas fa-info-circle"></i>
                   </a>
                </td>

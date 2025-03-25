@@ -9,7 +9,7 @@
    <div class="row">
       <div class="col-12 col-md-6 order-md-1 order-last">
          <h3>Data Jemaah</h3>
-         <p class="text-subtitle text-muted">Data biodata jemaah</p>
+         <p class="text-subtitle text-muted">List biodata jemaah</p>
       </div>
    </div>
 </div>
@@ -50,7 +50,7 @@
                         <i class="fas fa-trash-alt"></i>
                      </button>
                   </form>
-                  <a href="" class="btn btn-sm btn-outline-info">
+                  <a href="{{route('admin.jemaah.detail', ['id'=>$j->id])}}" class="btn btn-sm btn-outline-info">
                      <i class="fas fa-info-circle"></i>
                   </a>
                </td>

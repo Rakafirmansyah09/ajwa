@@ -35,7 +35,7 @@
       </table>
 
       <div class="text-end">
-         <a href="{{route('admin.pendaftaran.createByPaket', ['id'=>$paket->id])}}" class="btn btn-primary">Tambah Pendaftar</a>
+         <a href="{{route('admin.pendaftaran.create')}}" class="btn btn-primary">Tambah Pendaftar</a>
       </div>
    </div>
 </div>

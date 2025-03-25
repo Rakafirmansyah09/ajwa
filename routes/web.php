@@ -11,14 +11,8 @@ Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('adm
 
 // data pendaftaran
 Route::get('/admin/listPendaftar', [PendaftaranController::class, 'index'])->name('admin.pendaftaran.list');
-Route::get('/admin/DetailPaket/{id}', [PendaftaranController::class, 'detail'])->name('admin.pendaftaran.detailPaket');
+Route::get('/admin/Pendaftaran', [PendaftaranController::class, 'create'])->name('admin.pendaftaran.create');
 
-Route::get('/admin/TambahPendaftar/{id}', [PendaftaranController::class, 'createByPaket'])->name('admin.pendaftaran.createByPaket');
-Route::post('/admin/TambahPendaftar', [PendaftaranController::class, 'store'])->name('admin.pendaftaran.store');
-
-Route::get('/admin/EditJemaah/{id}', [PendaftaranController::class, 'edit'])->name('admin.pendaftaran.edit');
-Route::post('/admin/EditPendaftar', [PendaftaranController::class, 'update'])->name('admin.pendaftaran.update');
-Route::post('/admin/DeletePendaftar', [PendaftaranController::class, 'delet'])->name('admin.pendaftaran.delete');
 
 
 // data jemaah
@@ -28,7 +22,7 @@ Route::post('/admin/TambahJemaah', [JemahController::class, 'store'])->name('adm
 Route::get('/admin/EditJemaah/{id}', [JemahController::class, 'edit'])->name('admin.jemaah.edit');
 Route::post('/admin/EditJemaah', [JemahController::class, 'update'])->name('admin.jemaah.update');
 Route::post('/admin/DeleteJemaah', [JemahController::class, 'delete'])->name('admin.jemaah.delete');
-Route::post('/admin/Jemaag/{id}', [JemahController::class, 'detail'])->name('admin.jemaah.detail');
+Route::get('/admin/Jemaah/{id}', [JemahController::class, 'detail'])->name('admin.jemaah.detail');
 
 
 // data paket

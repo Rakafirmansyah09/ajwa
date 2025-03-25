@@ -26,6 +26,7 @@ class PaketController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'code' => 'required|string|max:255',
             'nama' => 'required|string|max:255',
             'tanggal' => 'required|date|after:today',
             'durasi' => 'required|integer',
@@ -34,6 +35,7 @@ class PaketController extends Controller
         ]);
 
         kategori::create([
+            'code' => $request->code,
             'nama' => $request->nama,
             'tanggal' => $request->tanggal,
             'durasi' => $request->durasi,
@@ -56,7 +58,8 @@ class PaketController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'id' => 'required|integer|exists:kategoris,id',
+            'id' => 'required|string|exists:kategoris,id',
+            'code' => 'required|string|max:255',
             'nama' => 'required|string|max:255',
             'tanggal' => 'required|date|after:today',
             'durasi' => 'required|integer',
@@ -66,6 +69,7 @@ class PaketController extends Controller
 
         $paket = kategori::find($request->id);
         $paket->update([
+            'code' => $request->code,
             'nama' => $request->nama,
             'tanggal' => $request->tanggal,
             'durasi' => $request->durasi,
@@ -82,11 +86,21 @@ class PaketController extends Controller
             'id' => 'required|integer|exists:kategoris,id',
         ]);
 
-        $paket = kategori::with('pendaftar')->find($request->id);
+        $paket = kategori::with('pendaftarans')->find($request->id);
         if ($paket->pendaftar->count() > 0) {
             return redirect()->back()->with('error', 'Tidak dapat menghapus paket karena sudah ada pendaftaran');
         }
         $paket->delete();
         return redirect()->back()->with('success', 'Berhasil menghapus paket');
+    }
+
+    public function detail($id)
+    {
+        $paket = kategori::with('pendaftarans')->find($id);
+        if (!$paket) {
+            return admin_abort(404, 'Paket tidak ditemukan');
+        }
+
+        return view('Admin.DataPaket.detail', ['paket' => $paket]);
     }
 }

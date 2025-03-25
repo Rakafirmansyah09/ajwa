@@ -24,6 +24,12 @@
             <div class="col-md-6">
                <input type="hidden" name="id" value="{{ $paket->id ?? '' }}">
                <div class="form-group">
+                  <label for="code">Code Paket</label>
+                  <input type="text" name="code" class="form-control" id="code" placeholder="code Paket" value="{{ old('code', $paket->code ?? '') }}">
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="form-group">
                   <label for="nama">Nama Paket</label>
                   <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama Paket" value="{{ old('nama', $paket->nama ?? '') }}">
                </div>

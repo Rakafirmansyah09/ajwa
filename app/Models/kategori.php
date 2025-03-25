@@ -3,22 +3,40 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class kategori extends Model
 {
-    protected $table = 'kategoris'; // Nama tabel
+    protected $table = 'kategoris';
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     protected $fillable = [
         'nama',
+        'code',
         'tanggal',
         'durasi',
         'harga',
         'detail',
     ];
 
-    // Relasi ke tabel pendaftarans
-    public function pendaftar()
+    protected static function boot()
     {
-        return $this->hasMany(Pendaftaran::class);
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->id = Str::upper(Str::random(3)) . '-' . Str::upper(Str::random(3));
+        });
+    }
+
+    public function pendaftarans()
+    {
+        return $this->hasMany(Pendaftaran::class, 'kategori_id');
+    }
+
+    public function paketQuery()
+    {
+        return $this->where('tanggal', '>', now());
     }
 }

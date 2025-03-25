@@ -112,7 +112,7 @@ class JemahController extends Controller
 
     public function detail($id)
     {
-        $data = jemaah::find($id);
+        $data = jemaah::with('pendaftarans')->find($id);
         return view('Admin.DataJamaah.detail', [
             'data' => $data
         ]);

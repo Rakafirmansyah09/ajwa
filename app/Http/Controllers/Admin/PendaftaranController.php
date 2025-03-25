@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helper\UploadFileController;
+use App\Models\jemaah;
 use App\Models\kategori;
 use App\Models\pendaftaran;
 use Illuminate\Http\Request;
@@ -27,34 +28,22 @@ class PendaftaranController extends Controller
         ]);
     }
 
-    public function detail($id)
+
+
+    public function create(Request $request)
     {
-        $paket = kategori::with('pendaftar')->find($id);
-        if (!$paket) {
-            return admin_abort(404, 'Paket tidak ditemukan');
+        $ip = $request->ip; // code
+        $ij = $request->ij; // nik
+        $paket = (new Kategori())->paketQuery()->get();
+        $jemaah = jemaah::where('nik', $ij)->first();
+        if ($jemaah == null) {
+            $ij = null;
         }
-
-        return view('Admin.DataPendaftaran.detailPaket', ['paket' => $paket]);
+        return view('Admin.DataPendaftaran.create', [
+            'ip' => $ip,
+            'ij' => $ij,
+            'paket' => $paket,
+            'jemaah' => $jemaah
+        ]);
     }
-
-    public function createByPaket($id)
-    {
-        $paket = kategori::find($id);
-        if (!$paket) {
-            return admin_abort(404, 'Paket tidak ditemukan');
-        }
-
-        return view('Admin.DataPendaftaran.pendaftaranPaket', ['paket' => $paket]);
-        return $paket;
-    }
-
-    public function inputCode(Request $request) {}
-
-    public function store(Request $request) {}
-
-    public function edit($id) {}
-
-    public function update(Request $request) {}
-
-    public function delete(Request $request) {}
 }
