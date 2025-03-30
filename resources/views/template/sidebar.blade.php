@@ -109,7 +109,7 @@
 
 
 
-             <li class="sidebar-item  has-sub">
+             {{-- <li class="sidebar-item  has-sub">
                 <a href="#" class='sidebar-link'>
                    <i class="bi bi-pen-fill"></i>
                    <span>Admin</span>
@@ -125,7 +125,7 @@
                    </li>
 
                 </ul>
-             </li>
+             </li> --}}
 
           </ul>
        </div>
