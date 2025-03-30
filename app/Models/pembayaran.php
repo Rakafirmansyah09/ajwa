@@ -19,6 +19,7 @@ class pembayaran extends Model
         'method',
         'key',
         'detail',
+        'status',
     ];
 
     public static function boot()

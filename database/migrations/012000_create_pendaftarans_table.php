@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('kategori_id', 7); // Sesuaikan dengan ID string(7) di kategoris
 
             $table->string('no_hp');
+            $table->integer('usia');
             $table->text('alamat');
             $table->string('kecamatan');
             $table->string('file_kk');

@@ -18,7 +18,8 @@ return new class extends Migration
             $table->decimal('harga', 10, 2);
             $table->string('bukti');
             $table->string('method');
-            $table->string('key');
+            $table->string('key')->nullable();
+            $table->enum('status', ['pending', 'success', 'failed'])->default('pending');
             $table->text('detail');
             $table->timestamps();
 

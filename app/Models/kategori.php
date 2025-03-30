@@ -28,15 +28,14 @@ class kategori extends Model
         static::creating(function ($model) {
             $model->id = Str::upper(Str::random(3)) . '-' . Str::upper(Str::random(3));
         });
+
+        static::addGlobalScope('orderByTanggal', function ($query) {
+            $query->orderBy('tanggal', 'desc'); // Urutkan berdasarkan tanggal terbaru
+        });
     }
 
     public function pendaftarans()
     {
         return $this->hasMany(Pendaftaran::class, 'kategori_id');
-    }
-
-    public function paketQuery()
-    {
-        return $this->where('tanggal', '>', now());
     }
 }

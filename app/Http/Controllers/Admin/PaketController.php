@@ -14,13 +14,16 @@ class PaketController extends Controller
     {
         $data = kategori::paginate(50);
         return view('Admin.DataPaket.index', [
-            'data' => $data
+            'data' => $data,
+            'pageTitle' => 'Data Paket',
         ]);
     }
 
     public function create()
     {
-        return view('Admin.DataPaket.update');
+        return view('Admin.DataPaket.update', [
+            'pageTitle' => 'Tambah Data Paket',
+        ]);
     }
 
     public function store(Request $request)
@@ -51,7 +54,8 @@ class PaketController extends Controller
     {
         $paket = kategori::find($id);
         return view('Admin.DataPaket.update', [
-            'paket' => $paket
+            'paket' => $paket,
+            'pageTitle' => 'Edit Paket',
         ]);
     }
 
@@ -96,11 +100,17 @@ class PaketController extends Controller
 
     public function detail($id)
     {
-        $paket = kategori::with('pendaftarans')->find($id);
+        $paket = kategori::with('pendaftarans.kategori', 'pendaftarans.jemaah', 'pendaftarans.pembayaran')->find($id);
+
+
         if (!$paket) {
             return admin_abort(404, 'Paket tidak ditemukan');
         }
 
-        return view('Admin.DataPaket.detail', ['paket' => $paket]);
+        // return $paket;
+        return view('Admin.DataPaket.detail', [
+            'paket' => $paket,
+            'pageTitle' => 'Detail Paket',
+        ]);
     }
 }

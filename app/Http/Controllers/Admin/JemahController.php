@@ -20,12 +20,15 @@ class JemahController extends Controller
     {
         $data = jemaah::paginate(50);
         return view('Admin.DataJamaah.index', [
-            'data' => $data
+            'data' => $data,
+            'pageTitlee' => 'Data Jamaah',
         ]);
     }
     public function create()
     {
-        return view('Admin.DataJamaah.update');
+        return view('Admin.DataJamaah.update', [
+            'pageTitle' => 'Tambah Data Jamaah',
+        ]);
     }
     public function store(Request $request)
     {
@@ -61,7 +64,8 @@ class JemahController extends Controller
         $data = jemaah::find($id);
         // return $data;
         return view('Admin.DataJamaah.update', [
-            'jemaah' => $data
+            'jemaah' => $data,
+            'pageTitle' => 'Edit Data Jamaah',
         ]);
     }
 
@@ -84,13 +88,21 @@ class JemahController extends Controller
             'tempat_lahir' => $request->tempatLahir
         ]);
         if ($request->file('file_ktp')) {
-            $fileKtp = $this->upload->update($jemaah->file_ktp, $request->file('file_ktp'));
+            if ($jemaah->file_ktp) {
+                $fileKtp = $this->upload->update($jemaah->file_ktp, $request->file('file_ktp'));
+            } else {
+                $fileKtp = $this->upload->create($jemaah->id, 'Jemaah', $request->file('file_ktp'));
+            }
             $jemaah->update([
                 'file_ktp' => $fileKtp
             ]);
         }
         if ($request->file('file_paspor')) {
-            $filePaspor = $this->upload->update($jemaah->file_paspor, $request->file('file_paspor'));
+            if ($jemaah->file_paspor) {
+                $filePaspor = $this->upload->update($jemaah->file_paspor, $request->file('file_paspor'));
+            } else {
+                $filePaspor = $this->upload->create($jemaah->id, 'Jemaah', $request->file('file_paspor'));
+            }
             $jemaah->update([
                 'file_paspor' => $filePaspor
             ]);
@@ -112,9 +124,10 @@ class JemahController extends Controller
 
     public function detail($id)
     {
-        $data = jemaah::with('pendaftarans')->find($id);
+        $data = jemaah::with('pendaftarans', 'pendaftarans.kategori')->find($id);
         return view('Admin.DataJamaah.detail', [
-            'data' => $data
+            'data' => $data,
+            'pageTitle' => 'Detail Jamaah',
         ]);
     }
 }

@@ -39,11 +39,28 @@
             </tr>
          </thead>
          <tbody>
+            @forelse ($data->pendaftarans as $p)
+            <tr>
+               <td>{{$p->kategori->nama}}</td>
+               <td>{{$p->kategori->tanggal}}</td>
+               <td>{{$p->kategori->durasi}} Hari</td>
+               <td>
+                  <span class="badge bg-primary">aktif</span>
+               </td>
+               <td>
+                  <a href="{{route('admin.pendaftaran.detail', ['id'=>$p->id])}}" class="btn btn-sm btn-outline-info"><i class="fas fa-info-circle"></i></a>
+               </td>
+            </tr>
+            @empty
+            <tr>
+               <td colspan="5" class="text-center">Tidak ada data</td>
+            </tr>
+            @endforelse
          </tbody>
       </table>
 
       <div class="text-end">
-         <a href="{{route('admin.pendaftaran.create')}}" class="btn btn-sm btn-primary">Tambah Pendaftaran</a>
+         <a href="{{route('admin.pendaftaran.create', ['ij' => $data->nik])}}" class="btn btn-sm btn-primary">Tambah Pendaftaran</a>
       </div>
    </div>
 

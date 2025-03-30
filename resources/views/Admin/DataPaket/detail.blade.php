@@ -31,11 +31,26 @@
             </tr>
          </thead>
          <tbody>
+            @forelse ($paket->pendaftarans as $p)
+            <tr>
+               <td>{{$p->jemaah->nama_lengkap}}</td>
+               <td>{{$p->usia}}</td>
+               <td>{{$p->kecamatan}}</td>
+               <td>
+                  <span class="badge bg-primary">{{number_format(($p->pembayaran->sum('harga') / $p->kategori->harga) * 100, 0)}}%</span>
+               </td>
+               <td>
+                  <a href="{{route('admin.pendaftaran.detail', ['id'=>$p->id])}}" class="btn btn-sm btn-outline-info"><i class="fas fa-info-circle"></i></a>
+               </td>
+            </tr>
+            @empty
+
+            @endforelse
          </tbody>
       </table>
 
       <div class="text-end">
-         <a href="{{route('admin.pendaftaran.create')}}" class="btn btn-primary">Tambah Pendaftar</a>
+         <a href="{{route('admin.pendaftaran.create', ['ip' => $paket->code])}}" class="btn btn-primary">Tambah Pendaftar</a>
       </div>
    </div>
 </div>

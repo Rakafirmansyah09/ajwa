@@ -16,6 +16,16 @@ Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('adm
 // data pendaftaran
 Route::get('/admin/listPendaftar', [PendaftaranController::class, 'index'])->name('admin.pendaftaran.list');
 Route::get('/admin/Pendaftaran', [PendaftaranController::class, 'create'])->name('admin.pendaftaran.create');
+Route::post('/admin/Pendaftaran', [PendaftaranController::class, 'store'])->name('admin.pendaftaran.store');
+Route::get('/admin/Pendaftaran/search', [PendaftaranController::class, 'search'])->name('admin.pendaftaran.search');
+Route::get('/admin/Pendaftaran/{id}/detail', [PendaftaranController::class, 'detail'])->name('admin.pendaftaran.detail');
+Route::get('/admin/Pendaftaran/{id}/edit', [PendaftaranController::class, 'edit'])->name('admin.pendaftaran.edit');
+Route::get('/admin/Pendaftaran/edit', [PendaftaranController::class, 'update'])->name('admin.pendaftaran.update');
+
+Route::get('/admin/Pendaftaran/{id}/addPembayaran', [PendaftaranController::class, 'addPembayaran'])->name('admin.pendaftaran.addPembayaran');
+Route::post('/admin/Pendaftaran/addPembayaran', [PendaftaranController::class, 'addPembayaranStore'])->name('admin.pendaftaran.addPembayaran.store');
+
+
 
 
 
