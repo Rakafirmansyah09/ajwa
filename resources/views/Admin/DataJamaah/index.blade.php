@@ -1,4 +1,4 @@
-@extends('template.index')
+@extends('template.index', ['pageTitle' => 'Data Biodata Jemaah'])
 
 @section('css')
 
@@ -8,7 +8,7 @@
 <div class="page-title">
    <div class="row">
       <div class="col-12 col-md-6 order-md-1 order-last">
-         <h3>Data Jemaah</h3>
+         <h3>Data Biodata Jemaah</h3>
          <p class="text-subtitle text-muted">List biodata jemaah</p>
       </div>
    </div>
@@ -25,6 +25,7 @@
       <table class="table table-striped" id="table1">
          <thead>
             <tr>
+               <th>No. </th>
                <th>Name</th>
                <th>NIK</th>
                <th>Tempat Lahir</th>
@@ -35,6 +36,7 @@
          <tbody>
             @foreach ($data as $j)
             <tr>
+               <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
                <td>{{$j->nama_lengkap}}</td>
                <td>{{$j->nik}}</td>
                <td>{{$j->tempat_lahir}}</td>

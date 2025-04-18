@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\bioJemaah;
 use App\Models\jemaah;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,14 +19,14 @@ class JemaahSeeder extends Seeder
         $faker = Faker::create('id_ID');
 
         for ($i = 0; $i < 10; $i++) {
-            jemaah::create([
+            bioJemaah::create([
                 'id' => Str::uuid(),
                 'nama_lengkap' => $faker->name(),
                 'nik' => $faker->unique()->numerify('##############'),
                 'tanggal_lahir' => $faker->date(),
                 'tempat_lahir' => $faker->city(),
-                'file_ktp' => null,
-                'file_paspor' => null,
+                'file_ktp' => 'foto.jpg',
+                'file_paspor' => 'foto.jpg',
             ]);
         }
     }

@@ -28,6 +28,7 @@ return new class extends Migration
             // detail keberangkatan
             $table->uuid('paket_id');
             $table->date('tanggal_keberangkatan');
+            $table->integer('harga_tiket');
             $table->date('tanggal_kepulangan')->nullable();
             $table->timestamps();
 
@@ -87,7 +88,7 @@ return new class extends Migration
         Schema::create('fasilitas', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('paket_id');
-            $table->date('nama_fasilitas');
+            $table->string('nama_fasilitas');
             $table->timestamps();
 
             $table->foreign('paket_id')->references('id')->on('pakets')->onDelete('cascade');

@@ -17,6 +17,7 @@ class paketKeberangkatan extends Model
         'paket_id',
         'tanggal_keberangkatan',
         'tanggal_kepulangan',
+        'harga_tiket',
     ];
 
     protected static function boot()
@@ -35,9 +36,9 @@ class paketKeberangkatan extends Model
         return $this->belongsTo(Paket::class);
     }
 
-    public function pendaftarans()
+    public function rombongan()
     {
-        return $this->hasMany(Pendaftaran::class, 'paket_keberangkatan_id');
+        return $this->hasMany(rombongan::class, 'paket_keberangkatan_id');
     }
 
     public function jadwalPenerbangan()

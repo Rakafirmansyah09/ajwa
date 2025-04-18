@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 class akomodasi extends Model
 {
 
-    protected $table = 'jadwal_penerbangan';
+    protected $table = 'akomodasi';
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';

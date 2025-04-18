@@ -1,4 +1,4 @@
-@extends('template.index')
+@extends('template.index', ['pageTitle' => 'Create/Edit Paket'])
 
 @section('css')
 @endsection
@@ -34,22 +34,22 @@
                   <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama Paket" value="{{ old('nama', $paket->nama ?? '') }}">
                </div>
             </div>
-            <div class="col-md-6">
-               <div class="form-group">
-                  <label for="tanggal">Tanggal Keberangkatan</label>
-                  <input type="date" name="tanggal" class="form-control" id="tanggal" value="{{ old('tanggal', $paket->tanggal ?? '') }}">
-               </div>
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                <div class="form-group">
                   <label for="durasi">Durasi</label>
                   <input type="number" name="durasi" class="form-control" id="durasi" placeholder="Durasi Hari" value="{{ old('durasi', $paket->durasi ?? '') }}">
                </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                <div class="form-group">
                   <label for="harga">Harga</label>
                   <input type="number" name="harga" class="form-control" id="harga" placeholder="Harga Rp." value="{{ old('harga', $paket->harga ?? '') }}">
+               </div>
+            </div>
+            <div class="col-md-4">
+               <div class="form-group">
+                  <label for="kuota">Kuota</label>
+                  <input type="number" name="kuota" class="form-control" id="kuota" placeholder="kuota" value="{{ old('kuota', $paket->kuota ?? '') }}">
                </div>
             </div>
             <div class="col-md-12">

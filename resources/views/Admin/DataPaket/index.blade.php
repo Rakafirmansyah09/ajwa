@@ -1,4 +1,4 @@
-@extends('template.index')
+@extends('template.index', ['pageTitle' => 'Data Paket'])
 
 @section('css')
 
@@ -21,13 +21,15 @@
       </h5>
    </div>
    <div class="card-body">
-      <table class="table table-striped" id="table1">
+      <table class="table table-striped table-hover" id="table1">
          <thead>
             <tr>
+               <th>No.</th>
                <th>Code</th>
                <th>Name</th>
-               <th>Tanggal</th>
+               <th>Keberangkatan</th>
                <th>Durasi</th>
+               <th>Kuota</th>
                <th>Harga</th>
                <th>Aksi</th>
             </tr>
@@ -35,10 +37,12 @@
          <tbody>
             @foreach ($data as $j)
             <tr>
+               <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
                <td>{{$j->code}}</td>
                <td>{{$j->nama}}</td>
-               <td>{{$j->tanggal}}</td>
+               <td>{{$j->paket_keberangkatan->count()}} Keberangkatan</td>
                <td>{{$j->durasi}} hari</td>
+               <td>{{$j->kuota}} jemaah</td>
                <td>Rp. {{ number_format($j->harga)}}</td>
                <td>
                   <a href="{{route('admin.paket.edit', ['id' => $j->id]) }}" class="btn btn-outline-primary btn-sm">

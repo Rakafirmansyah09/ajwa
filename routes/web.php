@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\JemahController;
+use App\Http\Controllers\Admin\KeberangkatanController;
 use App\Http\Controllers\Admin\PaketController;
 use App\Http\Controllers\Admin\PendaftaranController;
 use Illuminate\Support\Facades\Route;
@@ -49,4 +50,10 @@ Route::post('/admin/DeletePaket', [PaketController::class, 'delete'])->name('adm
 Route::get('/admin/Peket/{id}', [PaketController::class, 'detail'])->name('admin.paket.detail');
 
 
-// admin
+// data keberangkatan
+Route::get('/admin/Paket/{id}/TambahKeberangkatan', [KeberangkatanController::class, 'create'])->name('admin.keberangkatan.create');
+Route::post('/admin/TambahKeberangkatan', [KeberangkatanController::class, 'store'])->name('admin.keberangkatan.store');
+Route::get('/admin/EditKeberangkatan/{id}', [KeberangkatanController::class, 'edit'])->name('admin.keberangkatan.edit');
+Route::post('/admin/EditKeberangkatan', [KeberangkatanController::class, 'update'])->name('admin.keberangkatan.update');
+Route::post('/admin/DeleteKeberangkatan', [KeberangkatanController::class, 'delete'])->name('admin.keberangkatan.delete');
+Route::get('/admin/Keberangkatan/{id}', [KeberangkatanController::class, 'detail'])->name('admin.keberangkatan.detail');
