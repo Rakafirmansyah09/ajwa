@@ -2,16 +2,6 @@
     <div class="sidebar-wrapper active">
        <div class="sidebar-header position-relative">
           <div class="d-flex justify-content-between align-items-center">
-             <!-- <div class="logo">
-                <a href="{{route('admin.dashboard')}}"><img src="{{asset('asset/picture/logoajwa.png')}}" alt="Logo" srcset=""></a>
-               </div> -->
-
-             <!-- <div class="logo text-center">
-                <a href="{{route('admin.dashboard')}}" class="d-block text-center fw-bold">
-                   <span class="d-block fs-4">AJWA</span>
-                   <span class="d-block text-primary text-uppercase" style="font-size: 8px;">Tour Indonesia</span>
-                  </a>
-             </div> -->
              <div class="logo" style="font-size: 1rem; position: relative;">
                 <a href="{{route('admin.dashboard')}}" style="font-size: 2rem; position: absolute; left: 50%; top: 50%; transform: translate(0%, -30%); white-space: nowrap;">
                    Admin

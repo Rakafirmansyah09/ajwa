@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\kategori;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\paket;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 use Illuminate\Support\Str;
@@ -25,7 +24,7 @@ class KategoriSeeder extends Seeder
         ];
 
         foreach ($kategori_list as $kategori) {
-            kategori::create([
+            paket::create([
                 'id' => strtoupper(Str::random(3)) . '-' . strtoupper(Str::random(3)),
                 'nama' => $kategori['nama'],
                 'code' => $kategori['code'],

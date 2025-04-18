@@ -56,6 +56,7 @@ class PendaftaranController extends Controller
             'ij' => $ij,
             'paket' => $paket,
             'jemaah' => $jemaah,
+            'pendaftaran' => null,
             'pageTitle' => 'Tambah Data Pendaftaran',
         ])->with('error', $message);
     }

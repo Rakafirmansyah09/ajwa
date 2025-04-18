@@ -5,19 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class kategori extends Model
+class paket extends Model
 {
-    protected $table = 'kategoris';
+    protected $table = 'pakets';
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
         'nama',
+        'gambar',
         'code',
-        'tanggal',
         'durasi',
         'harga',
+        'kuota',
         'detail',
     ];
 
@@ -26,16 +27,14 @@ class kategori extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $model->id = Str::upper(Str::random(3)) . '-' . Str::upper(Str::random(3));
-        });
-
-        static::addGlobalScope('orderByTanggal', function ($query) {
-            $query->orderBy('tanggal', 'desc'); // Urutkan berdasarkan tanggal terbaru
+            if (empty($model->id)) {
+                $model->id = Str::uuid();
+            }
         });
     }
 
-    public function pendaftarans()
+    public function paket_keberangkatan()
     {
-        return $this->hasMany(Pendaftaran::class, 'kategori_id');
+        return $this->hasMany(paketKeberangkatan::class, 'paket_id');
     }
 }

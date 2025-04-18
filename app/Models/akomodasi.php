@@ -5,24 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class pembayaran extends Model
+class akomodasi extends Model
 {
-    protected $table = 'pembayarans';
+
+    protected $table = 'jadwal_penerbangan';
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
-        'rombongan_id',
-        'harga',
-        'bukti',
-        'method',
-        'key',
-        'status',
-        'detail',
+        'paket_keberangkatan_id',
+        'nama_hotel',
+        'kota',
+        'alamat',
+        'tanggal_checkin',
+        'tanggal_checkout',
+        'rating'
     ];
 
-    public static function boot()
+    protected static function boot()
     {
         parent::boot();
 
@@ -33,9 +34,8 @@ class pembayaran extends Model
         });
     }
 
-    // Relasi ke Pendaftaran
-    public function rombongan()
+    public function paketKeberangkatan()
     {
-        return $this->belongsTo(rombongan::class, 'rombongan_id');
+        return $this->belongsTo(PaketKeberangkatan::class);
     }
 }

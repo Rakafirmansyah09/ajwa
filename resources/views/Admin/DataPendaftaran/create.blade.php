@@ -45,16 +45,16 @@
             <fieldset disabled>
                <div class="mb-3">
                   <label for="nama" class="form-label">Nama Lengkap</label>
-                  <input type="text" id="nama" name="nama" class="form-control" value="{{ $pendaftaran->jemaah ? $pendaftaran->jemaah->nama_lengkap : '' }}">
+                  <input type="text" id="nama" name="nama" class="form-control" value="{{ $jemaah ? $jemaah->nama_lengkap : '' }}">
                </div>
                <div class="row">
                   <div class="col-6">
                      <label for="tanggal" class="form-label">Tanggal Lahir</label>
-                     <input type="date" id="tanggal" name="tanggal" class="form-control" value="{{ $pendaftaran->jemaah ? $pendaftaran->jemaah->tanggal_lahir : '' }}">
+                     <input type="date" id="tanggal" name="tanggal" class="form-control" value="{{ $jemaah ? $jemaah->tanggal_lahir : '' }}">
                   </div>
                   <div class="col-6">
                      <label for="tempat" class="form-label">Tampat Lahir</label>
-                     <input type="text" id="tempat" name="tempat" class="form-control" value="{{ $pendaftaran->jemaah ? $pendaftaran->jemaah->tempat_lahir : '' }}">
+                     <input type="text" id="tempat" name="tempat" class="form-control" value="{{ $jemaah ? $jemaah->tempat_lahir : '' }}">
                   </div>
                </div>
             </fieldset>
@@ -89,16 +89,16 @@
             <fieldset disabled>
                <div class="mb-3">
                   <label for="nama_paket" class="form-label">Nama</label>
-                  <input type="text" id="nama_paket" name="nama_paket" class="form-control" value="{{ $pendaftaran->kategori ? $pendaftaran->kategori->nama : '' }}">
+                  <input type="text" id="nama_paket" name="nama_paket" class="form-control" value="{{ $paket ? $paket->nama : '' }}">
                </div>
                <div class="row">
                   <div class="col-6">
                      <label for="tanggal" class="form-label">Tanggal Kebrangkatan</label>
-                     <input type="date" id="tanggal" name="tanggal" class="form-control" value="{{ $pendaftaran->kategori ? $pendaftaran->kategori->tanggal : '' }}">
+                     <input type="date" id="tanggal" name="tanggal" class="form-control" value="{{ $paket ? $paket->tanggal : '' }}">
                   </div>
                   <div class="col-6">
                      <label for="durasi" class="form-label">Durasi</label>
-                     <input type="text" id="durasi" name="durasi" class="form-control" value="{{ $pendaftaran->kategori ? $pendaftaran->kategori->durasi.' Hari' : '' }}">
+                     <input type="text" id="durasi" name="durasi" class="form-control" value="{{ $paket ? $paket->durasi.' Hari' : '' }}">
                   </div>
                </div>
             </fieldset>

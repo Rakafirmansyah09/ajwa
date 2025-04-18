@@ -7,20 +7,29 @@ use Illuminate\Support\Str;
 
 class jemaah extends Model
 {
-    protected $table = 'jemaahs';
+    protected $table = 'jemaah';
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
-        'nama_lengkap',
-        'nik',
-        'tanggal_lahir',
-        'tempat_lahir',
-        'file_ktp',
-        'file_paspor',
+        'jemaah_id',
+        'rombongan_id',
+
+        'no_hp',
+        'usia',
+        'alamat',
+        'kecamatan',
+        'file_kk',
+        'file_foto',
+        'file_ijazah',
+
+        'sumber_info',
+        'sumber_ket',
+        'detail_info',
     ];
-    public static function boot()
+
+    protected static function boot()
     {
         parent::boot();
 
@@ -32,9 +41,13 @@ class jemaah extends Model
     }
 
 
-    // Relasi ke tabel pendaftarans
-    public function pendaftarans()
+    public function bioJemaah()
     {
-        return $this->hasMany(Pendaftaran::class, 'jemaah_id');
+        return $this->belongsTo(bioJemaah::class, 'jemaah_id');
+    }
+
+    public function rombongan()
+    {
+        return $this->belongsTo(rombongan::class, 'rombongan_id');
     }
 }

@@ -5,24 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class pembayaran extends Model
+class itinerary extends Model
 {
-    protected $table = 'pembayarans';
+
+    protected $table = 'itinerary';
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
-        'rombongan_id',
-        'harga',
-        'bukti',
-        'method',
-        'key',
-        'status',
-        'detail',
+        'paket_id',
+        'tanggal',
+        'judul_kegiatan',
+        'deskripsi',
+        'lokasi',
     ];
 
-    public static function boot()
+    protected static function boot()
     {
         parent::boot();
 
@@ -33,9 +32,8 @@ class pembayaran extends Model
         });
     }
 
-    // Relasi ke Pendaftaran
-    public function rombongan()
+    public function paket()
     {
-        return $this->belongsTo(rombongan::class, 'rombongan_id');
+        return $this->belongsTo(paket::class, 'paket_id');
     }
 }
