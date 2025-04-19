@@ -28,6 +28,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('nama');
             $table->uuid('paket_keberangkatan_id');
+            $table->boolean('pembatalan')->default(false);
             $table->timestamps();
         });
 

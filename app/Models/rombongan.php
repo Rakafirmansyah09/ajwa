@@ -15,6 +15,7 @@ class rombongan extends Model
         'id',
         'nama',
         'paket_keberangkatan_id',
+        'pembatalan'
     ];
 
     public static function boot()

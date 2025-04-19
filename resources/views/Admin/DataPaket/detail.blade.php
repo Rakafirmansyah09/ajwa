@@ -8,8 +8,8 @@
 <div class="page-title">
    <div class="row">
       <div class="col-12 col-md-6 order-md-1 order-last">
-         <h3>Detail : <a href="{{route('admin.paket.edit', ['id'=>$paket->id])}}">{{$paket->nama}}</a></h3>
-         <p class="text-subtitle text-muted mb-0">Keberangkatan {{$paket->durasi}} hari</p>
+         <h3>Paket : {{$paket->nama}}</h3>
+         <p class="text-subtitle text-muted mb-0">Keberangkatan {{$paket->kuota}} jemaah, selama {{$paket->durasi}} hari</p>
          <p class="text-subtitle text-muted">Harga Rp. {{number_format($paket->harga)}}</p>
       </div>
    </div>
@@ -44,7 +44,7 @@
                   </a>
                   <form method="post" action="{{ route('admin.keberangkatan.delete') }}" class="d-inline">
                      @csrf
-                     <input type="hidden" name="id" value="{{$item->id}}">
+                     <input type="hidden" name="keberangkatan_id" value="{{$item->id}}">
                      <button type="submit" class="btn btn-danger btn-sm">
                         <!-- <i class="fas fa-trash-alt"></i> -->
                         <b>Hapus</b>
