@@ -13,7 +13,7 @@ class jadwalPenerbangan extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'paket_keberangkatan_id',
+        'group_id',
         'judul',
         'maskapai',
         'tanggal_berangkat',
@@ -37,11 +37,5 @@ class jadwalPenerbangan extends Model
                 $model->id = Str::uuid();
             }
         });
-    }
-
-
-    public function paketKeberangkatan()
-    {
-        return $this->belongsTo(PaketKeberangkatan::class);
     }
 }

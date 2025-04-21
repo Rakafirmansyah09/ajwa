@@ -24,18 +24,10 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('rombongan', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('nama');
-            $table->uuid('paket_keberangkatan_id');
-            $table->boolean('pembatalan')->default(false);
-            $table->timestamps();
-        });
-
         Schema::create('jemaah', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('jemaah_id');
-            $table->uuid('rombongan_id');
+            $table->uuid('group_id');
 
             // kelengkapan data jemaah
             $table->string('no_hp');
@@ -55,12 +47,12 @@ return new class extends Migration
 
             // Foreign key dengan tipe yang sesuai
             $table->foreign('jemaah_id')->references('id')->on('bioJemaahs')->onDelete('cascade');
-            $table->foreign('rombongan_id')->references('id')->on('rombongan')->onDelete('cascade');
+            $table->foreign('group_id')->references('id')->on('group')->onDelete('cascade');
         });
 
         Schema::create('pembayarans', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('rombongan_id');
+            $table->uuid('jemaah_id');
             $table->decimal('harga', 10, 2);
             $table->string('bukti');
             $table->string('method');
@@ -70,7 +62,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Foreign key constraint yang sesuai
-            $table->foreign('rombongan_id')->references('id')->on('rombongan')->onDelete('cascade');
+            $table->foreign('jemaah_id')->references('id')->on('jemaah')->onDelete('cascade');
         });
     }
 
@@ -81,7 +73,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('pembayarans');
         Schema::dropIfExists('jemaah');
-        Schema::dropIfExists('rombongan');
         Schema::dropIfExists('bioJemaahs');
     }
 };

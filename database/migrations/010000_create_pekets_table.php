@@ -23,22 +23,22 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('paket_keberangkatan', function (Blueprint $table) {
+        Schema::create('group', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            // detail keberangkatan
             $table->uuid('paket_id');
+            $table->string('nama');
             $table->date('tanggal_keberangkatan');
-            $table->integer('harga_tiket');
             $table->date('tanggal_kepulangan')->nullable();
             $table->timestamps();
 
             $table->foreign('paket_id')->references('id')->on('pakets')->onDelete('cascade');
         });
 
+
         // jadwal_penerbangan
         Schema::create('jadwal_penerbangan', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('paket_keberangkatan_id');
+            $table->uuid('group_id');
             $table->string('judul');
             $table->string('maskapai');
             $table->dateTime('tanggal_berangkat');
@@ -53,13 +53,13 @@ return new class extends Migration
             $table->string('kota_bandara_tujuan');
             $table->timestamps();
 
-            $table->foreign('paket_keberangkatan_id')->references('id')->on('paket_keberangkatan')->onDelete('cascade');
+            $table->foreign('group_id')->references('id')->on('group')->onDelete('cascade');
         });
 
         // akomodasi
         Schema::create('akomodasi', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('paket_keberangkatan_id');
+            $table->uuid('group_id');
             $table->string('nama_hotel');
             $table->string('kota');
             $table->text('alamat')->nullable();
@@ -68,7 +68,7 @@ return new class extends Migration
             $table->integer('rating');
             $table->timestamps();
 
-            $table->foreign('paket_keberangkatan_id')->references('id')->on('paket_keberangkatan')->onDelete('cascade');
+            $table->foreign('group_id')->references('id')->on('group')->onDelete('cascade');
         });
 
         // itinerary
@@ -104,7 +104,7 @@ return new class extends Migration
         Schema::dropIfExists('itinerary');
         Schema::dropIfExists('akomodasi');
         Schema::dropIfExists('jadwal_penerbangan');
-        Schema::dropIfExists('paket_keberangkatan');
+        Schema::dropIfExists('group');
         Schema::dropIfExists('pakets');
     }
 };

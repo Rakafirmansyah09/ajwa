@@ -29,7 +29,7 @@ class bioJemaah extends Model
 
         static::creating(function ($model) {
             if (empty($model->id)) {
-                $model->id = mt_rand(1000000000, 9999999999);
+                $model->id = Str::uuid();
             }
         });
     }

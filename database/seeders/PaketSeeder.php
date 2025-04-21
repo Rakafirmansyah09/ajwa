@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\akomodasi;
 use App\Models\fasilitas;
+use App\Models\group;
 use App\Models\itinerary;
 use App\Models\jadwalPenerbangan;
 use App\Models\paket;
@@ -30,17 +31,17 @@ class PaketSeeder extends Seeder
             'detail' => 'Paket umroh hemat dengan fasilitas standar.',
         ]);
 
-        $keberangkatan = paketKeberangkatan::create([
+        $group = group::create([
             'id' => Str::uuid(),
             'paket_id' => $paket->id,
+            'nama' => 'Batch 1',
             'tanggal_keberangkatan' => '2025-04-20',
             'tanggal_kepulangan' => '2025-04-29',
-            'harga_tiket' => $paket->harga,
         ]);
 
         jadwalPenerbangan::create([
             'id' => Str::uuid(),
-            'paket_keberangkatan_id' => $keberangkatan->id,
+            'group_id' => $group->id,
             'judul' => 'Jakarta - Madinah',
             'maskapai' => 'Garuda Indonesia',
             'tanggal_berangkat' => '2025-04-20 10:00:00',
@@ -57,7 +58,7 @@ class PaketSeeder extends Seeder
 
         akomodasi::create([
             'id' => Str::uuid(),
-            'paket_keberangkatan_id' => $keberangkatan->id,
+            'group_id' => $group->id,
             'nama_hotel' => 'Hotel Madinah Al Haram',
             'kota' => 'Madinah',
             'alamat' => 'Dekat Masjid Nabawi',

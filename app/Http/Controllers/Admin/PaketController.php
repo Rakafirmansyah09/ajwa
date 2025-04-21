@@ -104,8 +104,9 @@ class PaketController extends Controller
 
     public function detail($id)
     {
-        $paket = paket::find($id);
-
+        $paket = Paket::with(['group' => function ($query) {
+            $query->orderBy('created_at', 'asc');
+        }])->find($id);
 
         if (!$paket) {
             return admin_abort(404, 'Paket tidak ditemukan');

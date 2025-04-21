@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\group;
 use App\Models\paket;
 use App\Models\paketKeberangkatan;
 use Illuminate\Http\Request;
 
-class KeberangkatanController extends Controller
+class GroupController extends Controller
 {
     // public function index() {}
 
@@ -15,7 +16,7 @@ class KeberangkatanController extends Controller
     {
 
         $paket = paket::find($id);
-        return view('Admin.DataPaket.Data Keberangkatan.update', [
+        return view('Admin.DataPaket.DataGroup.update', [
             'paket' => $paket,
         ]);
     }
@@ -29,12 +30,21 @@ class KeberangkatanController extends Controller
         ]);
 
         $paket = paket::find($request->paket_id);
+        $lastGroup = $paket->group->last();
 
-        paketKeberangkatan::create([
+        if ($lastGroup && preg_match('/Batch (\d+)/i', $lastGroup->nama, $match)) {
+            $nextNumber = intval($match[1]) + 1;
+        } else {
+            $nextNumber = 1;
+        }
+
+        $namaGroup = 'Batch ' . $nextNumber;
+
+        group::create([
             'paket_id' => $request->paket_id,
             'tanggal_keberangkatan' => $request->tanggal_keberangkatan,
             'tanggal_kepulangan' => $request->tanggal_kepulangan,
-            'harga_tiket' => $paket->harga,
+            'nama' => $namaGroup,
         ]);
 
         return redirect()->route('admin.paket.detail', ['id' => $request->paket_id])->with('success', 'Data berhasil ditambahkan');
@@ -42,10 +52,10 @@ class KeberangkatanController extends Controller
 
     public function edit($id)
     {
-        $keberangkatan = paketKeberangkatan::find($id);
-        $paket = $keberangkatan->paket;
-        return view('Admin.DataPaket.Data Keberangkatan.update', [
-            'keberangkatan' => $keberangkatan,
+        $group = group::find($id);
+        $paket = $group->paket;
+        return view('Admin.DataPaket.DataGroup.update', [
+            'keberangkatan' => $group,
             'paket' => $paket,
         ]);
     }
@@ -54,17 +64,16 @@ class KeberangkatanController extends Controller
     {
         $request->validate([
             'paket_id' => 'required|exists:pakets,id',
-            'keberangkatan_id' => 'required|exists:paket_keberangkatan,id',
+            'keberangkatan_id' => 'required|exists:group,id',
             'tanggal_keberangkatan' => 'required|date',
             'tanggal_kepulangan' => 'nullable|date',
         ]);
 
-        $keberangkatan = paketKeberangkatan::find($request->keberangkatan_id);
-        $paket = $keberangkatan->paket;
-        $keberangkatan->update([
+        $group = group::find($request->keberangkatan_id);
+        $paket = $group->paket;
+        $group->update([
             'tanggal_keberangkatan' => $request->tanggal_keberangkatan,
             'tanggal_kepulangan' => $request->tanggal_kepulangan,
-            'harga_tiket' => $paket->harga,
         ]);
         return redirect()->route('admin.paket.detail', ['id' => $request->paket_id])->with('success', 'Data berhasil diubah');
     }
@@ -72,20 +81,25 @@ class KeberangkatanController extends Controller
     public function delete(Request $request)
     {
         $request->validate([
-            'keberangkatan_id' => 'required|exists:paket_keberangkatan,id',
+            'keberangkatan_id' => 'required|exists:group,id',
         ]);
-        $keberangkatan = paketKeberangkatan::find($request->keberangkatan_id);
-        $keberangkatan->delete();
+        $group = group::find($request->keberangkatan_id);
+        if ($group->jemaah->count() > 0) {
+            return redirect()->back()->withErrors('Group sudsha memiliki jemaah.');
+        }
+        $group->delete();
 
         return  redirect()->back()->with('success', 'Data berhasil dihapus');
     }
 
     public function detail($id)
     {
-        $keberangkatan = paketKeberangkatan::with('rombongan.jemaah')->find($id);
-        $paket = $keberangkatan->paket;
-        return view('Admin.DataPaket.Data Keberangkatan.detail', [
-            'keberangkatan' => $keberangkatan,
+        $group = group::find($id);
+
+        // return $group->jemaah[0]->bioJemaah;
+        $paket = $group->paket;
+        return view('Admin.DataPaket.DataGroup.detail', [
+            'group' => $group,
             'paket' => $paket,
         ]);
     }

@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class paketKeberangkatan extends Model
+class group extends Model
 {
 
-    protected $table = 'paket_keberangkatan';
+    protected $table = 'group';
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
         'paket_id',
+        'nama',
         'tanggal_keberangkatan',
         'tanggal_kepulangan',
-        'harga_tiket',
     ];
 
     protected static function boot()
@@ -36,18 +36,18 @@ class paketKeberangkatan extends Model
         return $this->belongsTo(Paket::class);
     }
 
-    public function rombongan()
+    public function jemaah()
     {
-        return $this->hasMany(rombongan::class, 'paket_keberangkatan_id');
+        return $this->hasMany(jemaah::class, 'group_id');
     }
 
     public function jadwalPenerbangan()
     {
-        return $this->hasMany(JadwalPenerbangan::class, 'paket_keberangkatan_id');
+        return $this->hasMany(JadwalPenerbangan::class, 'group_id');
     }
 
     public function akomodasi()
     {
-        return $this->hasMany(Akomodasi::class, 'paket_keberangkatan_id');
+        return $this->hasMany(Akomodasi::class, 'group_id');
     }
 }

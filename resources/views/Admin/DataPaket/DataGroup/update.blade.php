@@ -18,7 +18,7 @@
       <h5 class="card-title">Formulir</h5>
    </div>
    <div class="card-body">
-      <form method="post" action="{{ isset($keberangkatan) ? route('admin.keberangkatan.update') : route('admin.keberangkatan.store') }}">
+      <form method="post" action="{{ isset($keberangkatan) ? route('admin.group.update') : route('admin.group.store') }}">
          @csrf
          <div class="row">
             <div class="col-12">

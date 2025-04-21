@@ -33,8 +33,8 @@ class paket extends Model
         });
     }
 
-    public function paket_keberangkatan()
+    public function group()
     {
-        return $this->hasMany(paketKeberangkatan::class, 'paket_id');
+        return $this->hasMany(group::class, 'paket_id');
     }
 }

@@ -14,7 +14,7 @@ class jemaah extends Model
 
     protected $fillable = [
         'jemaah_id',
-        'rombongan_id',
+        'group_id',
 
         'no_hp',
         'usia',
@@ -46,8 +46,8 @@ class jemaah extends Model
         return $this->belongsTo(bioJemaah::class, 'jemaah_id');
     }
 
-    public function rombongan()
+    public function paket()
     {
-        return $this->belongsTo(rombongan::class, 'rombongan_id');
+        return $this->belongsTo(paket::class, 'paket_id');
     }
 }

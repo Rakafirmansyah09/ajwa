@@ -24,25 +24,23 @@
          <thead>
             <tr>
                <th>No.</th>
+               <th>Nama</th>
                <th>Tanggal Keberangkatan</th>
                <th>Tanggal Kepulangan</th>
-               <th>Harga Tiket</th>
+               <th>Jemaah</th>
                <th>Aksi</th>
             </tr>
          </thead>
          <tbody>
-            @foreach($paket->paket_keberangkatan as $index => $item)
+            @foreach($paket->group as $item)
             <tr>
                <td>{{ $loop->iteration }}</td>
+               <td>{{$item->nama}}</td>
                <td>{{ \Carbon\Carbon::parse($item->tanggal_keberangkatan)->format('d M Y') }}</td>
                <td>{{ $item->tanggal_kepulangan ? \Carbon\Carbon::parse($item->tanggal_kepulangan)->format('d M Y') : '-' }}</td>
-               <td>Rp {{ number_format($item->harga_tiket, 0, ',', '.') }}</td>
+               <td>{{ $item->jemaah->count() }} / {{$paket->kuota}}</td>
                <td>
-                  <a href="{{route('admin.keberangkatan.detail', ['id' => $item->id])}}" class="btn btn-sm btn-info">
-                     <!-- <i class="fas fa-info-circle"></i> -->
-                     <b>Detail</b>
-                  </a>
-                  <form method="post" action="{{ route('admin.keberangkatan.delete') }}" class="d-inline">
+                  <form method="post" action="{{ route('admin.group.delete') }}" class="d-inline">
                      @csrf
                      <input type="hidden" name="keberangkatan_id" value="{{$item->id}}">
                      <button type="submit" class="btn btn-danger btn-sm">
@@ -50,9 +48,13 @@
                         <b>Hapus</b>
                      </button>
                   </form>
-                  <a href="{{route('admin.keberangkatan.edit', ['id' => $item->id])}}" class="btn btn-sm btn-warning">
+                  <a href="{{route('admin.group.edit', ['id' => $item->id])}}" class="btn btn-sm btn-primary">
                      <!-- <i class="fas fa-pencil-alt"></i> -->
                      <b>Edit</b>
+                  </a>
+                  <a href="{{route('admin.group.detail', ['id' => $item->id])}}" class="btn btn-sm btn-info">
+                     <!-- <i class="fas fa-info-circle"></i> -->
+                     <b>Detail</b>
                   </a>
                </td>
             </tr>
@@ -61,7 +63,7 @@
       </table>
 
       <div class="text-end mt-3">
-         <a href="{{ route('admin.keberangkatan.create', ['id' => $paket->id]) }}" class="btn btn-primary">Tambah Keberangkatan</a>
+         <a href="{{ route('admin.group.create', ['id' => $paket->id]) }}" class="btn btn-primary">Tambah Keberangkatan</a>
       </div>
    </div>
 </div>

@@ -55,7 +55,7 @@
              </li>
 
              <li class="sidebar-item">
-                <a href="{{route('admin.pendaftaran.list')}}" class='sidebar-link'>
+                <a href="" class='sidebar-link'>
                    <i class="bi bi-file-earmark-medical-fill"></i>
                    <span>List Pendaftaran</span>
                 </a>

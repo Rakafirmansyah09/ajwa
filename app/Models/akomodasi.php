@@ -14,7 +14,7 @@ class akomodasi extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'paket_keberangkatan_id',
+        'group_id',
         'nama_hotel',
         'kota',
         'alamat',
@@ -32,10 +32,5 @@ class akomodasi extends Model
                 $model->id = Str::uuid();
             }
         });
-    }
-
-    public function paketKeberangkatan()
-    {
-        return $this->belongsTo(PaketKeberangkatan::class);
     }
 }
