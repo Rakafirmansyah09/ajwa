@@ -156,6 +156,8 @@ class JemaahController extends Controller
             ]
         );
     }
+
+    
     public function delete(Request $request)
     {
         $jemaah = jemaah::find($request->idJemaah);

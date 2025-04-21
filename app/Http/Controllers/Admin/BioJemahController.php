@@ -28,22 +28,28 @@ class BioJemahController extends Controller
 
     public function delete(Request $request)
     {
-        // $request->validate([
-        //     'id' => 'required|string|exists:kategoris,id',
-        // ]);
-        // $jemaah = jemaah::find($request->id);
-        // $this->upload->delete($jemaah->file_ktp);
-        // $this->upload->delete($jemaah->file_paspor);
-        // $jemaah->delete();
-        // return redirect()->route('admin.jemaah.list')->with('success', 'Berhasil menghapus data jemaah');
+        $request->validate([
+            'id' => 'required|string|exists:bioJemaahs,id',
+        ]);
+        // return $request->all();
+        $bioJemaah = bioJemaah::find($request->id);
+        if ($bioJemaah->jemaah->count() > 0) {
+            return redirect()->route('admin.jemaah.list')->with('error', 'Data jemaah tidak dapat dihapus karena memiliki data pendaftaran');
+        }
+        $this->upload->delete($bioJemaah->file_ktp);
+        $this->upload->delete($bioJemaah->file_paspor);
+        $bioJemaah->delete();
+        return redirect()->route('admin.jemaah.list')->with('success', 'Berhasil menghapus data jemaah');
     }
 
     public function detail($id)
     {
-        // $data = jemaah::with('pendaftarans', 'pendaftarans.kategori')->find($id);
-        // return view('Admin.DataBioJamaah.detail', [
-        //     'data' => $data,
-        //     'pageTitle' => 'Detail Jamaah',
-        // ]);
+        $data = bioJemaah::find($id);
+        // return $data->jemaah[0]->group->tanggal_keberangkatan;
+        return view('Admin.DataBioJamaah.detail', [
+            'pageTitle' => 'Detail Biodata Jamaah',
+            'data' => $data,
+            'pageTitle' => 'Detail Jamaah',
+        ]);
     }
 }

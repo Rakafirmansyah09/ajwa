@@ -18,6 +18,8 @@ class group extends Model
         'nama',
         'tanggal_keberangkatan',
         'tanggal_kepulangan',
+        'jadwal_penerbangan',
+        'akomodasi',
     ];
 
     protected static function boot()
@@ -41,13 +43,34 @@ class group extends Model
         return $this->hasMany(jemaah::class, 'group_id');
     }
 
-    public function jadwalPenerbangan()
+    public function getListJadwalPenerbanganAttribute()
     {
-        return $this->hasMany(JadwalPenerbangan::class, 'group_id');
+        return json_decode($this->jadwal_penerbangan, true) ?? [];
+        // no
+        // judul
+        // maskapai
+        // tanggal_keberangkatan
+        // tanggal_tiba
+        // lama_penerbangan
+        // bagasi
+        // bagasi_kabin
+        // kussi
+        // bandara_asal
+        // bandara tujuan
+        // kota_asal
+        // kota_tujuan
+
     }
 
-    public function akomodasi()
+    public function getListAkomodasiAttribute()
     {
-        return $this->hasMany(Akomodasi::class, 'group_id');
+        return json_decode($this->akomodasi, true) ?? [];
+        // no
+        // nama_hotel
+        // kota
+        // alamat
+        // tanggal_cekin
+        // tanggal_checkout
+        // rating
     }
 }

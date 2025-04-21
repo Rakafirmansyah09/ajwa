@@ -1,7 +1,13 @@
 @extends('template.index', ['pageTitle' => 'Detail Data Paket'])
 
 @section('css')
-
+<style>
+   /* style untuk tabel */
+   .table-custom tbody tr td {
+      padding-top: 2px;
+      padding-bottom: 2px;
+   }
+</style>
 @endsection
 
 @section('main')
@@ -17,12 +23,126 @@
 
 <div class="card">
    <div class="card-header">
+      <h5><b>Detail Paket</b></h5>
+   </div>
+   <div class="card-body">
+      <div class="row">
+         <div class="col-md-4">
+            <table class="table table-borderless table-custom mb-0">
+               <tbody>
+                  <tr>
+                     <td>Kode Paket</td>
+                     <td>:</td>
+                     <td>{{$paket->code}}</td>
+                  </tr>
+                  <tr>
+                     <td>Nama Paket</td>
+                     <td>:</td>
+                     <td>{{$paket->nama}}</td>
+                  </tr>
+                  <tr>
+                     <td>Durasi</td>
+                     <td>:</td>
+                     <td>{{$paket->durasi}} Hari</td>
+                  </tr>
+                  <tr>
+                     <td>Harga</td>
+                     <td>:</td>
+                     <td>Rp. {{number_format($paket->harga)}}</td>
+                  </tr>
+                  <tr>
+                     <td>Kuota</td>
+                     <td>:</td>
+                     <td>{{$paket->kuota}} Jemaah</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <div class="col-md-8">
+            <table class="table table-borderless table-custom">
+               <tbody>
+                  <tr>
+                     <td>Detail</td>
+                     <td>:</td>
+                     <td>{{$paket->detail}}</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+
+      </div>
+   </div>
+</div>
+<div class="card">
+   <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#collapseFasilitas" style="cursor: pointer;">
+      <h5><b>Fasilitas</b></h5>
+      <button class="btn btn-sm btn-outline-secondary">
+         <i class="fas fa-chevron-down"></i>
+      </button>
+   </div>
+   <div class="card-body pb-2">
+      <div class="collapse" id="collapseFasilitas">
+         <table class="table table-striped table-cutom">
+            <thead>
+               <tr class="bg-primary-subtle">
+                  <td>No. </td>
+                  <td></td>
+               </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+         </table>
+         <div class="d-flex justify-content-end mt-3 pb-3">
+            <a href="{{route('admin.paket.editFasilitas', ['id' => $paket->id])}}" class="btn btn-info btn-sm">
+               <b>Edit Fasilitas</b>
+            </a>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="card">
+   <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#collapseItinerary" style="cursor: pointer;">
+      <h5><b>Itinerary</b></h5>
+      <button class="btn btn-sm btn-outline-secondary">
+         <i class="fas fa-chevron-down"></i>
+      </button>
+   </div>
+   <div class="card-body pb-2">
+      <div class="collapse" id="collapseItinerary">
+         <table class="table table-striped table-cutom">
+            <thead>
+               <tr class="bg-primary-subtle">
+                  <td>No. </td>
+                  <td>Tanggal</td>
+                  <td>Tujuan</td>
+                  <td>Deskripsi</td>
+                  <td>Lokasi</td>
+               </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+
+         </table>
+         <div class="d-flex justify-content-end mt-3 pb-3">
+            <button class="btn btn-info btn-sm">
+               <b>Edit Fasilitas</b>
+            </button>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+<div class="card">
+   <div class="card-header">
       <h5><b>List Keberangkatan</b></h5>
    </div>
    <div class="card-body">
       <table class="table table-striped" id="table1">
          <thead>
-            <tr>
+            <tr class="bg-primary-subtle">
                <th>No.</th>
                <th>Nama</th>
                <th>Tanggal Keberangkatan</th>

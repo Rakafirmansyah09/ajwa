@@ -15,15 +15,13 @@ Route::get('/', function () {
 // dashboard
 Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
+// pendaftaran
+Route::get('/admin/pendaftaran', [PendaftaranController::class, 'index'])->name('admin.pendaftaran');
+
 // data Biojemaah
 Route::get('/admin/listJemaah', [BioJemahController::class, 'index'])->name('admin.jemaah.list');
-Route::get('/admin/TambahJemaah', [BioJemahController::class, 'create'])->name('admin.jemaah.create');
-Route::post('/admin/TambahJemaah', [BioJemahController::class, 'store'])->name('admin.jemaah.store');
-Route::get('/admin/EditJemaah/{id}', [BioJemahController::class, 'edit'])->name('admin.jemaah.edit');
-Route::post('/admin/EditJemaah', [BioJemahController::class, 'update'])->name('admin.jemaah.update');
 Route::post('/admin/DeleteJemaah', [BioJemahController::class, 'delete'])->name('admin.jemaah.delete');
 Route::get('/admin/Jemaah/{id}', [BioJemahController::class, 'detail'])->name('admin.jemaah.detail');
-
 
 // data paket
 Route::get('/admin/listPaket', [PaketController::class, 'index'])->name('admin.paket.list');
@@ -34,6 +32,9 @@ Route::post('/admin/EditPaket', [PaketController::class, 'update'])->name('admin
 Route::post('/admin/DeletePaket', [PaketController::class, 'delete'])->name('admin.paket.delete');
 Route::get('/admin/Peket/{id}', [PaketController::class, 'detail'])->name('admin.paket.detail');
 
+// data paket faslitas
+Route::get('/admin/Peket/{id}/Fasilitas', [PaketController::class, 'editFasilitas'])->name('admin.paket.editFasilitas');
+Route::post('/admin/Peket/Fasilitas', [PaketController::class, 'editFasilitasStore'])->name('admin.paket.editFasilitas.Store');
 
 // data group
 Route::get('/admin/Paket/{id}/TambahGroup', [GroupController::class, 'create'])->name('admin.group.create');

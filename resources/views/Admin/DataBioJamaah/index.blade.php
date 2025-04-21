@@ -42,18 +42,17 @@
                <td>{{$j->tempat_lahir}}</td>
                <td>{{$j->tanggal_lahir}}</td>
                <td>
-                  <a href="{{route('admin.jemaah.edit', ['id' => $j->id])}}" class="btn btn-sm btn-outline-primary">
-                     <i class="fas fa-pencil-alt"></i>
-                  </a>
                   <form method="post" action="{{ route('admin.jemaah.delete') }}" class="d-inline">
                      @csrf
                      <input type="hidden" name="id" value="{{$j->id}}">
-                     <button type="submit" class="btn btn-sm btn-outline-danger">
-                        <i class="fas fa-trash-alt"></i>
+                     <button type="submit" class="btn btn-sm btn-danger">
+                        <!-- <i class="fas fa-trash-alt"></i> -->
+                        <b>Hapus</b>
                      </button>
                   </form>
-                  <a href="{{route('admin.jemaah.detail', ['id'=>$j->id])}}" class="btn btn-sm btn-outline-info">
-                     <i class="fas fa-info-circle"></i>
+                  <a href="{{route('admin.jemaah.detail', ['id'=>$j->id])}}" class="btn btn-sm btn-info">
+                     <!-- <i class="fas fa-info-circle"></i> -->
+                     <b>Detail</b>
                   </a>
                </td>
             </tr>

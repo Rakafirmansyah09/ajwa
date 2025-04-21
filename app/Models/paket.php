@@ -18,6 +18,8 @@ class paket extends Model
         'code',
         'durasi',
         'harga',
+        'fasilitas',
+        'itinerary',
         'kuota',
         'detail',
     ];
@@ -33,8 +35,26 @@ class paket extends Model
         });
     }
 
+
     public function group()
     {
         return $this->hasMany(group::class, 'paket_id');
+    }
+
+    public function getListFasilitasAttribute()
+    {
+        return json_decode($this->fasilitas, true) ?? [];
+        // no
+        // nama fasilitas
+    }
+
+    public function getListItineraryAttribute()
+    {
+        return json_decode($this->itinerary, true) ?? [];
+        // no
+        // tanggal
+        // judul
+        // deskripso
+        // lokasi
     }
 }

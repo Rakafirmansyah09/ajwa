@@ -55,31 +55,20 @@
              </li>
 
              <li class="sidebar-item">
-                <a href="" class='sidebar-link'>
+                <a href="{{route('admin.pendaftaran')}}" class='sidebar-link'>
                    <i class="bi bi-file-earmark-medical-fill"></i>
-                   <span>List Pendaftaran</span>
+                   <span>Pendaftaran</span>
                 </a>
              </li>
 
              <li class="sidebar-title">Data Master</li>
 
-             <li class="sidebar-item  has-sub">
-                <a href="#" class='sidebar-link'>
+             <li class="sidebar-item">
+                <a href="{{route('admin.jemaah.list')}}" class='sidebar-link'>
                    <i class="bi bi-file-earmark-medical-fill"></i>
-                   <span>Data Jemaah</span>
+                   <span>Data Biodata Jamaah</span>
                 </a>
-                <ul class="submenu">
-                   <li class="submenu-item  ">
-                      <a href="{{route('admin.jemaah.create')}}" class="submenu-link">Tambah Jemaah</a>
-                   </li>
-
-                   <li class="submenu-item  ">
-                      <a href="{{route('admin.jemaah.list')}}" class="submenu-link">List Jemaah</a>
-                   </li>
-                </ul>
              </li>
-
-
 
              <li class="sidebar-item  has-sub">
                 <a href="#" class='sidebar-link'>
@@ -97,9 +86,17 @@
                 </ul>
              </li>
 
+             <li class="sidebar-item">
+                <a href="" class='sidebar-link'>
+                   <i class="fas fa-user-tie"></i>
+                   <span>Data Sales</span>
+                </a>
+             </li>
+
+             <li class="sidebar-title">Data Admin</li>
 
 
-             {{-- <li class="sidebar-item  has-sub">
+             <li class="sidebar-item  has-sub">
                 <a href="#" class='sidebar-link'>
                    <i class="bi bi-pen-fill"></i>
                    <span>Admin</span>
@@ -115,7 +112,7 @@
                    </li>
 
                 </ul>
-             </li> --}}
+             </li>
 
           </ul>
        </div>

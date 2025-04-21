@@ -46,8 +46,8 @@ class jemaah extends Model
         return $this->belongsTo(bioJemaah::class, 'jemaah_id');
     }
 
-    public function paket()
+    public function group()
     {
-        return $this->belongsTo(paket::class, 'paket_id');
+        return $this->belongsTo(group::class, 'group_id');
     }
 }

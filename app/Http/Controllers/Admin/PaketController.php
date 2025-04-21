@@ -108,6 +108,8 @@ class PaketController extends Controller
             $query->orderBy('created_at', 'asc');
         }])->find($id);
 
+        // return $paket;
+
         if (!$paket) {
             return admin_abort(404, 'Paket tidak ditemukan');
         }
@@ -117,5 +119,31 @@ class PaketController extends Controller
             'paket' => $paket,
             'pageTitle' => 'Detail Paket',
         ]);
+    }
+
+    public function editFasilitas($id)
+    {
+        $paket = paket::find($id);
+        // return $paket->fasilitas;
+        return view('Admin.DataPaket.updateFasilitas', [
+            'paket' => $paket,
+            'pageTitle' => 'Edit Fasilitas Paket',
+        ]);
+    }
+
+    public function editFasilitasStore(Request $request)
+    {
+        $request->validate([
+            'paket_id' => 'required|exists:pakets,id',
+            'fasilitas' => 'required|array'
+        ]);
+
+        $paket = Paket::find($request->paket_id);
+        $paket->fasilitas = array_map(function ($item, $index) {
+            return ['nama' => $item];
+        }, $request->fasilitas, array_keys($request->fasilitas));
+        $paket->save();
+
+        return redirect()->route('admin.paket.list')->with('success', 'Berhasil mengubah fasilitas paket');
     }
 }
