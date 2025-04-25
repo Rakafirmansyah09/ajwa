@@ -96,7 +96,7 @@ class GroupController extends Controller
     {
         $group = group::find($id);
 
-        // return $group->jemaah[0]->bioJemaah;
+        // return $group->list_penerbangan;
         $paket = $group->paket;
         return view('Admin.DataPaket.DataGroup.detail', [
             'group' => $group,

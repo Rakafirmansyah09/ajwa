@@ -11,7 +11,7 @@
          <h3>Paket {{$paket->nama}} - {{$group->nama}}</h3>
          <p class="text-subtitle text-muted mb-1">Keberangkatan {{$group->tanggal_keberangkatan}} - {{$group->tanggal_kepulangan}}</p>
          <!-- tombol kembali -->
-         <a href="{{route('admin.paket.detail', ['id'=>$paket->id])}}" class="btn btn-sm btn-primary">
+         <a href="{{route('admin.pendaftaran')}}" class="btn btn-sm btn-primary">
             <i class="fas fa-arrow-left"></i> Kembali
          </a>
       </div>
@@ -19,81 +19,13 @@
 </div>
 
 <div class="card">
-   <div class="card-header d-flex justify-content-between align-items-center">
-      <h5><b>Jadwal Penerbangan</b></h5>
-   </div>
-
-   <div class="card-body">
-      <table class="table table-borderless table-striped table-hover">
-         <thead>
-            <tr class="bg-primary-subtle">
-               <td>No.</td>
-               <td>Judul</td>
-               <td>Maskapai</td>
-               <td>Tanggal Berangkat</td>
-               <td>Tanggal Tiba</td>
-               <td>Lama Penerbangan</td>
-               <td>Bagasi</td>
-               <td>Bagasi Kabin</td>
-               <td>Kursi</td>
-               <td>Bandara Asal</td>
-               <td>Kota Bandara Asal</td>
-               <td>Bandara Tujuan</td>
-               <td>Kota Bandara Tujuan</td>
-            </tr>
-         </thead>
-         <tbody>
-
-            @forelse ($group->list_penerbangan as $penerbangan)
-            <tr>
-               <td>{{$loop->iteration}}</td>
-               <td>{{$penerbangan->judul}}</td>
-               <td>{{$penerbangan->maskapai}}</td>
-               <td>{{$penerbangan->tanggal_keberangkatan}}</td>
-               <td>{{$penerbangan->tanggal_tiba}}</td>
-               <td>{{$penerbangan->lama_penerbangan}}</td>
-               <td>{{$penerbangan->bagasi}}</td>
-               <td>{{$penerbangan->bagasi_kabin}}</td>
-               <td>{{$penerbangan->kursi}}</td>
-               <td>{{$penerbangan->bandara_asal}}</td>
-               <td>{{$penerbangan->kota_asal}}</td>
-               <td>{{$penerbangan->bandara_tujuan}}</td>
-               <td>{{$penerbangan->kota_tujuan}}</td>
-            </tr>
-            @empty
-            <tr>
-               <td colspan="11" class="text-center">Tidak ada data</td>
-            </tr>
-            @endforelse
-         </tbody>
-      </table>
-   </div>
-
-</div>
-
-<div class="card">
-   <div class="card-header d-flex justify-content-between align-items-center">
-      <h5><b>Akomodasi</b></h5>
-   </div>
-
-   <div class="card-body">
-      'nama_hotel',
-      'kota',
-      'alamat',
-      'tanggal_checkin',
-      'tanggal_checkout',
-      'rating'
-   </div>
-</div>
-
-<div class="card">
-   <div class="card-header d-flex justify-content-between align-items-center">
+   <div class="card-header">
       <h5><b>List Jemaah</b></h5>
    </div>
    <div class="card-body">
       <table class="table table-striped table-hover" id="table1">
          <thead>
-            <tr class="bg-primary-subtle">
+            <tr>
                <td>No.</td>
                <td>Nama</td>
                <td>Usia</td>

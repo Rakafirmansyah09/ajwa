@@ -144,6 +144,43 @@ class PaketController extends Controller
         }, $request->fasilitas, array_keys($request->fasilitas));
         $paket->save();
 
-        return redirect()->route('admin.paket.list')->with('success', 'Berhasil mengubah fasilitas paket');
+        return redirect()->route('admin.paket.detail', ['id' => $request->paket_id])->with('success', 'Berhasil mengubah fasilitas paket');
+    }
+
+    public function editItinerary($id)
+    {
+        $paket = paket::find($id);
+
+        // return $paket->list_itinerary;
+        return view('Admin.DataPaket.updateItinerary', [
+            'paket' => $paket,
+            'pageTitle' => 'Edit Itinerary Paket',
+        ]);
+    }
+
+    public function editItineraryStore(Request $request)
+    {
+        // return $request;
+        $request->validate([
+            'paket_id' => 'required|exists:pakets,id',
+            'judul' => 'required|array',
+            'deskripsi' => 'required|array',
+            'lokasi' => 'required|array',
+        ]);
+
+        $paket = Paket::find($request->paket_id);
+        $itinerary = [];
+        foreach ($request->judul as $key => $judul) {
+            $itinerary[] = [
+                'judul' => $judul,
+                'deskripsi' => $request->deskripsi[$key] ?? '',
+                'lokasi' => $request->lokasi[$key] ?? '',
+            ];
+        }
+
+        $paket->itinerary = $itinerary;
+        $paket->save();
+
+        return redirect()->route('admin.paket.detail', ['id' => $request->paket_id])->with('success', 'Berhasil mengubah itinerary paket');
     }
 }

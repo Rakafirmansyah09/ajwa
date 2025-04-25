@@ -65,10 +65,6 @@ class JemaahController extends Controller
             'file_ktp' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:1048',
             'file_paspor' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:1048',
 
-            'file_foto' => 'required|file|mimes:jpg,jpeg,png,pdf|max:1048',
-            'file_kk' => 'required|file|mimes:jpg,jpeg,png,pdf|max:1048',
-            'file_ijazah' => 'required|file|mimes:jpg,jpeg,png,pdf|max:1048',
-
         ]);
 
         // return $request;
@@ -118,9 +114,6 @@ class JemaahController extends Controller
         }
 
         // create jemaah
-        $file_foto = $this->upload->create($request->idJemaah, 'Jemaah', $request->file('file_foto'));
-        $file_ijazah = $this->upload->create($request->idJemaah, 'Jemaah', $request->file('file_ijazah'));
-        $file_kk = $this->upload->create($request->idJemaah, 'Jemaah', $request->file('file_kk'));
         $usia = date_diff(date_create($bioJemaah->tanggal_lahir), date_create('today'))->y;
 
         $bioJemaah->jemaah()->create([
@@ -131,16 +124,13 @@ class JemaahController extends Controller
             'alamat' => $request->alamat,
             'kecamatan' => $request->kecamatan,
 
-            'file_foto' => $file_foto,
-            'file_ijazah' => $file_ijazah,
-            'file_kk' => $file_kk,
-
             'sumber_info' => '',
             'sumber_ket' => '',
             'detail_info' => '',
         ]);
 
-        return redirect()->back()->with('success', 'Data jemaah berhasil ditambahkan!');
+        // return redirect()->back()->with('success', 'Data jemaah berhasil ditambahkan!');
+        return redirect()->route('admin.group.listJemaah', ['id' => $id])->with('success', 'Data jemaah berhasil ditambahkan!');
     }
 
     public function detail($id)
@@ -157,7 +147,7 @@ class JemaahController extends Controller
         );
     }
 
-    
+
     public function delete(Request $request)
     {
         $jemaah = jemaah::find($request->idJemaah);

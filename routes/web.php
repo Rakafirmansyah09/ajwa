@@ -17,6 +17,7 @@ Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('adm
 
 // pendaftaran
 Route::get('/admin/pendaftaran', [PendaftaranController::class, 'index'])->name('admin.pendaftaran');
+Route::get('/admin/Group/{id}/listJemaah', [PendaftaranController::class, 'listJemaah'])->name('admin.group.listJemaah');
 
 // data Biojemaah
 Route::get('/admin/listJemaah', [BioJemahController::class, 'index'])->name('admin.jemaah.list');
@@ -35,6 +36,9 @@ Route::get('/admin/Peket/{id}', [PaketController::class, 'detail'])->name('admin
 // data paket faslitas
 Route::get('/admin/Peket/{id}/Fasilitas', [PaketController::class, 'editFasilitas'])->name('admin.paket.editFasilitas');
 Route::post('/admin/Peket/Fasilitas', [PaketController::class, 'editFasilitasStore'])->name('admin.paket.editFasilitas.Store');
+// data paket itinerary
+Route::get('/admin/Peket/{id}/Itinerary', [PaketController::class, 'editItinerary'])->name('admin.paket.editItinerary');
+Route::post('/admin/Peket/Itinerary', [PaketController::class, 'editItineraryStore'])->name('admin.paket.editItinerary.Store');
 
 // data group
 Route::get('/admin/Paket/{id}/TambahGroup', [GroupController::class, 'create'])->name('admin.group.create');

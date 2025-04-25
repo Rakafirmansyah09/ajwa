@@ -53,7 +53,7 @@
                         <!-- <i class="fas fa-trash-alt"></i> -->
                      </button>
                   </form>
-                  <a href="{{route('admin.paket.edit', ['id' => $j->id]) }}" class="btn btn-primary btn-sm">
+                  <a href="{{route('admin.paket.edit', ['id' => $j->id, 'b' => 'admin.paket.list']) }}" class="btn btn-primary btn-sm">
                      <b>Edit</b>
                      <!-- <i class="fas fa-pencil-alt"></i> -->
                   </a>

@@ -130,13 +130,7 @@
             <td>:</td>
             <td>{{$jemaah->no_hp}}</td>
             <!-- -------------- -->
-            <td>File KK</td>
-            <td>:</td>
-            <td>
-               <a href="{{asset($jemaah->file_kk)}}" target="_blank" class="btn btn-sm btn-info">
-                  <b>Lihat File</b>
-               </a>
-            </td>
+           
          </tr>
          <tr>
             <td>Alamat</td>
@@ -156,13 +150,7 @@
             <td>:</td>
             <td>{{$jemaah->kecamatan}}</td>
             <!-- -------------- -->
-            <td>File Ijazah</td>
-            <td>:</td>
-            <td>
-               <a href="{{asset($jemaah->file_ijazah)}}" target="_blank" class="btn btn-sm btn-info">
-                  <b>Lihat File</b>
-               </a>
-            </td>
+
          </tr>
       </table>
    </div>
@@ -173,7 +161,13 @@
       <h5><b>Riwayat Pembayaran</b></h5>
    </div>
    <div class="card-body">
+      <table class="table table-borderless table-custom">
+         <thead>
+            <tr>
 
+            </tr>
+         </thead>
+      </table>
    </div>
 
 

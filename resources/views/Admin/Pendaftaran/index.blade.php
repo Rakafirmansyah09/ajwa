@@ -42,7 +42,7 @@
                <td>{{$g->jemaah->count()}} / {{$g->paket->kuota}} Jemaah</td>
                <td>Rp {{number_format($g->paket->harga)}}</td>
                <td>
-                  <a href="{{route('admin.group.detail', ['id' => $g->id])}}" class="btn btn-sm btn-info">
+                  <a href="{{route('admin.group.listJemaah', ['id' => $g->id])}}" class="btn btn-sm btn-info">
                      <b>Detail</b>
                   </a>
                   <a href="{{route('admin.group.addJemaah', ['id' => $g->id])}}" class="btn btn-sm btn-success">

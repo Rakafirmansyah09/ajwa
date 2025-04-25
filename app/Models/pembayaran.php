@@ -13,7 +13,7 @@ class pembayaran extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'rombongan_id',
+        'jemaah_id',
         'harga',
         'bukti',
         'method',
@@ -34,8 +34,8 @@ class pembayaran extends Model
     }
 
     // Relasi ke Pendaftaran
-    public function rombongan()
+    public function jemaah()
     {
-        return $this->belongsTo(rombongan::class, 'rombongan_id');
+        return $this->belongsTo(jemaah::class, 'jemaah_id');
     }
 }

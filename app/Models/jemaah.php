@@ -20,9 +20,6 @@ class jemaah extends Model
         'usia',
         'alamat',
         'kecamatan',
-        'file_kk',
-        'file_foto',
-        'file_ijazah',
 
         'sumber_info',
         'sumber_ket',

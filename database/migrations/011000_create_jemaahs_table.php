@@ -34,9 +34,6 @@ return new class extends Migration
             $table->integer('usia');
             $table->text('alamat');
             $table->string('kecamatan');
-            $table->string('file_kk');
-            $table->string('file_foto');
-            $table->string('file_ijazah');
 
             // sumber info
             $table->string('sumber_info')->nullable();

@@ -115,33 +115,7 @@
                   @endif
                </div>
             </div>
-            <div class="col-md-6">
-               <div class="form-group">
-                  <label for="file_kk">Upload KK</label>
-                  <input type="file" id="file_kk" name="file_kk" class="form-control" required>
-                  @if(isset($bioJemaah) && $bioJemaah->file_kk)
-                  <small class="text-muted">File saat ini: <a href="{{ asset($bioJemaah->file_kk) }}" target="_blank">Lihat</a></small>
-                  @endif
-               </div>
-            </div>
-            <div class="col-md-6">
-               <div class="form-group">
-                  <label for="file_foto">Upload Foto</label>
-                  <input type="file" id="file_foto" name="file_foto" class="form-control" required>
-                  @if(isset($bioJemaah) && $bioJemaah->file_foto)
-                  <small class="text-muted">File saat ini: <a href="{{ asset($bioJemaah->file_foto) }}" target="_blank">Lihat</a></small>
-                  @endif
-               </div>
-            </div>
-            <div class="col-md-6">
-               <div class="form-group">
-                  <label for="file_ijazah">Upload Ijazah</label>
-                  <input type="file" id="file_ijazah" name="file_ijazah" class="form-control" required>
-                  @if(isset($bioJemaah) && $bioJemaah->file_ijazah)
-                  <small class="text-muted">File saat ini: <a href="{{ asset($bioJemaah->file_ijazah) }}" target="_blank">Lihat</a></small>
-                  @endif
-               </div>
-            </div>
+
          </div>
          <div class="text-end">
             <button type="submit" class="btn btn-primary">{{ isset($bioJemaah) ? 'Update' : 'Simpan' }}</button>

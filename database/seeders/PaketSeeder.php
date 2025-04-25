@@ -47,43 +47,36 @@ class PaketSeeder extends Seeder
                 ]
             ]),            'itinerary' => json_encode([
                 [
-                    'tanggal' => '2025-04-20',
                     'judul' => 'Keberangkatan dari Jakarta',
                     'deskripsi' => 'Check in di Bandara Soekarno-Hatta dan penerbangan menuju Madinah',
                     'lokasi' => 'Bandara Soekarno-Hatta, Jakarta'
                 ],
                 [
-                    'tanggal' => '2025-04-20',
                     'judul' => 'Tiba di Madinah - Ziarah',
                     'deskripsi' => 'Tiba di Madinah dilanjutkan check in hotel dan ziarah ke tempat bersejarah',
                     'lokasi' => 'Madinah, Saudi Arabia'
                 ],
                 [
-                    'tanggal' => '2025-04-21',
                     'judul' => 'Ibadah di Masjid Nabawi',
                     'deskripsi' => 'Shalat berjamaah dan ibadah di Masjid Nabawi',
                     'lokasi' => 'Masjid Nabawi, Madinah'
                 ],
                 [
-                    'tanggal' => '2025-04-23',
                     'judul' => 'Menuju Makkah - Umrah',
                     'deskripsi' => 'Perjalanan menuju Makkah dan pelaksanaan ibadah umrah pertama',
                     'lokasi' => 'Makkah, Saudi Arabia'
                 ],
                 [
-                    'tanggal' => '2025-04-24',
                     'judul' => 'Ibadah di Makkah',
                     'deskripsi' => 'Ibadah di Masjidil Haram dan tawaf sunnah',
                     'lokasi' => 'Masjidil Haram, Makkah'
                 ],
                 [
-                    'tanggal' => '2025-04-28',
                     'judul' => 'City Tour Makkah',
                     'deskripsi' => 'Mengunjungi tempat-tempat bersejarah di sekitar Makkah',
                     'lokasi' => 'Makkah, Saudi Arabia'
                 ],
                 [
-                    'tanggal' => '2025-04-29',
                     'judul' => 'Kepulangan ke Tanah Air',
                     'deskripsi' => 'Check out hotel dan penerbangan kembali ke Jakarta',
                     'lokasi' => 'Bandara King Abdulaziz, Jeddah'

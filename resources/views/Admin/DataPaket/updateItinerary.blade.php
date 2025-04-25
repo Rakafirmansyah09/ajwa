@@ -27,18 +27,18 @@
    <div class="row">
       <div class="col-12 col-md-6 order-md-1 order-last">
          <h3>Paket {{ $paket->nama }}</h3>
-         <p class="text-subtitle text-muted">Kelola fasilitas paket langsung</p>
+         <p class="text-subtitle text-muted">Kelola itinerary paket langsung</p>
       </div>
    </div>
 </div>
 
 <div class="card">
    <div class="card-header">
-      <h5 class="card-title">List Fasilitas</h5>
+      <h5 class="card-title">List Itinerary</h5>
    </div>
 
    <div class="card-body">
-      <form method="POST" action="{{ route('admin.paket.editFasilitas.Store') }}" id="form-fasilitas">
+      <form method="POST" action="{{ route('admin.paket.editItinerary.Store') }}" id="form-fasilitas">
          @csrf
 
          <input type="hidden" name="paket_id" value="{{ $paket->id }}">
@@ -47,16 +47,24 @@
             <thead>
                <tr class="bg-primary-subtle">
                   <th>#</th>
-                  <th>Nama Fasilitas</th>
+                  <th>Judul</th>
+                  <th>Deskripsi</th>
+                  <th>Lokasi</th>
                   <th>Aksi</th>
                </tr>
             </thead>
             <tbody>
-               @foreach ($paket->list_fasilitas as $index => $f)
+               @foreach ($paket->list_itinerary as $index => $f)
                <tr>
                   <td class="number">{{ $loop->iteration }}</td>
                   <td>
-                     <input type="text" name="fasilitas[{{ $loop->iteration }}]" value="{{ is_array($f) ? $f['nama'] : $f }}" class="form-control">
+                     <input type="text" name="judul[{{ $loop->iteration }}]" value="{{ is_array($f) ? $f['judul'] : '' }}" class="form-control">
+                  </td>
+                  <td>
+                     <input type="text" name="deskripsi[{{ $loop->iteration }}]" value="{{ is_array($f) ? $f['deskripsi'] : '' }}" class="form-control">
+                  </td>
+                  <td>
+                     <input type="text" name="lokasi[{{ $loop->iteration }}]" value="{{ is_array($f) ? $f['lokasi'] : '' }}" class="form-control">
                   </td>
                   <td>
                      <button type="button" class="btn btn-outline-primary btn-sm" onclick="moveRowUp(this)">
@@ -74,7 +82,7 @@
             </tbody>
          </table>
 
-         <button type="button" class="btn btn-outline-primary btn-sm" id="add-fasilitas" onclick="addnew()">Tambah Fasilitas</button>
+         <button type="button" class="btn btn-outline-primary btn-sm" id="add-fasilitas" onclick="addnew()">Tambah Itinerary</button>
 
          <div class="text-end mt-2">
             <a href="{{ route('admin.paket.detail', ['id' => $paket->id]) }}" class="btn btn-secondary me-2">Kembali</a>
@@ -93,7 +101,9 @@
 
       row.innerHTML = `
          <td class="number"></td>
-         <td><input type="text" name="fasilitas[]" class="form-control"></td>
+         <td><input type="text" name="judul[]" class="form-control"></td>
+         <td><input type="text" name="deskripsi[]" class="form-control"></td>
+         <td><input type="text" name="lokasi[]" class="form-control"></td>
          <td>
             <button type="button" class="btn btn-outline-primary btn-sm" onclick="moveRowUp(this)">
                <i class="fas fa-arrow-up"></i>

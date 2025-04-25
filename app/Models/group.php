@@ -43,24 +43,15 @@ class group extends Model
         return $this->hasMany(jemaah::class, 'group_id');
     }
 
-    public function getListJadwalPenerbanganAttribute()
+    public function getListPenerbanganAttribute()
     {
-        return json_decode($this->jadwal_penerbangan, true) ?? [];
-        // no
-        // judul
-        // maskapai
-        // tanggal_keberangkatan
-        // tanggal_tiba
-        // lama_penerbangan
-        // bagasi
-        // bagasi_kabin
-        // kussi
-        // bandara_asal
-        // bandara tujuan
-        // kota_asal
-        // kota_tujuan
+        $data = json_decode($this->jadwal_penerbangan);
 
+        return is_array($data) || is_object($data)
+            ? collect($data)
+            : collect(); // fallback jika null atau gagal decode
     }
+
 
     public function getListAkomodasiAttribute()
     {
