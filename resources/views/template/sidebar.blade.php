@@ -8,8 +8,6 @@
                 </a>
              </div>
 
-
-
              <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                    aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20"
@@ -47,7 +45,7 @@
        </div>
        <div class="sidebar-menu">
           <ul class="menu">
-             <li class="sidebar-item active">
+             <li class="sidebar-item">
                 <a href="{{route('admin.dashboard')}}" class='sidebar-link'>
                    <i class="bi bi-grid-fill"></i>
                    <span>Dashboard</span>
@@ -76,11 +74,11 @@
                    <span>Data Paket</span>
                 </a>
 
-                <ul class="submenu ">
-                   <li class="submenu-item  ">
+                <ul class="submenu">
+                   <li class="submenu-item">
                       <a href="{{route('admin.paket.create')}}" class="submenu-link">Tambah Paket</a>
                    </li>
-                   <li class="submenu-item  ">
+                   <li class="submenu-item">
                       <a href="{{route('admin.paket.list')}}" class="submenu-link">List Paket</a>
                    </li>
                 </ul>
@@ -95,26 +93,64 @@
 
              <li class="sidebar-title">Data Admin</li>
 
-
              <li class="sidebar-item  has-sub">
                 <a href="#" class='sidebar-link'>
                    <i class="bi bi-pen-fill"></i>
                    <span>Admin</span>
                 </a>
 
-                <ul class="submenu ">
-                   <li class="submenu-item  ">
-                      <a href="form-editor-ckeditor.html" class="submenu-link"> List Akun Admin</a>
+                <ul class="submenu">
+                   <li class="submenu-item">
+                      <a href="#" class="submenu-link">List Akun Admin</a>
                    </li>
 
-                   <li class="submenu-item  ">
-                      <a href="form-editor-summernote.html" class="submenu-link">List Role Permision</a>
+                   <li class="submenu-item">
+                      <a href="#" class="submenu-link">List Role Permision</a>
                    </li>
-
                 </ul>
              </li>
-
           </ul>
        </div>
     </div>
  </div>
+
+ <script>
+    document.addEventListener('DOMContentLoaded', function() {
+       // Get current URL path
+       const currentPath = window.location.pathname;
+
+       // Get all sidebar links
+       const sidebarLinks = document.querySelectorAll('.sidebar-link');
+       const submenuLinks = document.querySelectorAll('.submenu-link');
+
+       // Remove all active classes first
+       document.querySelectorAll('.sidebar-item').forEach(item => {
+          item.classList.remove('active');
+       });
+       document.querySelectorAll('.submenu-item').forEach(item => {
+          item.classList.remove('active');
+       });
+
+       // Check main menu items
+       sidebarLinks.forEach(link => {
+          if (link.getAttribute('href') && link.getAttribute('href').includes(currentPath)) {
+             link.parentElement.classList.add('active');
+             // If parent has submenu, expand it
+             if (link.parentElement.classList.contains('has-sub')) {
+                link.parentElement.querySelector('.submenu').style.display = 'block';
+             }
+          }
+       });
+
+       // Check submenu items
+       submenuLinks.forEach(link => {
+          if (link.getAttribute('href') && link.getAttribute('href').includes(currentPath)) {
+             link.parentElement.classList.add('active');
+             // Add active class to parent sidebar-item
+             link.closest('.sidebar-item').classList.add('active');
+             // Show submenu
+             link.closest('.submenu').style.display = 'block';
+          }
+       });
+    });
+ </script>
