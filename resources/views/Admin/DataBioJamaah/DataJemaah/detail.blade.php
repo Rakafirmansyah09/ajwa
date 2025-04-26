@@ -95,6 +95,15 @@
 </div>
 
 <div class="card">
+   <div class="card-body">
+      <!-- ====================== -->
+      <h5><b>Sales</b></h5>
+      <p>{{$jemaah->infoSales->label }} - {{$jemaah->infoSales->nama}} - {{$jemaah->detail_info}}</p>
+      <!-- ====================== -->
+   </div>
+</div>
+
+<div class="card">
    <div class="card-header d-flex justify-content-between align-items-center">
       <h5><b>Riwayat Pembayaran</b></h5>
       <a href="{{route('admin.group.jemaah.addPembayaran', ['id' => $jemaah->id])}}" class="btn btn-sm btn-info"><b>Tambah Pembayaran</b></a>

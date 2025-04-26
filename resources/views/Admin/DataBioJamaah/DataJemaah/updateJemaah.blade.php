@@ -115,8 +115,31 @@
                   @endif
                </div>
             </div>
-
          </div>
+
+         <p class="fw-bold mb-1 mt-3">Sumber Informasi</p>
+         <div class="row">
+            <div class="col-md-4">
+               <div class="form-group">
+                  <label for="sumber_info">Sales</label>
+                  <select name="sumber_info" id="sumber_informasi" class="form-control" required>
+                     <option value="" selected disabled> Pilih Sales </option>
+                     @forelse ($sales as $s)
+                     <option value="{{$s->id}}">{{$s->label}} {{$s->nama}}</option>
+                     @empty
+                     <option value="">Tidak ada Sales</option>
+                     @endforelse
+                  </select>
+               </div>
+            </div>
+            <div class="col-md-8">
+               <div class="form-group">
+                  <label for="detail_info">Detail Sumber Informasi</label>
+                  <input type="text" name="detail_info" class="form-control" id="detail_info" placeholder="Detail Sumber Informasi" value="{{ old('detail_info', $jemaah->detail_info ?? '') }}" required>
+               </div>
+            </div>
+         </div>
+
          <div class="text-end">
             <button type="submit" class="btn btn-primary">{{ isset($bioJemaah) ? 'Update' : 'Simpan' }}</button>
          </div>

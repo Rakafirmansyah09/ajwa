@@ -35,14 +35,19 @@ return new class extends Migration
             $table->text('alamat');
             $table->string('kecamatan');
 
+            // pembatalan
+            $table->boolean('pembatalan')->default(false);
+            $table->date('tanggal_pembatalan')->nullable();
+            $table->text('alasan_pembatalan')->nullable();
+
             // sumber info
-            $table->string('sumber_info')->nullable();
-            $table->string('sumber_ket')->nullable();
+            $table->uuid('sumber_info')->nullable();
             $table->text('detail_info')->nullable();
 
             $table->timestamps();
 
             // Foreign key dengan tipe yang sesuai
+            $table->foreign('sumber_info')->references('id')->on('sales')->onDelete('cascade');
             $table->foreign('jemaah_id')->references('id')->on('bioJemaahs')->onDelete('cascade');
             $table->foreign('group_id')->references('id')->on('group')->onDelete('cascade');
         });

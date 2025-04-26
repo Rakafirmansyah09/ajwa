@@ -21,8 +21,11 @@ class jemaah extends Model
         'alamat',
         'kecamatan',
 
+        'pembatalan',
+        'tanggal_pembatalan',
+        'alasan_pembatalan',
+
         'sumber_info',
-        'sumber_ket',
         'detail_info',
     ];
 
@@ -41,6 +44,11 @@ class jemaah extends Model
     public function bioJemaah()
     {
         return $this->belongsTo(bioJemaah::class, 'jemaah_id');
+    }
+
+    public function infoSales()
+    {
+        return $this->belongsTo(sales::class, 'sumber_info');
     }
 
     public function group()

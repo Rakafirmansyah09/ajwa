@@ -37,6 +37,15 @@ return new class extends Migration
 
             $table->foreign('paket_id')->references('id')->on('pakets')->onDelete('cascade');
         });
+
+        Schema::create('sales', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('label');
+            $table->string('nama');
+            $table->boolean('aktif');
+            $table->text('deskripsi');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -46,5 +55,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('group');
         Schema::dropIfExists('pakets');
+        Schema::dropIfExists('sales');
     }
 };

@@ -1,4 +1,4 @@
-@extends('template.index', ['pageTitle' => 'List Data Paket'])
+@extends('template.index')
 
 @section('css')
 

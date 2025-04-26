@@ -9,6 +9,7 @@ use App\Models\itinerary;
 use App\Models\jadwalPenerbangan;
 use App\Models\paket;
 use App\Models\paketKeberangkatan;
+use App\Models\sales;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 use Illuminate\Support\Str;
@@ -89,8 +90,8 @@ class PaketSeeder extends Seeder
             'id' => Str::uuid(),
             'paket_id' => $paket->id,
             'nama' => 'Batch 1',
-            'tanggal_keberangkatan' => '2025-04-20',
-            'tanggal_kepulangan' => '2025-04-29',
+            'tanggal_keberangkatan' => '2025-05-20',
+            'tanggal_kepulangan' => '2025-05-29',
 
             'jadwal_penerbangan' => json_encode([
                 [
@@ -140,6 +141,31 @@ class PaketSeeder extends Seeder
                     'rating' => 5
                 ]
             ]),
+        ]);
+
+        sales::create([
+            'label' => 'Perwakilan',
+            'nama' => 'Ibu Emy',
+            'aktif' => true,
+            'deskripsi' => 'Perwakilan dari PT. Air Zamzam',
+        ]);
+        sales::create([
+            'label' => 'Patner',
+            'nama' => 'Bapak Budi',
+            'aktif' => true,
+            'deskripsi' => 'Perwakilan dari PT. Air Zamzam',
+        ]);
+        sales::create([
+            'label' => 'Kantor',
+            'nama' => 'Ajwa Expo',
+            'aktif' => true,
+            'deskripsi' => 'Kantor pusat Jambi Ajwa Expo',
+        ]);
+        sales::create([
+            'label' => 'Kantor',
+            'nama' => 'Media Sosial',
+            'aktif' => true,
+            'deskripsi' => 'Media sosial untuk promosi',
         ]);
     }
 }

@@ -9,6 +9,7 @@ use App\Models\group;
 use App\Models\jemaah;
 use App\Models\paket;
 use App\Models\pembayaran;
+use App\Models\sales;
 use Illuminate\Http\Request;
 
 class JemaahController extends Controller
@@ -27,10 +28,13 @@ class JemaahController extends Controller
         if (isset($request->idj)) {
             $bioJemaah = bioJemaah::find($request->idj);
         }
+        $sales = sales::where('aktif', 1)->get();
+
         return view('Admin.DataBioJamaah.DataJemaah.updateJemaah', [
             'group' => $group,
             'bioJemaah' => $bioJemaah,
             'pageTitle' => 'Tambah Data Jamaah',
+            'sales' => $sales,
         ]);
     }
 
@@ -63,10 +67,15 @@ class JemaahController extends Controller
             'alamat' => 'string|required',
             'kecamatan' => 'string|required',
 
+            'sumber_info' => 'string|required',
+            'detail_info' => 'string|required',
+
             'file_ktp' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:1048',
             'file_paspor' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:1048',
 
         ]);
+
+        // return $request;
 
         // return $request;
 
@@ -116,6 +125,7 @@ class JemaahController extends Controller
 
         // create jemaah
         $usia = date_diff(date_create($bioJemaah->tanggal_lahir), date_create('today'))->y;
+        $sales = sales::find($request->sumber_info);
 
         $bioJemaah->jemaah()->create([
             'group_id' => $id,
@@ -125,9 +135,8 @@ class JemaahController extends Controller
             'alamat' => $request->alamat,
             'kecamatan' => $request->kecamatan,
 
-            'sumber_info' => '',
-            'sumber_ket' => '',
-            'detail_info' => '',
+            'sumber_info' => $sales->id,
+            'detail_info' => $request->detail_info,
         ]);
 
         // return redirect()->back()->with('success', 'Data jemaah berhasil ditambahkan!');

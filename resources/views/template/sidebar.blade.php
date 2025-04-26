@@ -87,7 +87,7 @@
              </li>
 
              <li class="sidebar-item">
-                <a href="" class='sidebar-link'>
+                <a href="{{route('admin.sales.list')}}" class='sidebar-link'>
                    <i class="fas fa-user-tie"></i>
                    <span>Data Sales</span>
                 </a>
