@@ -48,6 +48,14 @@ Route::post('/admin/EditGrop', [GroupController::class, 'update'])->name('admin.
 Route::post('/admin/DeleteGrop', [GroupController::class, 'delete'])->name('admin.group.delete');
 Route::get('/admin/Group/{id}', [GroupController::class, 'detail'])->name('admin.group.detail');
 
+// data group akomodasi
+Route::get('/admin/Group/{id}/Akomodasi', [GroupController::class, 'editAkomodasi'])->name('admin.group.editAkomodasi');
+Route::post('/admin/Group/Akomodasi', [GroupController::class, 'editAkomodasiStore'])->name('admin.group.editAkomodasiStore');
+
+// data group penerbangan
+Route::get('/admin/Group/{id}/Penerbangan', [GroupController::class, 'editPenerbangan'])->name('admin.group.editPenerbangan');
+Route::post('/admin/Group/Penerbangan', [GroupController::class, 'editPenerbanganStore'])->name('admin.group.editPenerbanganStore');
+
 // data Jemaah
 Route::get('/admin/Group/{id}/addJemaah', [JemaahController::class, 'addJemaah'])->name('admin.group.addJemaah');
 Route::get('/admin/Group/{id}/addJemaah/cariNik', [JemaahController::class, 'cariNik'])->name('admin.group.addJemaah.cariNik');

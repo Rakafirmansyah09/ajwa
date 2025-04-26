@@ -55,13 +55,11 @@ class group extends Model
 
     public function getListAkomodasiAttribute()
     {
-        return json_decode($this->akomodasi, true) ?? [];
-        // no
-        // nama_hotel
-        // kota
-        // alamat
-        // tanggal_cekin
-        // tanggal_checkout
-        // rating
+        $data = json_decode($this->akomodasi);
+        return is_array($data) || is_object($data)
+            ? collect($data)
+            : collect(); // fallback jika null atau gagal decode
     }
+
+    
 }

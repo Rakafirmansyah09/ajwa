@@ -21,6 +21,8 @@
 <div class="card">
    <div class="card-header d-flex justify-content-between align-items-center">
       <h5><b>Jadwal Penerbangan</b></h5>
+      <a href="{{route('admin.group.editPenerbangan', ['id' => $group->id])}}" class="btn btn-sm btn-info"><b>Edit Penerbangan</b></a>
+
    </div>
 
    <div class="card-body">
@@ -30,16 +32,13 @@
                <td>No.</td>
                <td>Judul</td>
                <td>Maskapai</td>
-               <td>Tanggal Berangkat</td>
-               <td>Tanggal Tiba</td>
+
+               <td>Penerbangan</td>
+
                <td>Lama Penerbangan</td>
                <td>Bagasi</td>
-               <td>Bagasi Kabin</td>
                <td>Kursi</td>
-               <td>Bandara Asal</td>
-               <td>Kota Bandara Asal</td>
-               <td>Bandara Tujuan</td>
-               <td>Kota Bandara Tujuan</td>
+
             </tr>
          </thead>
          <tbody>
@@ -49,16 +48,15 @@
                <td>{{$loop->iteration}}</td>
                <td>{{$penerbangan->judul}}</td>
                <td>{{$penerbangan->maskapai}}</td>
-               <td>{{$penerbangan->tanggal_keberangkatan}}</td>
-               <td>{{$penerbangan->tanggal_tiba}}</td>
+               <!-- ----- -->
+               <td>
+                  <p>{{$penerbangan->tanggal_berangkat}} | {{$penerbangan->kota_asal}} | {{$penerbangan->bandara_asal}}</p>
+                  <p>{{$penerbangan->tanggal_tiba}} | {{$penerbangan->kota_tujuan}} | {{$penerbangan->bandara_tujuan}}</p>
+               </td>
+               <!-- ----- -->
                <td>{{$penerbangan->lama_penerbangan}}</td>
-               <td>{{$penerbangan->bagasi}}</td>
-               <td>{{$penerbangan->bagasi_kabin}}</td>
+               <td>{{$penerbangan->bagasi}} kg <br> {{$penerbangan->bagasi_kabin}} kg kabin</td>
                <td>{{$penerbangan->kursi}}</td>
-               <td>{{$penerbangan->bandara_asal}}</td>
-               <td>{{$penerbangan->kota_asal}}</td>
-               <td>{{$penerbangan->bandara_tujuan}}</td>
-               <td>{{$penerbangan->kota_tujuan}}</td>
             </tr>
             @empty
             <tr>
@@ -74,15 +72,40 @@
 <div class="card">
    <div class="card-header d-flex justify-content-between align-items-center">
       <h5><b>Akomodasi</b></h5>
+      <a href="{{route('admin.group.editAkomodasi', ['id' => $group->id])}}" class="btn btn-sm btn-info"><b>Edit Akomodasi</b></a>
    </div>
 
    <div class="card-body">
-      'nama_hotel',
-      'kota',
-      'alamat',
-      'tanggal_checkin',
-      'tanggal_checkout',
-      'rating'
+      <table class="table table-borderless table-striped table-hover">
+         <thead>
+            <tr class="bg-primary-subtle">
+               <td>No.</td>
+               <td>Nama Hotel</td>
+               <td>Kota</td>
+               <td>Alamat</td>
+               <td>Tanggal Checkin</td>
+               <td>Tanggal Checkout</td>
+               <td>Rating</td>
+            </tr>
+         </thead>
+         <tbody>
+            @forelse ( $group->list_akomodasi as $akomodasi )
+            <tr>
+               <td>{{$loop->iteration}}</td>
+               <td>{{$akomodasi->nama_hotel}}</td>
+               <td>{{$akomodasi->kota}}</td>
+               <td>{{$akomodasi->alamat}}</td>
+               <td>{{$akomodasi->tanggal_checkin}}</td>
+               <td>{{$akomodasi->tanggal_checkout}}</td>
+               <td>{{$akomodasi->rating}}</td>
+            </tr>
+            @empty
+            <tr>
+               <td colspan="11" class="text-center">Tidak ada data</td>
+            </tr>
+            @endforelse
+         </tbody>
+      </table>
    </div>
 </div>
 

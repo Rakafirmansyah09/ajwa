@@ -97,10 +97,109 @@ class GroupController extends Controller
         $group = group::find($id);
 
         // return $group->list_penerbangan;
+        // return $group->list_akomodasi;
+
         $paket = $group->paket;
         return view('Admin.DataPaket.DataGroup.detail', [
             'group' => $group,
             'paket' => $paket,
         ]);
+    }
+
+    public function editAkomodasi($id)
+    {
+        $group = group::find($id);
+        $paket = $group->paket;
+        return view('Admin.DataPaket.DataGroup.updateAkomodasi', [
+            'group' => $group,
+            'paket' => $paket,
+        ]);
+    }
+
+    public function editAkomodasiStore(Request $request)
+    {
+        $request->validate([
+            'group_id' => 'required|exists:group,id',
+            'nama_hotel' => 'required|array',
+            'kota' => 'required|array',
+            'alamat' => 'required|array',
+            'tanggal_checkin' => 'required|array',
+            'tanggal_checkout' => 'required|array',
+            'rating' => 'required|array',
+        ]);
+
+        $group = group::find($request->group_id);
+
+        $akomodasi = [];
+        foreach ($request->nama_hotel as $key => $nama_hotel) {
+            $akomodasi[] = [
+                'nama_hotel' => $nama_hotel,
+                'kota' => $request->kota[$key] ?? '',
+                'alamat' => $request->alamat[$key] ?? '',
+                'tanggal_checkin' => $request->tanggal_checkin[$key] ?? '',
+                'tanggal_checkout' => $request->tanggal_checkout[$key] ?? '',
+                'rating' => $request->rating[$key] ?? ''
+            ];
+        }
+
+        $group->akomodasi = $akomodasi;
+
+        $group->save();
+        return redirect()->route('admin.group.detail', ['id' => $request->group_id])->with('success', 'Data berhasil diubah');
+    }
+
+    public function editPenerbangan($id)
+    {
+        $group = group::find($id);
+        $paket = $group->paket;
+
+        // return $group->list_penerbangan;
+        return view('Admin.DataPaket.DataGroup.updatePenerbangan', [
+            'group' => $group,
+            'paket' => $paket,
+        ]);
+    }
+
+    public function editPenerbanganStore(Request $request)
+    {
+        // return $request;
+        $request->validate([
+            'group_id' => 'required|exists:group,id',
+            'judul' => 'required|array',
+            'maskapai' => 'required|array',
+            'tanggal_berangkat' => 'required|array',
+            'tanggal_tiba' => 'required|array',
+            'lama_penerbangan' => 'required|array',
+            'bagasi' => 'required|array',
+            'bagasi_kabin' => 'required|array',
+            'kursi' => 'required|array',
+            'bandara_asal' => 'required|array',
+            'kota_asal' => 'required|array',
+            'bandara_tujuan' => 'required|array',
+            'kota_tujuan' => 'required|array',
+        ]);
+
+        $group = group::find($request->group_id);
+
+        $penerbangan = [];
+        foreach ($request->judul as $key => $judul) {
+            $penerbangan[] = [
+                'judul' => $judul,
+                'maskapai' => $request->maskapai[$key] ?? '',
+                'tanggal_berangkat' => $request->tanggal_berangkat[$key] ?? '',
+                'tanggal_tiba' => $request->tanggal_tiba[$key] ?? '',
+                'lama_penerbangan' => $request->lama_penerbangan[$key] ?? '',
+                'bagasi' => $request->bagasi[$key] ?? '',
+                'bagasi_kabin' => $request->bagasi_kabin[$key] ?? '',
+                'kursi' => $request->kursi[$key ?? ''],
+                'bandara_asal' => $request->bandara_asal[$key] ?? '',
+                'kota_asal' => $request->kota_asal[$key] ?? '',
+                'bandara_tujuan' => $request->bandara_tujuan[$key] ?? '',
+                'kota_tujuan' => $request->kota_tujuan[$key] ?? '',
+            ];
+        }
+        $group->jadwal_penerbangan = $penerbangan;
+        $group->save();
+        return redirect()->route('admin.group.detail', ['id' => $request->group_id])->with('success', 'Data berhasil diubah');
     }
 }
