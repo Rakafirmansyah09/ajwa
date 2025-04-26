@@ -62,3 +62,8 @@ Route::get('/admin/Group/{id}/addJemaah/cariNik', [JemaahController::class, 'car
 Route::post('/admin/Group/{id}/addJemaah', [JemaahController::class, 'storeJemaah'])->name('admin.group.storeJemaah');
 Route::get('/admin/Group/jemaah/{id}', [JemaahController::class, 'detail'])->name('admin.group.jemaah.detail');
 Route::post('/admin/Group/jemaah/delete', [JemaahController::class, 'delete'])->name('admin.group.jemaah.delete');
+
+// data jemaah pembayaran
+Route::get('/admin/Group/jemaah/{id}/pembayaran', [JemaahController::class, 'addPembayaran'])->name('admin.group.jemaah.addPembayaran');
+Route::post('/admin/Group/jemaah/pembayaran', [JemaahController::class, 'storePembayaran'])->name('admin.group.jemaah.storePembayaran');
+Route::post('/admin/Group/jemaah/pembayaran/delete', [JemaahController::class, 'deletePembayaran'])->name('admin.group.jemaah.deletePembayaran');

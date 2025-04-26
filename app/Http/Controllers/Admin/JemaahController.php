@@ -8,6 +8,7 @@ use App\Models\bioJemaah;
 use App\Models\group;
 use App\Models\jemaah;
 use App\Models\paket;
+use App\Models\pembayaran;
 use Illuminate\Http\Request;
 
 class JemaahController extends Controller
@@ -147,11 +148,64 @@ class JemaahController extends Controller
         );
     }
 
-
     public function delete(Request $request)
     {
         $jemaah = jemaah::find($request->idJemaah);
+        if ($jemaah->pembayaran->count() > 0) {
+            return redirect()->back()->with('error', 'Data jemaah tidak dapat dihapus karena sudah ada pembayaran!');
+        }
+
         $jemaah->delete();
         return redirect()->back()->with('success', 'Data jemaah berhasil dihapus!');
+    }
+
+    public function addPembayaran($id)
+    {
+        $jemaah = jemaah::find($id);
+
+        // isset
+        return view('Admin.DataBioJamaah.DataJemaah.updatePembayaran', [
+            'pageTitle' => 'Tambah Pembayaran',
+            'jemaah' => $jemaah,
+        ]);
+    }
+
+    public function storePembayaran(Request $request)
+    {
+
+        $request->validate([
+            'jemaah_id' => 'required|exists:jemaah,id',
+            'harga' => 'required|numeric',
+            'method' => 'required|string',
+            'detail' => 'required|string',
+            'bukti' => 'required|file|mimes:jpg,jpeg,png,pdf|max:1048',
+        ]);
+
+        $jemaah = jemaah::find($request->jemaah_id);
+        $jemaah->pembayaran()->create([
+            'harga' => $request->harga,
+            'method' => $request->method,
+            'dibayar_oleh' => 'admin',
+            'detail' => $request->detail,
+            'bukti' => $this->upload->create($jemaah->id, 'Pembayaran', $request->file('bukti')),
+        ]);
+
+        return redirect()->route('admin.group.jemaah.detail', ['id' => $request->jemaah_id])->with('success', 'Data pembayaran berhasil ditambahkan!');
+    }
+
+    public function deletePembayaran(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:pembayarans,id',
+        ]);
+
+        $pembayaran = pembayaran::find($request->id);
+        if ($pembayaran->dibayar_oleh != 'admin') {
+            return redirect()->back()->with('error', 'Anda tidak dapat menghapus pembayaran yang dilakukan oleh jemaah!');
+        }
+
+        $this->upload->delete($pembayaran->bukti);
+        $pembayaran->delete();
+        return redirect()->back()->with('success', 'Data pembayaran berhasil dihapus!');
     }
 }

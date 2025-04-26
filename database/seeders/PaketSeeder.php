@@ -45,7 +45,8 @@ class PaketSeeder extends Seeder
                 [
                     'nama' => 'Air Zamzam 5 Liter'
                 ]
-            ]),            'itinerary' => json_encode([
+            ]),
+            'itinerary' => json_encode([
                 [
                     'judul' => 'Keberangkatan dari Jakarta',
                     'deskripsi' => 'Check in di Bandara Soekarno-Hatta dan penerbangan menuju Madinah',
@@ -95,7 +96,7 @@ class PaketSeeder extends Seeder
                 [
                     'judul' => 'Jakarta - Madinah',
                     'maskapai' => 'Garuda Indonesia',
-                    'tanggal_keberangkatan' => '2025-04-20',
+                    'tanggal_berangkat' => '2025-04-20',
                     'tanggal_tiba' => '2025-04-20',
                     'lama_penerbangan' => '12 jam',
                     'bagasi' => '30 kg',
@@ -109,7 +110,7 @@ class PaketSeeder extends Seeder
                 [
                     'judul' => 'Jeddah - Jakarta',
                     'maskapai' => 'Garuda Indonesia',
-                    'tanggal_keberangkatan' => '2025-04-29',
+                    'tanggal_berangkat' => '2025-04-29',
                     'tanggal_tiba' => '2025-04-30',
                     'lama_penerbangan' => '12 jam',
                     'bagasi' => '30 kg',

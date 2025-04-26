@@ -47,4 +47,8 @@ class jemaah extends Model
     {
         return $this->belongsTo(group::class, 'group_id');
     }
+    public function pembayaran()
+    {
+        return $this->hasMany(pembayaran::class, 'jemaah_id');
+    }
 }

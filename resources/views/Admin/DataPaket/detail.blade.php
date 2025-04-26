@@ -146,7 +146,7 @@
 
 <div class="card">
    <div class="card-header d-flex justify-content-between align-items-center">
-      <h5><b>List Keberangkatan</b></h5>
+      <h5><b>List Group Keberangkatan</b></h5>
       <a href="{{ route('admin.group.create', ['id' => $paket->id]) }}" class="btn btn-sm btn-primary">
          <b>Tambah Keberangkatan</b>
       </a>

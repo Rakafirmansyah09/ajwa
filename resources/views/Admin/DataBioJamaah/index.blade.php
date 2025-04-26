@@ -1,4 +1,4 @@
-@extends('template.index', ['pageTitle' => 'Data Biodata Jemaah'])
+@extends('template.index')
 
 @section('css')
 

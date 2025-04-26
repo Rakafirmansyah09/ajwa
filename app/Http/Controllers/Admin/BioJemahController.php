@@ -22,7 +22,7 @@ class BioJemahController extends Controller
         $data = bioJemaah::paginate(20);
         return view('Admin.DataBioJamaah.index', [
             'data' => $data,
-            'pageTitlee' => 'Data Jamaah',
+            'pageTitle' => 'List Biodata Jemaah',
         ]);
     }
 
@@ -47,9 +47,8 @@ class BioJemahController extends Controller
         $data = bioJemaah::find($id);
         // return $data->jemaah[0]->group->tanggal_keberangkatan;
         return view('Admin.DataBioJamaah.detail', [
-            'pageTitle' => 'Detail Biodata Jamaah',
+            'pageTitle' => 'Detail Jemaah : ' . $data->nama_lengkap,
             'data' => $data,
-            'pageTitle' => 'Detail Jamaah',
         ]);
     }
 }

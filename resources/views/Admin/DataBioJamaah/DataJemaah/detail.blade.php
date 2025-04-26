@@ -93,80 +93,54 @@
       </div>
    </div>
 </div>
-<div class="card">
-   <div class="card-header">
-      <h5><b>Kelengkapan Data</b></h5>
-   </div>
-   <div class="card-body">
-      <table class="table table-borderless table-custom">
-         <tr>
-            <td>Tanggal Lahir</td>
-            <td>:</td>
-            <td>{{$jemaah->bioJemaah->tanggal_lahir}}</td>
-            <!-- -------------- -->
-            <td>File Foto</td>
-            <td>:</td>
-            <td>
-               <a href="{{asset($jemaah->file_foto)}}" target="_blank" class="btn btn-sm btn-info">
-                  <b>Lihat file</b>
-               </a>
-            </td>
-         </tr>
-         <tr>
-            <td>Tempat Lahir</td>
-            <td>:</td>
-            <td>{{$jemaah->bioJemaah->tempat_lahir}}</td>
-            <!-- -------------- -->
-            <td>File KTP</td>
-            <td>:</td>
-            <td>
-               <a href="{{asset($jemaah->bioJemaah->file_ktp)}}" target="_blank" class="btn btn-sm btn-info">
-                  <b>Lihat file</b>
-               </a>
-            </td>
-         </tr>
-         <tr>
-            <td>No Hp</td>
-            <td>:</td>
-            <td>{{$jemaah->no_hp}}</td>
-            <!-- -------------- -->
-           
-         </tr>
-         <tr>
-            <td>Alamat</td>
-            <td>:</td>
-            <td>{{$jemaah->alamat}}</td>
-            <!-- -------------- -->
-            <td>File Paspor</td>
-            <td>:</td>
-            <td>
-               <a href="{{asset($jemaah->bioJemaah->file_paspor)}}" target="_blank" class="btn btn-sm btn-info">
-                  <b>Lihat File</b>
-               </a>
-            </td>
-         </tr>
-         <tr>
-            <td>Kecamatan</td>
-            <td>:</td>
-            <td>{{$jemaah->kecamatan}}</td>
-            <!-- -------------- -->
-
-         </tr>
-      </table>
-   </div>
-</div>
 
 <div class="card">
-   <div class="card-header">
+   <div class="card-header d-flex justify-content-between align-items-center">
       <h5><b>Riwayat Pembayaran</b></h5>
+      <a href="{{route('admin.group.jemaah.addPembayaran', ['id' => $jemaah->id])}}" class="btn btn-sm btn-info"><b>Tambah Pembayaran</b></a>
    </div>
    <div class="card-body">
-      <table class="table table-borderless table-custom">
+      <table class="table table-borderless table-striped ">
          <thead>
-            <tr>
-
+            <tr class="bg-primary-subtle">
+               <td>No. </td>
+               <td>Tanggal</td>
+               <td>Dibayar Oleh</td>
+               <td>Harga</td>
+               <td>Bukti</td>
+               <td>Method</td>
+               <td>Status</td>
+               <td></td>
             </tr>
          </thead>
+         <tbody>
+            @forelse ( $jemaah->pembayaran as $item)
+            <tr>
+               <td>{{$loop->iteration}}</td>
+               <td>{{$item->created_at}}</td>
+               <td>{{$item->dibayar_oleh}}</td>
+               <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
+               <td>
+                  <a href="{{asset($item->bukti)}}" target="_blank" class="btn btn-sm btn-info">Lihat File</a>
+               </td>
+               <td>{{$item->method}}</td>
+               <td>{{$item->status}}</td>
+               <td>
+                  <form action="{{route('admin.group.jemaah.deletePembayaran')}}" method="post">
+                     @csrf
+                     <input type="hidden" name="id" value="{{$item->id}}">
+                     <button type="submit" style="border: none;">
+                        <i class="fas fa-trash-alt" style="color: #ff0000;"></i>
+                     </button>
+                  </form>
+               </td>
+            </tr>
+            @empty
+            <tr>
+               <td colspan="8" class="text-center">Data Kosong</td>
+            </tr>
+            @endforelse
+         </tbody>
       </table>
    </div>
 

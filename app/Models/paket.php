@@ -43,18 +43,19 @@ class paket extends Model
 
     public function getListFasilitasAttribute()
     {
-        return json_decode($this->fasilitas, true) ?? [];
-        // no
-        // nama fasilitas
+        $data =  json_decode($this->fasilitas, true);
+        return is_array($data) || is_object($data)
+            ? collect($data)
+            : collect(); // fallback jika null atau gagal decode
+
     }
 
     public function getListItineraryAttribute()
     {
-        return json_decode($this->itinerary, true) ?? [];
-        // no
-        // tanggal
-        // judul
-        // deskripso
-        // lokasi
+        $data =  json_decode($this->itinerary, true);
+        return is_array($data) || is_object($data)
+            ? collect($data)
+            : collect(); // fallback jika null atau gagal decode
+
     }
 }

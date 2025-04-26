@@ -50,6 +50,7 @@ return new class extends Migration
         Schema::create('pembayarans', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('jemaah_id');
+            $table->uuid('dibayar_oleh')->nullable();
             $table->decimal('harga', 10, 2);
             $table->string('bukti');
             $table->string('method');
