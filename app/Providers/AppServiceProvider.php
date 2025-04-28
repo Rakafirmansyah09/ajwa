@@ -15,15 +15,5 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
-    {
-
-        function admin_abort($code, $message = 'Akses Ditolak')
-        {
-            if ($code == 404) {
-                return response()->view('Admin.Errors.404', ['message' => $message], $code);
-            }
-            abort(403, $message);
-        }
-    }
+    public function boot(): void {}
 }

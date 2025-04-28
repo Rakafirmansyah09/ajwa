@@ -109,6 +109,14 @@
                    </li>
                 </ul>
              </li>
+
+             <li class="sidebar-title">Auth</li>
+             <li class="sidebar-item">
+                <a href="{{route('admin.logout')}}" class='sidebar-link'>
+                   <i class="bi bi-box-arrow-left"></i>
+                   <span>Logout</span>
+                </a>
+             </li>
           </ul>
        </div>
     </div>

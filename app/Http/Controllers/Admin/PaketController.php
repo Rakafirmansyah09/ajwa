@@ -7,7 +7,6 @@ use App\Models\kategori;
 use App\Models\paket;
 use Illuminate\Http\Request;
 
-use function App\Providers\admin_abort;
 
 class PaketController extends Controller
 {
@@ -74,7 +73,7 @@ class PaketController extends Controller
 
         $paket = paket::find($request->id);
         if (!$paket) {
-            return admin_abort(404, 'Paket tidak ditemukan');
+            abort(404);
         }
         $paket->update([
             'code' => $request->code,
@@ -111,7 +110,7 @@ class PaketController extends Controller
         // return $paket;
 
         if (!$paket) {
-            return admin_abort(404, 'Paket tidak ditemukan');
+            abort(404);
         }
 
         // return $paket;

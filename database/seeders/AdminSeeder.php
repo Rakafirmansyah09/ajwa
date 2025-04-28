@@ -15,13 +15,20 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create('id_ID');
-        for ($i = 1; $i < 4; $i++) {
-            User::create([
-                'name' => $faker->name(),
-                'email' => 'user' . $i . '@example.com',
-                'password' => bcrypt('password'),
-            ]);
-        }
+        // $faker = Faker::create('id_ID');
+        // for ($i = 1; $i < 4; $i++) {
+        //     User::create([
+        //         'name' => $faker->name(),
+        //         'email' => 'user' . $i . '@example.com',
+        //         'password' => bcrypt('password'),
+        //     ]);
+        // }
+
+        User::create([
+            'name' => 'admin',
+            'email' => 'superadmin@ajwa.com',
+            'type' => 'admin',
+            'password' => bcrypt('password'),
+        ]);
     }
 }
