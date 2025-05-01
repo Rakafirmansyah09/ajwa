@@ -1,6 +1,16 @@
 @extends('template.index')
 
 @section('css')
+<style>
+   .card-pendaftaran {
+      cursor: pointer;
+   }
+
+   .card-pendaftaran:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      background-color: #c9d0e3;
+   }
+</style>
 
 @endsection
 
@@ -17,8 +27,8 @@
 <div class="row">
    @forelse ($paket as $p)
    <div class="col-lg-4 col-md-6 mb-4">
-      <div class="card shadow-sm hover-shadow">
-         <div class="card-header">
+      <div class="card shadow-sm hover-shadow card-pendaftaran" data-bs-toggle="modal" data-bs-target="#ModalPaket{{$loop->iteration}}">
+         <div class="card-header bg-transparent">
             <h5 class="mb-0"><i class="bi bi-box-seam me-2"></i><b>Paket {{$p->nama}}</b></h5>
          </div>
          <div class="card-body">
@@ -28,14 +38,6 @@
                   <p class="mb-0"><i class="bi bi-calendar-event me-2"></i>{{$p->durasi}} hari</p>
                   <p class="mb-0"><i class="bi bi-tag-fill me-2"></i>Rp {{number_format($p->harga, 0, ',', '.')}}</p>
                </div>
-            </div>
-            <div class="mt-3 d-flex justify-content-end">
-               <a href="" class="btn btn-info btn-sm me-2">
-                  <b>Detail</b>
-               </a>
-               <a href="" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#ModalPaket{{$loop->iteration}}">
-                  <b>Pesan Paket</b>
-               </a>
             </div>
          </div>
       </div>
