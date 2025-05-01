@@ -13,6 +13,11 @@ class group extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
+    protected $appends = [
+        'list_penerbangan',
+        'list_akomodasi',
+    ];
+
     protected $fillable = [
         'paket_id',
         'nama',
@@ -60,6 +65,4 @@ class group extends Model
             ? collect($data)
             : collect(); // fallback jika null atau gagal decode
     }
-
-    
 }

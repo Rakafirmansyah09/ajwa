@@ -24,6 +24,12 @@ class paket extends Model
         'detail',
     ];
 
+    protected $appends = [
+        'list_fasilitas',
+        'list_itinerary',
+    ];
+
+
     protected static function boot()
     {
         parent::boot();

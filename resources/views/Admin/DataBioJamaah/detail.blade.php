@@ -21,8 +21,9 @@
 </div>
 
 <div class="card mb-2">
-   <div class="card-header">
+   <div class="card-header d-flex justify-content-between align-items-center">
       <h5 class="mb-0"><b>Biodata : {{$data->nama_lengkap}}</b></h5>
+      <a href="{{route('admin.biojemaah.edit', ['id' => $data->id])}}" class="btn btn-sm btn-info"><b>Edit Jemaah</b></a>
    </div>
    <div class="card-body">
       <div class="row">
@@ -46,7 +47,7 @@
                <tr>
                   <td>Jenis Kelamin</td>
                   <td>:</td>
-                  <td>{{$data->jenis_kelamin}}</td>
+                  <td>{{$data->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan'}}</td>
                </tr>
             </table>
          </div>

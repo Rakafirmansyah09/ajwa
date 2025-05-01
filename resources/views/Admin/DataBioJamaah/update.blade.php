@@ -21,7 +21,7 @@
       </h5>
    </div>
    <div class="card-body">
-      <form enctype="multipart/form-data" method="post" action="{{ isset($jemaah) ? route('admin.jemaah.update', $jemaah->id) : route('admin.jemaah.store') }}">
+      <form enctype="multipart/form-data" method="post" action="{{ isset($jemaah) ? route('admin.biojemaah.editPost', $jemaah->id) : route('admin.biojemaah.addPost') }}">
          @csrf
 
          <div class="row">
@@ -50,6 +50,17 @@
                   <input type="text" name="tempatLahir" class="form-control" id="tempatLahir" placeholder="Tempat Lahir" value="{{ old('tempatLahir', $jemaah->tempat_lahir ?? '') }}">
                </div>
             </div>
+            <!-- jenis kelamin -->
+            <div class="col-md-6">
+               <div class="form-group">
+                  <label for="jenisKelamin">Jenis Kelamin</label>
+                  <select name="jenisKelamin" id="jenisKelamin" class="form-control">
+                     <option value="L" {{ old('jenisKelamin', $jemaah->jenis_kelamin ?? '') == 'L' ? 'selected' : '' }}>Laki-laki</option>
+                     <option value="P" {{ old('jenisKelamin', $jemaah->jenis_kelamin ?? '') == 'P' ? 'selected' : '' }}>Perempuan</option>
+                  </select>
+               </div>
+            </div>
+            <div class="col-md-6"></div>
             <div class="col-md-6">
                <div class="form-group">
                   <label for="file_ktp">File KTP</label>

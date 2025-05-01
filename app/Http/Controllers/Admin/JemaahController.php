@@ -60,9 +60,8 @@ class JemaahController extends Controller
             'namaLengkap' => 'string|nullable',
             'nik' => 'string|nullable',
             'tanggalLahir' => 'date|nullable',
-            'jenis_kelamin' => 'string|nullable',
+            'jenis_kelamin' => 'required|in:L,P',
             'tempatLahir' => 'string|nullable',
-
             'no_hp' => 'string|required',
             'alamat' => 'string|required',
             'kecamatan' => 'string|required',
@@ -77,10 +76,20 @@ class JemaahController extends Controller
 
         // return $request;
 
-        // return $request;
-
         // create or update bioJemaah
         if (!isset($request->idJemaah)) {
+
+            $request->validate([
+                'nik' => 'required|string|unique:bioJemaahs,nik',
+                'namaLengkap' => 'required|string',
+                'tanggalLahir' => 'required|date',
+                'jenis_kelamin' => 'required|in:L,P',
+                'tempatLahir' => 'required|string',
+
+                'file_ktp' => 'required|file|mimes:jpg,jpeg,png,pdf|max:1048',
+            ]);
+
+
             $fileKtp = null;
             $filePaspor = null;
 
@@ -181,6 +190,7 @@ class JemaahController extends Controller
 
     public function storePembayaran(Request $request)
     {
+        // return $request;
 
         $request->validate([
             'jemaah_id' => 'required|exists:jemaah,id',
@@ -194,6 +204,7 @@ class JemaahController extends Controller
         $jemaah->pembayaran()->create([
             'harga' => $request->harga,
             'method' => $request->method,
+            'status' => 'success',
             'dibayar_oleh' => 'admin',
             'detail' => $request->detail,
             'bukti' => $this->upload->create($jemaah->id, 'Pembayaran', $request->file('bukti')),

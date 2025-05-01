@@ -28,6 +28,7 @@
                <th>No. </th>
                <th>Name</th>
                <th>NIK</th>
+               <th>Jenis Kelamin</th>
                <th>Tempat Lahir</th>
                <th>Tanggal Lahir</th>
                <th>Aksi</th>
@@ -39,10 +40,11 @@
                <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
                <td>{{$j->nama_lengkap}}</td>
                <td>{{$j->nik}}</td>
+               <td>{{$j->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan'}}</td>
                <td>{{$j->tempat_lahir}}</td>
                <td>{{$j->tanggal_lahir}}</td>
                <td>
-                  <form method="post" action="{{ route('admin.jemaah.delete') }}" class="d-inline">
+                  <form method="post" action="{{ route('admin.biojemaah.delete') }}" class="d-inline">
                      @csrf
                      <input type="hidden" name="id" value="{{$j->id}}">
                      <button type="submit" class="btn btn-sm btn-danger">
@@ -50,7 +52,7 @@
                         <b>Hapus</b>
                      </button>
                   </form>
-                  <a href="{{route('admin.jemaah.detail', ['id'=>$j->id])}}" class="btn btn-sm btn-info">
+                  <a href="{{route('admin.biojemaah.detail', ['id'=>$j->id])}}" class="btn btn-sm btn-info">
                      <!-- <i class="fas fa-info-circle"></i> -->
                      <b>Detail</b>
                   </a>

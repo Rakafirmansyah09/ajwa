@@ -62,7 +62,7 @@
              <li class="sidebar-title">Data Master</li>
 
              <li class="sidebar-item">
-                <a href="{{route('admin.jemaah.list')}}" class='sidebar-link'>
+                <a href="{{route('admin.biojemaah.list')}}" class='sidebar-link'>
                    <i class="bi bi-file-earmark-medical-fill"></i>
                    <span>Data Biodata Jamaah</span>
                 </a>

@@ -40,9 +40,13 @@ Route::middleware('auth1:admin')->group(function () {
    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
    // data Biojemaah
-   Route::get('/admin/listJemaah', [BioJemahController::class, 'index'])->name('admin.jemaah.list');
-   Route::post('/admin/DeleteJemaah', [BioJemahController::class, 'delete'])->name('admin.jemaah.delete');
-   Route::get('/admin/Jemaah/{id}', [BioJemahController::class, 'detail'])->name('admin.jemaah.detail');
+   Route::get('/admin/listJemaah', [BioJemahController::class, 'index'])->name('admin.biojemaah.list');
+   // Route::get('/admin/addJemaah', [BioJemahController::class, 'add'])->name('admin.biojemaah.add');
+   // Route::post('/admin/addJemaah', [BioJemahController::class, 'addPost'])->name('admin.biojemaah.addPost');
+   Route::get('/admin/editJemaah/{id}', [BioJemahController::class, 'edit'])->name('admin.biojemaah.edit');
+   Route::post('/admin/editJemaah', [BioJemahController::class, 'editPost'])->name('admin.biojemaah.editPost');
+   Route::post('/admin/DeleteJemaah', [BioJemahController::class, 'delete'])->name('admin.biojemaah.delete');
+   Route::get('/admin/Jemaah/{id}', [BioJemahController::class, 'detail'])->name('admin.biojemaah.detail');
 
    // pendaftaran
    Route::get('/admin/pendaftaran', [PendaftaranController::class, 'index'])->name('admin.pendaftaran');
@@ -65,7 +69,7 @@ Route::middleware('auth1:admin')->group(function () {
    Route::get('/admin/EditPaket/{id}', [PaketController::class, 'edit'])->name('admin.paket.edit');
    Route::post('/admin/EditPaket', [PaketController::class, 'update'])->name('admin.paket.update');
    Route::post('/admin/DeletePaket', [PaketController::class, 'delete'])->name('admin.paket.delete');
-   Route::get('/admin/Peket/{id}', [PaketController::class, 'detail'])->name('admin.paket.detail');
+   Route::get('/admin/DetailPeket/{id}', [PaketController::class, 'detail'])->name('admin.paket.detail');
    // data paket faslitas
    Route::get('/admin/Peket/{id}/Fasilitas', [PaketController::class, 'editFasilitas'])->name('admin.paket.editFasilitas');
    Route::post('/admin/Peket/Fasilitas', [PaketController::class, 'editFasilitasStore'])->name('admin.paket.editFasilitas.Store');
@@ -79,7 +83,7 @@ Route::middleware('auth1:admin')->group(function () {
    Route::get('/admin/EditGroup/{id}', [GroupController::class, 'edit'])->name('admin.group.edit');
    Route::post('/admin/EditGrop', [GroupController::class, 'update'])->name('admin.group.update');
    Route::post('/admin/DeleteGrop', [GroupController::class, 'delete'])->name('admin.group.delete');
-   Route::get('/admin/Group/{id}', [GroupController::class, 'detail'])->name('admin.group.detail');
+   Route::get('/admin/DetailGroup/{id}', [GroupController::class, 'detail'])->name('admin.group.detail');
    // data group akomodasi
    Route::get('/admin/Group/{id}/Akomodasi', [GroupController::class, 'editAkomodasi'])->name('admin.group.editAkomodasi');
    Route::post('/admin/Group/Akomodasi', [GroupController::class, 'editAkomodasiStore'])->name('admin.group.editAkomodasiStore');
