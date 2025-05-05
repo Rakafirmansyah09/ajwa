@@ -52,15 +52,15 @@
          <div class="row">
             <div class="col-md-4">
                <div class="form-group">
-                  <label for="harga_display">Jumlah Pembayaran</label>
-                  <input type="text" id="harga_display" class="form-control" required>
+                  <label for="harga_display">Jumlah Pembayaran (Max: Rp. {{ number_format($belumBayar, 0, ',', '.') }})</label>
+                  <input type="text" id="harga_display" class="form-control" required data-max="{{$belumBayar}}">
                   <input type="hidden" name="harga" id="harga" value="{{ old('harga', $pembayaran->harga ?? '') }}">
                </div>
             </div>
             <div class="col-md-4">
                <div class="form-group">
                   <label for="method">Metode Pembayaran</label>
-                  <select name="method" class="form-control" required>
+                  <select name="method" class="form-control" id="metode_pembayaran" required>
                      <option value="">-- Pilih Metode --</option>
                      <option value="transfer" {{ old('method', $pembayaran->method ?? '') == 'transfer' ? 'selected' : '' }}>Transfer</option>
                      <option value="tunai" {{ old('method', $pembayaran->method ?? '') == 'tunai' ? 'selected' : '' }}>Tunai</option>
@@ -71,7 +71,7 @@
             <div class="col-md-4">
                <div class="form-group">
                   <label for="bukti">Upload Bukti Pembayaran</label>
-                  <input type="file" name="bukti" class="form-control">
+                  <input type="file" name="bukti" class="form-control" id="upload_bukti">
                   @if(isset($pembayaran) && $pembayaran->bukti)
                   <a href="{{ asset('storage/' . $pembayaran->bukti) }}" target="_blank">Lihat Bukti</a>
                   @endif
@@ -117,12 +117,33 @@
       }
    });
 
+   // Handle select change
+   document.getElementById('metode_pembayaran').addEventListener('change', function(e) {
+      const selectedValue = e.target.value;
+      if (selectedValue === 'tunai') {
+         document.getElementById('upload_bukti').disabled = true;
+      } else {
+         document.getElementById('upload_bukti').disabled = false;
+      }
+   });
+
    // Handle manual input
    document.getElementById('harga_display').addEventListener('input', function(e) {
-      // Remove currency format
-      let value = e.target.value.replace(/[^\d]/g, '');
-      document.getElementById('harga').value = value;
+      // Hapus semua karakter yang bukan angka
+      let value = e.target.value;
+      let max = e.target.dataset.max;
+
+      // Cek jika tidak null atau tidak kosong
       if (value) {
+         // Bersihkan dari karakter non-angka
+         value = value.replace(/[^\d]/g, '');
+         // konfersi ke angka
+         value = parseInt(value);
+         // jika lebih dari max maka set ke max
+         if (value > max) {
+            value = max;
+         }
+
          e.target.value = formatRupiah(value);
       }
    });

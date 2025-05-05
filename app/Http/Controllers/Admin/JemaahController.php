@@ -60,7 +60,7 @@ class JemaahController extends Controller
             'namaLengkap' => 'string|nullable',
             'nik' => 'string|nullable',
             'tanggalLahir' => 'date|nullable',
-            'jenis_kelamin' => 'required|in:L,P',
+            'jenis_kelamin' => 'nullable|in:L,P',
             'tempatLahir' => 'string|nullable',
             'no_hp' => 'string|required',
             'alamat' => 'string|required',
@@ -181,10 +181,14 @@ class JemaahController extends Controller
     {
         $jemaah = jemaah::find($id);
 
+        $terbayar = $jemaah->pembayaran->sum('harga');
+        $harga = $jemaah->group->paket->harga;
+        $belumBayar = $harga - $terbayar;
         // isset
         return view('Admin.DataBioJamaah.DataJemaah.updatePembayaran', [
             'pageTitle' => 'Tambah Pembayaran',
             'jemaah' => $jemaah,
+            'belumBayar' => $belumBayar,
         ]);
     }
 
@@ -197,19 +201,29 @@ class JemaahController extends Controller
             'harga' => 'required|numeric',
             'method' => 'required|string',
             'detail' => 'required|string',
-            'bukti' => 'required|file|mimes:jpg,jpeg,png,pdf|max:1048',
+            'bukti' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:1048',
         ]);
 
+        if ($request->method == 'transfer') {
+            $request->validate([
+                'bukti' => 'required|file|mimes:jpg,jpeg,png,pdf|max:1048',
+            ]);
+        }
+
         $jemaah = jemaah::find($request->jemaah_id);
+        $bukti = '-';
+        if ($request->hasFile('bukti')) {
+            $bukti = $this->upload->create($jemaah->id, 'Pembayaran', $request->file('bukti'));
+        }
+
         $jemaah->pembayaran()->create([
             'harga' => $request->harga,
             'method' => $request->method,
             'status' => 'success',
             'dibayar_oleh' => 'admin',
             'detail' => $request->detail,
-            'bukti' => $this->upload->create($jemaah->id, 'Pembayaran', $request->file('bukti')),
+            'bukti' => $bukti,
         ]);
-
         return redirect()->route('admin.group.jemaah.detail', ['id' => $request->jemaah_id])->with('success', 'Data pembayaran berhasil ditambahkan!');
     }
 
