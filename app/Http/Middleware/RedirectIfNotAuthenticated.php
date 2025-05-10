@@ -34,6 +34,6 @@ class RedirectIfNotAuthenticated
         }
 
         // Default redirect jika tidak memenuhi kondisi
-        return redirect()->route('homepage');
+        return redirect()->route('admin.login');
     }
 }

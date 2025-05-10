@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helper\UploadFileController;
 use App\Models\kategori;
 use App\Models\paket;
 use Illuminate\Http\Request;
@@ -10,6 +11,13 @@ use Illuminate\Http\Request;
 
 class PaketController extends Controller
 {
+    public $upload;
+
+    public function __construct(UploadFileController $upload)
+    {
+        $this->upload = $upload;
+    }
+
     public function index()
     {
         $data = paket::paginate(50);
@@ -34,10 +42,11 @@ class PaketController extends Controller
             'durasi' => 'required|integer',
             'kuota' => 'required|integer',
             'harga' => 'required|numeric|min:0',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'detail' => 'required|string',
         ]);
 
-        paket::create([
+        $paket = paket::create([
             'code' => $request->code,
             'nama' => $request->nama,
             'durasi' => $request->durasi,
@@ -45,6 +54,12 @@ class PaketController extends Controller
             'harga' => $request->harga,
             'detail' => $request->detail,
         ]);
+
+        if (isset($request->gambar)) {
+            $url =  $this->upload->create($paket->id, 'paket',   $request->gambar);
+            $paket->gambar = $url;
+            $paket->save();
+        }
 
         // return $request;
         return redirect()->route('admin.paket.list')->with('success', 'Berhasil menambah paket');
@@ -68,6 +83,7 @@ class PaketController extends Controller
             'durasi' => 'required|integer',
             'kuota' => 'required|integer',
             'harga' => 'required|numeric|min:0',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'detail' => 'required|string',
         ]);
 
@@ -75,14 +91,33 @@ class PaketController extends Controller
         if (!$paket) {
             abort(404);
         }
-        $paket->update([
-            'code' => $request->code,
-            'nama' => $request->nama,
-            'durasi' => $request->durasi,
-            'kuota' => $request->kuota,
-            'harga' => $request->harga,
-            'detail' => $request->detail,
-        ]);
+
+        if (isset($request->gambar)) {
+            if ($paket->gambar) {
+                $url =  $this->upload->update($paket->gambar, $request->gambar);
+            }else{
+                $url =  $this->upload->create($paket->id, 'paket',   $request->gambar);
+            }
+
+            $paket->update([
+                'code' => $request->code,
+                'nama' => $request->nama,
+                'durasi' => $request->durasi,
+                'kuota' => $request->kuota,
+                'harga' => $request->harga,
+                'gambar' => $url,
+                'detail' => $request->detail,
+            ]);
+        } else {
+            $paket->update([
+                'code' => $request->code,
+                'nama' => $request->nama,
+                'durasi' => $request->durasi,
+                'kuota' => $request->kuota,
+                'harga' => $request->harga,
+                'detail' => $request->detail,
+            ]);
+        }
 
         return redirect()->route('admin.paket.list')->with('success', 'Berhasil mengubah paket');
     }

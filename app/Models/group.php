@@ -21,6 +21,7 @@ class group extends Model
     protected $fillable = [
         'paket_id',
         'nama',
+        // tutp pekndaftaran
         'tanggal_keberangkatan',
         'tanggal_kepulangan',
         'jadwal_penerbangan',

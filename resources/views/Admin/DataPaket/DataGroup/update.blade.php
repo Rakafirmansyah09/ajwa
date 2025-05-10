@@ -26,8 +26,8 @@
                   <div class="row">
                      <div class="col-md-3">
                         <div class="form-group">
-                           <label for="nama">Code Paket</label>
-                           <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama Paket" value="{{$paket->code}}" readonly>
+                           <label for="code">Code Paket</label>
+                           <input type="text" name="code" class="form-control" id="code" placeholder="Nama Paket" value="{{$paket->code}}" readonly>
                         </div>
                      </div>
                      <div class="col-md-6">
@@ -38,8 +38,8 @@
                      </div>
                      <div class="col-md-3">
                         <div class="form-group">
-                           <label for="nama">Nama Paket</label>
-                           <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama Paket" value="{{$paket->kuota}} Orang" readonly>
+                           <label for="kapasitas">Kapasitas Paket</label>
+                           <input type="text" name="kapasitas" class="form-control" id="kapasitas" placeholder="kapasitas Paket" value="{{$paket->kuota}} Orang" readonly>
                         </div>
                      </div>
                   </div>

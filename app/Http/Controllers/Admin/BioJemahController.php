@@ -17,9 +17,16 @@ class BioJemahController extends Controller
         $this->upload = $upload;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = bioJemaah::paginate(20);
+
+        if (isset($request->search)) {
+            $data = bioJemaah::where('nama_lengkap', 'like', '%' . $request->search . '%')->orWhere('nik', 'like', '%' . $request->search . '%')->paginate(20);
+        } else {
+            $data = bioJemaah::paginate(20);
+        }
+
+
         return view('Admin.DataBioJamaah.index', [
             'data' => $data,
             'pageTitle' => 'List Biodata Jemaah',

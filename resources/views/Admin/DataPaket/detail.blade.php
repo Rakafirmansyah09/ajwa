@@ -63,6 +63,13 @@
             <table class="table table-borderless table-custom">
                <tbody>
                   <tr>
+                     <td class="fw-bold">Gambar</td>
+                     <td>:</td>
+                     <td>
+                        <a class="btn btn-sm btn-info" href="{{ asset($paket->gambar) }}" target="_blank">Lihat Gambar</a>
+                     </td>
+                  </tr>
+                  <tr>
                      <td class="fw-bold">Detail</td>
                      <td>:</td>
                      <td>{{$paket->detail}}</td>

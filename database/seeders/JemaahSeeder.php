@@ -18,7 +18,7 @@ class JemaahSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             bioJemaah::create([
                 'id' => Str::uuid(),
                 'nama_lengkap' => $faker->name(),

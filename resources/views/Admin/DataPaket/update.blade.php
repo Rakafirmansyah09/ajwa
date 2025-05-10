@@ -18,20 +18,30 @@
       <h5 class="card-title">{{ isset($paket) ? 'Detail Paket' : 'Tambah Paket' }}</h5>
    </div>
    <div class="card-body">
-      <form method="post" action="{{ isset($paket) ? route('admin.paket.update') : route('admin.paket.store') }}">
+      <form method="post" action="{{ isset($paket) ? route('admin.paket.update') : route('admin.paket.store') }}" enctype="multipart/form-data">
          @csrf
          <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                <input type="hidden" name="id" value="{{ $paket->id ?? '' }}">
                <div class="form-group">
                   <label for="code">Code Paket</label>
                   <input type="text" name="code" class="form-control" id="code" placeholder="code Paket" value="{{ old('code', $paket->code ?? '') }}">
                </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                <div class="form-group">
                   <label for="nama">Nama Paket</label>
                   <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama Paket" value="{{ old('nama', $paket->nama ?? '') }}">
+               </div>
+            </div>
+            <!-- input gambar backgroud -->
+            <div class="col-md-4">
+               <div class="form-group">
+                  <label for="gambar">Gambar</label>
+                  <input type="file" name="gambar" class="form-control" id="gambar" placeholder="Gambar" accept=".png,.jpg,.jpeg">
+                  @if(isset($paket) && $paket->gambar)
+                  <small class="text-muted">File saat ini: <a href="{{ asset($paket->gambar) }}" target="_blank">Lihat</a></small>
+                  @endif
                </div>
             </div>
             <div class="col-md-4">

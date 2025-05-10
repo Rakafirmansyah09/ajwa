@@ -22,6 +22,7 @@ class PaketController extends Controller
         $data->map(function ($item) {
             $item->jumlahTerdaftar = $item->jemaah->count();
         });
+
         return response()->json([
             'status' => 'success',
             'message' => 'Data berhasil diambil',

@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             JemaahSeeder::class,
             PaketSeeder::class,
+            NewsSeeder::class,
         ]);
     }
 }

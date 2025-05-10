@@ -16,10 +16,14 @@
 
 
 <div class="card">
-   <div class="card-header">
+   <div class="card-header d-flex justify-content-between align-items-center">
       <h5 class="card-title">
          Tabel Jemaah
       </h5>
+      <form class="d-flex" method="GET" action="{{ route('admin.biojemaah.list') }}">
+         <input type="text" name="search" value="{{ request('search') }}" class="form-control" placeholder="Cari Nama/NIK jemaah...">
+         <button type="submit" class="btn btn-sm btn-primary ms-2">Cari</button>
+      </form>
    </div>
    <div class="card-body">
       <table class="table table-striped" id="table1">
@@ -35,7 +39,7 @@
             </tr>
          </thead>
          <tbody>
-            @foreach ($data as $j)
+            @forelse($data as $j)
             <tr>
                <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
                <td>{{$j->nama_lengkap}}</td>
@@ -58,7 +62,13 @@
                   </a>
                </td>
             </tr>
-            @endforeach
+            @empty
+
+            <tr>
+               <td colspan="7" class="text-center"><i>Data tidak ditemukan</i></td>
+            </tr>
+
+            @endforelse
          </tbody>
       </table>
       <div class="d-flex justify-content-center mt-3">
