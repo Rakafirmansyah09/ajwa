@@ -26,7 +26,7 @@
                Tetap masuk
             </label>
          </div>
-         <button class="btn btn-warning btn-block fw-bold mt-4">Masuk</button>
+         <button class="btn btn-warning d-block mx-auto fw-bold mt-4">Masuk</button>
       </form>
 
       <div class="text-center mt-2">
