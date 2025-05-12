@@ -48,16 +48,19 @@ Route::middleware('auth1:admin')->group(function () {
    // ====================================== pendaftaran ======================================
    Route::get('/admin/pendaftaran', [PendaftaranController::class, 'index'])->name('admin.pendaftaran');
    Route::get('/admin/Group/{id}/listJemaah', [PendaftaranController::class, 'listJemaah'])->name('admin.group.listJemaah');
+   Route::get('/admin/Group/{id}/addJemaah', [JemaahController::class, 'addJemaah'])->name('admin.pendaftaran.addJemaah');
+   Route::get('/admin/Group/{id}/addJemaah/cariNik', [JemaahController::class, 'cariNik'])->name('admin.pendaftaran.addJemaah.cariNik');
    // data Jemaah
-   Route::get('/admin/Group/{id}/addJemaah', [JemaahController::class, 'addJemaah'])->name('admin.group.addJemaah');
-   Route::get('/admin/Group/{id}/addJemaah/cariNik', [JemaahController::class, 'cariNik'])->name('admin.group.addJemaah.cariNik');
-   Route::post('/admin/Group/{id}/addJemaah', [JemaahController::class, 'storeJemaah'])->name('admin.group.storeJemaah');
-   Route::get('/admin/Group/jemaah/{id}', [JemaahController::class, 'detail'])->name('admin.group.jemaah.detail');
-   Route::post('/admin/Group/jemaah/delete', [JemaahController::class, 'delete'])->name('admin.group.jemaah.delete');
+   Route::post('/admin/Group/{id}/addJemaah', [JemaahController::class, 'storeJemaah'])->name('admin.pendaftaran.storeJemaah');
+   Route::get('/admin/Group/jemaah/{id}', [JemaahController::class, 'detail'])->name('admin.jemaah.detail');
+   Route::post('/admin/Group/jemaah/delete', [JemaahController::class, 'delete'])->name('admin.jemaah.delete');
+   // data rombongan
+   Route::post('/admin/jemaah/addRombongan/', [JemaahController::class, 'addRombongan'])->name('admin.jemaah.addRombongan');
+   Route::get('/admin/jemaah/{idJemaah}/deleteRombongan', [JemaahController::class, 'deleteRombongan'])->name('admin.jemaah.deleteRombongan');
    // data jemaah pembayaran
-   Route::get('/admin/Group/jemaah/{id}/pembayaran', [JemaahController::class, 'addPembayaran'])->name('admin.group.jemaah.addPembayaran');
-   Route::post('/admin/Group/jemaah/pembayaran', [JemaahController::class, 'storePembayaran'])->name('admin.group.jemaah.storePembayaran');
-   Route::post('/admin/Group/jemaah/pembayaran/delete', [JemaahController::class, 'deletePembayaran'])->name('admin.group.jemaah.deletePembayaran');
+   Route::get('/admin/Group/jemaah/{id}/pembayaran', [JemaahController::class, 'addPembayaran'])->name('admin.jemaah.addPembayaran');
+   Route::post('/admin/Group/jemaah/pembayaran', [JemaahController::class, 'storePembayaran'])->name('admin.jemaah.storePembayaran');
+   Route::post('/admin/Group/jemaah/pembayaran/delete', [JemaahController::class, 'deletePembayaran'])->name('admin.jemaah.deletePembayaran');
 
    // ====================================== data paket ======================================
    Route::get('/admin/listPaket', [PaketController::class, 'index'])->name('admin.paket.list');

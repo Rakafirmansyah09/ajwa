@@ -16,9 +16,9 @@ class JemaahController extends Controller
 {
     public $upload;
 
-    public function __construct(UploadFileController $upload)
+    public function __construct()
     {
-        $this->upload = $upload;
+        $this->upload = new UploadFileController();
     }
 
     public function addJemaah($id, Request $request)
@@ -42,14 +42,14 @@ class JemaahController extends Controller
     {
         $paket = group::find($id);
         if (!$paket) {
-            return redirect()->route('admin.group.addJemaah', ['id' => $id])->withErrors('Paket tidak ditemukan!');
+            return redirect()->route('admin.pendaftaran.addJemaah', ['id' => $id])->withErrors('Paket tidak ditemukan!');
         }
         $Jemaah = bioJemaah::where('nik', $request->nik)->first();
         if (!$Jemaah) {
-            return redirect()->route('admin.group.addJemaah', ['id' => $id])->withErrors('NIK jemaah tidak ditemukan!');
+            return redirect()->route('admin.pendaftaran.addJemaah', ['id' => $id])->withErrors('NIK jemaah tidak ditemukan!');
         }
         // return  $Jemaah;
-        return redirect()->route('admin.group.addJemaah', ['id' => $id, 'idj' => $Jemaah->id])->with('success', 'Data jemaah ditemukan!');
+        return redirect()->route('admin.pendaftaran.addJemaah', ['id' => $id, 'idj' => $Jemaah->id])->with('success', 'Data jemaah ditemukan!');
     }
 
     public function storeJemaah($id, Request $request)
@@ -155,6 +155,8 @@ class JemaahController extends Controller
     public function detail($id)
     {
         $jemaah = jemaah::find($id);
+        $ketuaRombongan = $jemaah->listRombongan($jemaah->group_id);
+
         $group = group::find($jemaah->group_id);
         return view(
             'Admin.DataBioJamaah.DataJemaah.detail',
@@ -162,8 +164,26 @@ class JemaahController extends Controller
                 'pageTitle' => 'Detail Pendaftaran Jemaah',
                 'jemaah' => $jemaah,
                 'group' => $group,
+                'ketuaRombongan' => $ketuaRombongan,
             ]
         );
+    }
+
+    public function addRombongan(Request $request)
+    {
+        $request->validate([
+            'idJemaah' => 'required|string|exists:jemaah,id',
+            'ketuaRombongan' => 'required|string|exists:jemaah,id'
+        ]);
+
+        jemaah::addRombongan($request->idJemaah, $request->ketuaRombongan);
+        return redirect()->back()->with('success', 'Data rombongan berhasil ditambahkan!');
+    }
+
+    public function deleteRombongan($id)
+    {
+        jemaah::deleteRombongan($id);
+        return redirect()->back()->with('success', 'Data rombongan berhasil dihapus!');
     }
 
     public function delete(Request $request)
@@ -224,7 +244,7 @@ class JemaahController extends Controller
             'detail' => $request->detail,
             'bukti' => $bukti,
         ]);
-        return redirect()->route('admin.group.jemaah.detail', ['id' => $request->jemaah_id])->with('success', 'Data pembayaran berhasil ditambahkan!');
+        return redirect()->route('admin.jemaah.detail', ['id' => $request->jemaah_id])->with('success', 'Data pembayaran berhasil ditambahkan!');
     }
 
     public function deletePembayaran(Request $request)

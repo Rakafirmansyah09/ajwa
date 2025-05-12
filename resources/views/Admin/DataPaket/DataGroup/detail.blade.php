@@ -142,10 +142,10 @@
                </td>
                <td>{{$j->pembatalan ? 'Dibatalkan' : '-'}}</td>
                <td>
-                  <a href="{{route('admin.group.jemaah.detail', ['id' => $j->id])}}" class="btn btn-sm btn-info" target="_blank">
+                  <a href="{{route('admin.jemaah.detail', ['id' => $j->id])}}" class="btn btn-sm btn-info" target="_blank">
                      <b>Detail</b>
                   </a>
-                  <form action="{{route('admin.group.jemaah.delete')}}" method="post" class="d-inline">
+                  <form action="{{route('admin.jemaah.delete')}}" method="post" class="d-inline">
                      @csrf
                      <input type="hidden" name="idJemaah" value="{{$j->id}}">
                      <button type="submit" class="btn btn-sm btn-danger">
@@ -164,7 +164,7 @@
       </table>
 
       <div class="mt-2 text-end">
-         <a href="{{route('admin.group.addJemaah', ['id' => $group->id])}}" class="btn btn-primary">Tambah Jamaah</a>
+         <a href="{{route('admin.pendaftaran.addJemaah', ['id' => $group->id])}}" class="btn btn-primary">Tambah Jamaah</a>
       </div>
    </div>
 </div>

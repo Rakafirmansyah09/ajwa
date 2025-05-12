@@ -46,7 +46,7 @@
 
 <div class="card">
    <div class="card-body">
-      <form action="{{ isset($pembayaran) ? route('admin.group.jemaah.updatePembayaran', $pembayaran->id) : route('admin.group.jemaah.storePembayaran') }}" method="POST" enctype="multipart/form-data">
+      <form action="{{ isset($pembayaran) ? route('admin.group.jemaah.updatePembayaran', $pembayaran->id) : route('admin.jemaah.storePembayaran') }}" method="POST" enctype="multipart/form-data">
          @csrf
          <input type="hidden" name="jemaah_id" value="{{ $jemaah->id }}">
          <div class="row">

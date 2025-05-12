@@ -35,6 +35,9 @@ return new class extends Migration
             $table->text('alamat');
             $table->string('kecamatan');
 
+            // rombongan
+            $table->uuid('id_rombongan')->nullable();
+
             // pembatalan
             $table->boolean('pembatalan')->default(false);
             $table->date('tanggal_pembatalan')->nullable();

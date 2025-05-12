@@ -41,7 +41,7 @@
                <td>{{ $jemaah->detail_info }}</td>
                <td>{{ $jemaah->created_at }}</td>
                <td>
-                  <a href="{{route('admin.group.jemaah.detail', ['id'=> $jemaah->id])}}" class="btn btn-info btn-sm" target="_blank"><b>Lihat</b></a>
+                  <a href="{{route('admin.jemaah.detail', ['id'=> $jemaah->id])}}" class="btn btn-info btn-sm" target="_blank"><b>Lihat</b></a>
                </td>
             </tr>
             @empty

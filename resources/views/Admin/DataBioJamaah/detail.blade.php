@@ -109,7 +109,7 @@
                   Rp. {{number_format($p->group->paket->harga, 0, ',', '.')}}
                </td>
                <td>
-                  <a href="{{route('admin.group.jemaah.detail', ['id'=>$p->id])}}" class="btn btn-sm btn-info">
+                  <a href="{{route('admin.jemaah.detail', ['id'=>$p->id])}}" class="btn btn-sm btn-info">
                      <!-- <i class="fas fa-info-circle"></i> -->
                      <b>Detail</b>
                   </a>

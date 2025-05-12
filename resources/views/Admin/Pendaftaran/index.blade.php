@@ -72,7 +72,7 @@
                   <ul class="list-unstyled">
                      @forelse ($p->group as $group)
                      <li>
-                        <a href="{{ route('admin.group.addJemaah', ['id' => $group->id]) }}" class="btn btn-primary w-100 text-start mb-2 d-flex justify-content-between align-items-center">
+                        <a href="{{ route('admin.pendaftaran.addJemaah', ['id' => $group->id]) }}" class="btn btn-primary w-100 text-start mb-2 d-flex justify-content-between align-items-center">
                            <div>
                               {{$group->nama}} - {{$group->tanggal_keberangkatan}}
                            </div>
