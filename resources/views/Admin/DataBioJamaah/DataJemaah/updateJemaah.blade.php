@@ -24,7 +24,7 @@
       <p class="fw-bold mb-1">Sudah Pernah Daftar?</p>
       <div class="form-group">
          <label for="cari_nik">Cari NIK</label>
-         <form action="{{route('admin.group.addJemaah.cariNik', ['id' => $group->id])}}" method="get">
+         <form action="{{route('admin.pendaftaran.addJemaah.cariNik', ['id' => $group->id])}}" method="get">
             @csrf
             <div class="input-group mb-3">
                <input type="text" class="form-control" placeholder="Masukkan NIk" name="nik">
@@ -36,7 +36,7 @@
       </div>
 
 
-      <form enctype="multipart/form-data" method="post" action="{{ isset($jemah) ? route('admin.jemaah.update', $jemaah->id) : route('admin.group.storeJemaah', ['id' => $group->id]) }}">
+      <form enctype="multipart/form-data" method="post" action="{{ isset($jemah) ? route('admin.jemaah.update', $jemaah->id) : route('admin.pendaftaran.storeJemaah', ['id' => $group->id]) }}">
          @csrf
          <p class="fw-bold mb-1">Data Diri</p>
          <div class="row">

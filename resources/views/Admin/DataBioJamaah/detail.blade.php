@@ -23,7 +23,7 @@
 <div class="card mb-2">
    <div class="card-header d-flex justify-content-between align-items-center">
       <h5 class="mb-0"><b>Biodata : {{$data->nama_lengkap}}</b></h5>
-      <a href="{{route('admin.biojemaah.edit', ['id' => $data->id])}}" class="btn btn-sm btn-info"><b>Edit Jemaah</b></a>
+      <a href="{{route('admin.biojemaah.edit', ['id' => $data->id])}}" class="btn btn-sm btn-primary"><b>Edit Jemaah</b></a>
    </div>
    <div class="card-body">
       <div class="row">

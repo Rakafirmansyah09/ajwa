@@ -157,6 +157,8 @@ class JemaahController extends Controller
         $jemaah = jemaah::find($id);
         $ketuaRombongan = $jemaah->listRombongan($jemaah->group_id);
 
+        $paket = paket::find($jemaah->group->paket_id);
+
         $group = group::find($jemaah->group_id);
         return view(
             'Admin.DataBioJamaah.DataJemaah.detail',
@@ -165,6 +167,7 @@ class JemaahController extends Controller
                 'jemaah' => $jemaah,
                 'group' => $group,
                 'ketuaRombongan' => $ketuaRombongan,
+                'paket' => $paket,
             ]
         );
     }
@@ -186,6 +189,59 @@ class JemaahController extends Controller
         return redirect()->back()->with('success', 'Data rombongan berhasil dihapus!');
     }
 
+    public function batalBerangkat(Request $request,  $id)
+    {
+        $request->validate([
+            'alasan_pembatalan' => 'required|string',
+        ]);
+
+        $jemaah = jemaah::find($id);
+        $jemaah->update([
+            'pembatalan' => true,
+            'tanggal_pembatalan' => date('Y-m-d'),
+            'alasan_pembatalan' => $request->alasan_pembatalan
+        ]);
+
+        return redirect()->back()->with('success', 'Data jemaah berhasil dibatalkan!');
+    }
+
+    public function lanjuttBerangkat($id)
+    {
+        $jemaah = jemaah::find($id);
+
+        // if($jemaah->group)
+
+        $jemaah->update([
+            'pembatalan' => false,
+            'tanggal_pembatalan' => null,
+            'alasan_pembatalan' => null
+        ]);
+
+        return redirect()->back()->with('success', 'Data jemaah berhasil dilanjutkan!');
+    }
+
+    public function gantiGrup($idjemaah, $idgrup)
+    {
+        $jemaah = jemaah::find($idjemaah);
+
+        if (jemaah::memberRombongan($jemaah->id)->count() >  1) {
+            return redirect()->back()->with('error', 'Data jemaah tidak dapat diganti grup karena memiliki rombongan!');
+        }
+
+        $group = group::find($idgrup);
+        if ($group->paket_id != $jemaah->group->paket_id) {
+            return redirect()->back()->with('error', 'Data jemaah tidak dapat diganti grup karena paket tidak sama!');
+        }
+        if ($group->paket->kuota - $group->jemaah->count() == 0) {
+            return redirect()->back()->with('error', 'Data jemaah tidak dapat diganti grup karena paket sudah penuh!');
+        }
+
+        $jemaah->update([
+            'group_id' => $idgrup,
+        ]);
+
+        return redirect()->back()->with('success', 'Data jemaah berhasil diganti grup!');
+    }
     public function delete(Request $request)
     {
         $jemaah = jemaah::find($request->idJemaah);

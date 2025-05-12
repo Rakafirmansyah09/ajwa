@@ -19,7 +19,7 @@
       <h5 class="card-title">
          Tabel Sales
       </h5>
-      <a href="{{route('admin.sales.create')}}" class="btn btn-sm btn-info"><b>Tambah Sales</b></a>
+      <a href="{{route('admin.sales.create')}}" class="btn btn-sm btn-primary"><b>Tambah Sales</b></a>
    </div>
    <div class="card-body">
       <table class="table table-striped table-hover" id="table1">

@@ -54,6 +54,13 @@ Route::middleware('auth1:admin')->group(function () {
    Route::post('/admin/Group/{id}/addJemaah', [JemaahController::class, 'storeJemaah'])->name('admin.pendaftaran.storeJemaah');
    Route::get('/admin/Group/jemaah/{id}', [JemaahController::class, 'detail'])->name('admin.jemaah.detail');
    Route::post('/admin/Group/jemaah/delete', [JemaahController::class, 'delete'])->name('admin.jemaah.delete');
+   // jemaah update?
+   // data jemaah peembatalan
+   Route::post('/admin/Group/jemaah/{id}/pembatalan', [JemaahController::class, 'batalBerangkat'])->name('admin.jemaah.batalBerangkat');
+   Route::get('/admin/Group/jemaah/{id}/lanjutkan', [JemaahController::class, 'lanjuttBerangkat'])->name('admin.jemaah.lanjuttBerangkat');
+   // ganti group
+   Route::get('/admin/Group/jemaah/{idJemaah}/gantiGrup/{idgrup}', [JemaahController::class, 'gantiGrup'])->name('admin.jemaah.gantiGrup');
+
    // data rombongan
    Route::post('/admin/jemaah/addRombongan/', [JemaahController::class, 'addRombongan'])->name('admin.jemaah.addRombongan');
    Route::get('/admin/jemaah/{idJemaah}/deleteRombongan', [JemaahController::class, 'deleteRombongan'])->name('admin.jemaah.deleteRombongan');

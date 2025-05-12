@@ -24,7 +24,7 @@
 <div class="card">
    <div class="card-header d-flex justify-content-between align-items-center">
       <h5><b>Detail Paket</b></h5>
-      <a href="{{route('admin.paket.edit', ['id' => $paket->id])}}" class="btn btn-sm btn-info"><b>Edit Detail Paket</b></a>
+      <a href="{{route('admin.paket.edit', ['id' => $paket->id])}}" class="btn btn-sm btn-primary"><b>Edit Detail Paket</b></a>
    </div>
    <div class="card-body">
       <div class="row">
@@ -84,7 +84,7 @@
 <div class="card">
    <div class="card-header d-flex justify-content-between align-items-center">
       <h5><b>Fasilitas</b></h5>
-      <a href="{{route('admin.paket.editFasilitas', ['id' => $paket->id])}}" class="btn btn-info btn-sm">
+      <a href="{{route('admin.paket.editFasilitas', ['id' => $paket->id])}}" class="btn btn-primary btn-sm">
          <b>Edit Fasilitas</b>
       </a>
    </div>
@@ -115,7 +115,7 @@
 <div class="card">
    <div class="card-header d-flex justify-content-between align-items-center">
       <h5><b>Itinerary</b></h5>
-      <a href="{{route('admin.paket.editItinerary', ['id' => $paket->id])}}" class="btn btn-sm btn-info">
+      <a href="{{route('admin.paket.editItinerary', ['id' => $paket->id])}}" class="btn btn-sm btn-primary">
          <b>Edit Itinery</b>
       </a>
    </div>
@@ -188,7 +188,7 @@
                         <b>Hapus</b>
                      </button>
                   </form>
-                  <a href="{{route('admin.group.edit', ['id' => $item->id])}}" class="btn btn-sm btn-primary">
+                  <a href="{{route('admin.group.edit', ['id' => $item->id])}}" class="btn btn-sm btn-warning">
                      <!-- <i class="fas fa-pencil-alt"></i> -->
                      <b>Edit</b>
                   </a>
