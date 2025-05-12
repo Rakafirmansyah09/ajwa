@@ -106,7 +106,7 @@ Route::middleware('auth1:admin')->group(function () {
    Route::post('/admin/EditNews', [NewsController::class, 'update'])->name('admin.news.update');
    Route::post('/admin/DeleteNews', [NewsController::class, 'delete'])->name('admin.news.delete');
    Route::get('/admin/DetailNews/{id}', [NewsController::class, 'detail'])->name('admin.news.detail');
-   Route::get('/admin/PublishNews/{id}/{publish}', [NewsController::class, 'publish'])->name('admin.news.publish');
+   Route::get('/admin/PublishNews/{id}', [NewsController::class, 'publish'])->name('admin.news.publish');
 
    // ====================================== data sales ======================================
    Route::get('/admin/listSales', [SalesController::class, 'index'])->name('admin.sales.list');

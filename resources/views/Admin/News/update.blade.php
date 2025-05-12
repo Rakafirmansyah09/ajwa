@@ -30,14 +30,14 @@
                <input type="hidden" name="id" value="{{ $news->id ?? '' }}">
                <div class="form-group">
                   <label for="judul">Judul</label>
-                  <input type="text" name="judul" class="form-control" id="judul" placeholder="Nama Lengkap" value="{{ old('judul', $news->judul ?? '') }}">
+                  <input type="text" name="judul" class="form-control" id="judul" placeholder="Nama Lengkap" value="{{ old('judul', $news->judul ?? '') }}" required>
                </div>
             </div>
 
             <div class="col-md-6">
                <div class="form-group">
                   <label for="author">Author</label>
-                  <input type="text" name="author" class="form-control" id="author" placeholder="Nama Lengkap" value="{{ old('author', $news->author ?? '') }}">
+                  <input type="text" name="author" class="form-control" id="author" placeholder="Nama Lengkap" value="{{ old('author', $news->author ?? '') }}" required>
                </div>
             </div>
 
@@ -61,16 +61,16 @@
             </div>
             <div class="col-md-4">
                <div class="form-group">
-                  <label for="tanggal_publish">Tanggal Publish</label>
+                  <label for="tanggal_publish">Tanggal Publish</label required>
                   <input type="date" name="tanggal_publish" class="form-control" id="tanggal_publish" value="{{ old('tanggal_publish', $news->tanggal_publish ?? '') }}">
                </div>
             </div>
 
-
             <div class="col-md-12">
                <div class="form-group">
                   <label for="content">Content</label>
-                  <textarea name="content" class="form-control" id="content" rows="5" id="editor">{{ old('content', $news->content ?? '') }}</textarea>
+                  <div id="editor">{!! old('content', $news->content ?? '') !!}</div>
+                  <textarea name="content" class="form-control d-none" id="content" rows="5"></textarea>
                </div>
             </div>
          </div>
@@ -89,5 +89,30 @@
 <!-- <script src="assets/static/js/pages/ckeditor.js"></script> -->
 
 <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
-<script src="{{asset('mazer/static/js/pages/ckeditor.js')}}"></script>
+<script>
+   let editorInstance;
+
+   ClassicEditor
+      .create(document.querySelector("#editor"), {
+         toolbar: [
+            'heading', '|',
+            'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
+            'blockQuote', 'insertTable', 'mediaEmbed', '|',
+            'undo', 'redo'
+         ]
+      })
+      .then(editor => {
+         editorInstance = editor;
+         // Set textarea value saat load pertama
+         document.querySelector('#content').value = editor.getData();
+      })
+      .catch(error => {
+         console.error(error);
+      });
+
+   // Sinkronkan editor ke textarea sebelum form disubmit
+   document.querySelector('form').addEventListener('submit', function(e) {
+      document.querySelector('#content').value = editorInstance.getData();
+   });
+</script>
 @endsection
