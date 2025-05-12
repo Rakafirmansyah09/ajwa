@@ -8,8 +8,8 @@
 <div class="page-title">
    <div class="row">
       <div class="col-12 col-md-6 order-md-1 order-last">
-         <h3>Data Biodata Jemaah</h3>
-         <p class="text-subtitle text-muted">List biodata jemaah</p>
+         <h3>Data Biodata Jamaah</h3>
+         <p class="text-subtitle text-muted">List biodata jamaah</p>
       </div>
    </div>
 </div>
@@ -18,7 +18,7 @@
 <div class="card">
    <div class="card-header d-flex justify-content-between align-items-center">
       <h5 class="card-title">
-         Tabel Jemaah
+         Tabel Jamaah
       </h5>
       <form class="d-flex" method="GET" action="{{ route('admin.biojemaah.list') }}">
          <input type="text" name="search" value="{{ request('search') }}" class="form-control" placeholder="Cari Nama/NIK jemaah...">
@@ -30,7 +30,7 @@
          <thead>
             <tr>
                <th>No. </th>
-               <th>Name</th>
+               <th>Nama</th>
                <th>NIK</th>
                <th>Jenis Kelamin</th>
                <th>Tempat Lahir</th>

@@ -9,7 +9,7 @@
    <div class="row">
       <div class="col-12 col-md-6 order-md-1 order-last">
          <h3>{{ isset($jemaah) ? 'Biodata Jemaah' : 'Tambah Biodata Jemaah' }}</h3>
-         <p class="text-subtitle text-muted">Data biodata jemaah</p>
+         <p class="text-subtitle text-muted">Data biodata jamaah</p>
       </div>
    </div>
 </div>
