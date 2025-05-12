@@ -13,6 +13,24 @@
       object-fit: cover;
       border-radius: 12px;
    }
+
+   .news-content p {
+      text-align: justify;
+   }
+
+   .news-content figure.media {
+      margin: 1.5rem 0;
+      display: flex;
+      justify-content: center;
+   }
+
+   .news-content iframe {
+      width: 100%;
+      max-width: 720px;
+      height: 405px;
+      border: none;
+      border-radius: 12px;
+   }
 </style>
 @endsection
 
@@ -50,5 +68,14 @@
 @endsection
 
 @section('js')
-<!-- Optional JS if needed -->
+<script>
+   document.querySelectorAll('oembed[url]').forEach(element => {
+      const url = element.getAttribute('url');
+      const iframe = document.createElement('iframe');
+      iframe.setAttribute('src', url.replace('watch?v=', 'embed/'));
+      iframe.setAttribute('allowfullscreen', '');
+      element.parentNode.replaceChild(iframe, element);
+   });
+</script>
+
 @endsection

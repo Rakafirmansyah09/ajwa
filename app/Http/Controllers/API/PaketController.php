@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class PaketController extends Controller
 {
+    // GET: /api/allGroupPaket
     public function allGroup()
     {
         $data = group::with('paket')->get();
@@ -30,6 +31,7 @@ class PaketController extends Controller
         ]);
     }
 
+    // GET: /api/groupById/{id}
     public function groupById($id)
     {
         $data = group::with('paket', 'jemaah.bioJemaah')->where('id', $id)->first();
@@ -73,6 +75,7 @@ class PaketController extends Controller
         ]);
     }
 
+    // GET: /api/searchGroupByName/{name}
     public function searchGroupByName($name)
     {
         $data = group::with('paket')->where('nama', 'like', '%' . $name . '%')->get();
