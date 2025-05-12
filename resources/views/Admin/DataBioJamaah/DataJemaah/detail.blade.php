@@ -157,7 +157,7 @@
             </script>
 
             @else
-            <a href="" class="btn btn-sm btn-warning w-100 mb-2" data-bs-toggle="modal" data-bs-target="#default">
+            <a href="" class="btn btn-sm btn-primary w-100 mb-2" data-bs-toggle="modal" data-bs-target="#default">
                <b>Tambah Rombongan</b>
             </a>
             <div class="modal fade text-left" id="default" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
@@ -211,7 +211,7 @@
 <div class="card">
    <div class="card-header d-flex justify-content-between align-items-center">
       <h5><b>Riwayat Pembayaran</b></h5>
-      <a href="{{route('admin.jemaah.addPembayaran', ['id' => $jemaah->id])}}" class="btn btn-sm btn-info"><b>Tambah Pembayaran</b></a>
+      <a href="{{route('admin.jemaah.addPembayaran', ['id' => $jemaah->id])}}" class="btn btn-sm btn-primary"><b>Tambah Pembayaran</b></a>
    </div>
    <div class="card-body">
       <div class="table-responsive">
