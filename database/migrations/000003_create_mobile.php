@@ -22,11 +22,11 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('galeri', function (Blueprint $table) {
+
+        Schema::create('faq', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('judul');
-            $table->string('gambar');
-            $table->enum('status', ['draft', 'publish'])->default('draft');
+            $table->string('pertanyaan');
+            $table->string('jawaban');
             $table->timestamps();
         });
     }
@@ -37,6 +37,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('news');
-        Schema::dropIfExists('galeri');
+        Schema::dropIfExists('faq');
     }
 };

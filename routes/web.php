@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BioJemahController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\admin\FaQController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\JemaahController;
 use App\Http\Controllers\Admin\NewsController;
@@ -71,6 +72,7 @@ Route::middleware('auth1:admin')->group(function () {
 
    // ====================================== data paket ======================================
    Route::get('/admin/listPaket', [PaketController::class, 'index'])->name('admin.paket.list');
+   Route::get('/admin/listAllGroup', [PaketController::class, 'listAllGroup'])->name('admin.paket.listAllGroup');
    Route::get('/admin/TambahPaket', [PaketController::class, 'create'])->name('admin.paket.create');
    Route::post('/admin/TambahPaket', [PaketController::class, 'store'])->name('admin.paket.store');
    Route::get('/admin/EditPaket/{id}', [PaketController::class, 'edit'])->name('admin.paket.edit');
@@ -98,6 +100,15 @@ Route::middleware('auth1:admin')->group(function () {
    Route::get('/admin/Group/{id}/Penerbangan', [GroupController::class, 'editPenerbangan'])->name('admin.group.editPenerbangan');
    Route::post('/admin/Group/Penerbangan', [GroupController::class, 'editPenerbanganStore'])->name('admin.group.editPenerbanganStore');
 
+   // ====================================== data sales ======================================
+   Route::get('/admin/listSales', [SalesController::class, 'index'])->name('admin.sales.list');
+   Route::get('/admin/TambahSales', [SalesController::class, 'create'])->name('admin.sales.create');
+   Route::get('/admin/DetailSales/{id}', [SalesController::class, 'show'])->name('admin.sales.detail');
+   Route::post('/admin/TambahSales', [SalesController::class, 'store'])->name('admin.sales.store');
+   Route::get('/admin/EditSales/{id}', [SalesController::class, 'edit'])->name('admin.sales.edit');
+   Route::post('/admin/EditSales', [SalesController::class, 'update'])->name('admin.sales.update');
+   Route::post('/admin/DeleteSales', [SalesController::class, 'destroy'])->name('admin.sales.delete');
+
    // ====================================== data News ======================================
    Route::get('/admin/listNews', [NewsController::class, 'list'])->name('admin.news.list');
    Route::get('/admin/TambahNews', [NewsController::class, 'create'])->name('admin.news.create');
@@ -108,12 +119,11 @@ Route::middleware('auth1:admin')->group(function () {
    Route::get('/admin/DetailNews/{id}', [NewsController::class, 'detail'])->name('admin.news.detail');
    Route::get('/admin/PublishNews/{id}', [NewsController::class, 'publish'])->name('admin.news.publish');
 
-   // ====================================== data sales ======================================
-   Route::get('/admin/listSales', [SalesController::class, 'index'])->name('admin.sales.list');
-   Route::get('/admin/TambahSales', [SalesController::class, 'create'])->name('admin.sales.create');
-   Route::get('/admin/DetailSales/{id}', [SalesController::class, 'show'])->name('admin.sales.detail');
-   Route::post('/admin/TambahSales', [SalesController::class, 'store'])->name('admin.sales.store');
-   Route::get('/admin/EditSales/{id}', [SalesController::class, 'edit'])->name('admin.sales.edit');
-   Route::post('/admin/EditSales', [SalesController::class, 'update'])->name('admin.sales.update');
-   Route::post('/admin/DeleteSales', [SalesController::class, 'destroy'])->name('admin.sales.delete');
+   // ====================================== data faq ======================================
+   Route::get('/admin/listFaQ', [FaQController::class, 'list'])->name('admin.faq.list');
+   Route::get('/admin/TambahFaQ', [FaQController::class, 'create'])->name('admin.faq.create');
+   Route::post('/admin/TambahFaQ', [FaQController::class, 'store'])->name('admin.faq.store');
+   Route::get('/admin/EditFaQ/{id}', [FaQController::class, 'edit'])->name('admin.faq.edit');
+   Route::post('/admin/EditFaQ', [FaQController::class, 'update'])->name('admin.faq.update');
+   Route::post('/admin/DeleteFaQ', [FaQController::class, 'delete'])->name('admin.faq.delete');
 });

@@ -13,7 +13,7 @@
 @section('main')
 <div class="page-title">
    <div class="row">
-      <div class="col-12 col-md-6 order-md-1 order-last">
+      <div class="col-12 col-md-8 order-md-1 order-last">
          <h3>Paket {{$paket->nama}}</h3>
          <p class="text-subtitle text-muted mb-0">Keberangkatan {{$paket->kuota}} jemaah, selama {{$paket->durasi}} hari</p>
          <p class="text-subtitle text-muted">Harga Rp. {{number_format($paket->harga)}}</p>

@@ -15,10 +15,11 @@
 </div>
 
 <div class="card">
-   <div class="card-header">
+   <div class="card-header d-flex justify-content-between">
       <h5 class="card-title">
          Tabel Paket
       </h5>
+      <a href="{{ route('admin.paket.create') }}" class="btn btn-success">Tambah News</a>
    </div>
    <div class="card-body">
       <table class="table table-striped table-hover" id="table1">

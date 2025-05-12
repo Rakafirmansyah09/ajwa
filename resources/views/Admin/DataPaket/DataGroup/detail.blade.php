@@ -7,7 +7,7 @@
 @section('main')
 <div class="page-title">
    <div class="row">
-      <div class="col-12 col-md-6 order-md-1 order-last mb-3">
+      <div class="col-12 col-md-8 order-md-1 order-last mb-3">
          <h3>Paket {{$paket->nama}} - {{$group->nama}}</h3>
          <p class="text-subtitle text-muted mb-1">Keberangkatan {{$group->tanggal_keberangkatan}} - {{$group->tanggal_kepulangan}}</p>
          <!-- tombol kembali -->

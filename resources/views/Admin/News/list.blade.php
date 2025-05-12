@@ -16,10 +16,11 @@
 
 
 <div class="card">
-   <div class="card-header">
+   <div class="card-header d-flex justify-content-between">
       <h5 class="card-title">
          Tabel Berita
       </h5>
+      <a href="{{ route('admin.news.create') }}" class="btn btn-success">Tambah News</a>
    </div>
    <div class="card-body">
       <div class="table-responsive">
@@ -75,6 +76,9 @@
                @endforelse
             </tbody>
          </table>
+      </div>
+      <div class="d-flex justify-content-center mt-3">
+         {{ $data->links('pagination::bootstrap-5') }}
       </div>
    </div>
 </div>

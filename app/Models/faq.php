@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class galeri extends Model
+class faq extends Model
 {
-    protected $table = 'galeri';
+    protected $table = 'faq';
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
-        'judul',
-        'gambar',
-        'status',
+        'pertanyaan',
+        'jawaban',
     ];
 
     protected static function boot()

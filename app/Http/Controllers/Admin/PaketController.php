@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helper\UploadFileController;
+use App\Models\group;
 use App\Models\kategori;
 use App\Models\paket;
 use Illuminate\Http\Request;
@@ -24,6 +25,19 @@ class PaketController extends Controller
         return view('Admin.DataPaket.index', [
             'data' => $data,
             'pageTitle' => 'Data Paket',
+        ]);
+    }
+
+    public function listAllGroup()
+    {
+        $data = group::with('paket')
+            ->whereDate('tanggal_keberangkatan', '>=', now())
+            ->orderBy('tanggal_keberangkatan', 'asc')
+            ->paginate(20);
+
+        return view('Admin.DataPaket.listAllGroup', [
+            'groups' => $data,
+            'pageTitle' => 'All Data Group Paket',
         ]);
     }
 
@@ -95,7 +109,7 @@ class PaketController extends Controller
         if (isset($request->gambar)) {
             if ($paket->gambar) {
                 $url =  $this->upload->update($paket->gambar, $request->gambar);
-            }else{
+            } else {
                 $url =  $this->upload->create($paket->id, 'paket',   $request->gambar);
             }
 

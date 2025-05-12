@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\faq;
 use App\Models\news;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,7 +16,7 @@ class NewsSeeder extends Seeder
      */
     public function run(): void
     {
-        $dummyData = [
+        $dummyDataNews = [
             [
                 'judul' => 'Pembukaan Umroh Tahun Ini',
                 'gambar' => '',
@@ -34,8 +35,23 @@ class NewsSeeder extends Seeder
             ],
         ];
 
-        foreach ($dummyData as $data) {
+        $dummyDataFaQ = [
+            [
+                'pertanyaan' => 'Apa yang harus saya bawa saat berangkat umroh?',
+                'jawaban' => 'Sebaiknya bawa pakaian yang nyaman dan bersih, serta peralatan kebersihan seperti hand sanitizer dan masker.',
+            ],
+            [
+                'pertanyaan' => 'Apakah saya harus membawa uang tunai saat berangkat umroh?',
+                'jawaban' => 'Ya, sebaiknya bawa uang tunai dalam mata uang Saudi Riyal atau dolar Amerika Serikat.',
+            ],
+        ];
+
+        foreach ($dummyDataNews as $data) {
             news::create($data);
+        }
+
+        foreach ($dummyDataFaQ as $data) {
+            faq::create($data);
         }
     }
 }
