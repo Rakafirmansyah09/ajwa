@@ -13,6 +13,7 @@ class sales extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
+        'kantor',
         'label',
         'nama',
         'aktif',

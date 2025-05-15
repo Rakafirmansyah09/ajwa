@@ -27,6 +27,12 @@
          <div class="row">
             <div class="col-md-6">
                <div class="form-group">
+                  <label for="kantor">Kantor Sales</label>
+                  <input type="text" class="form-control @error('label') is-invalid @enderror" id="kantor" name="kantor" value="{{ isset($sales) ? $sales->label : old('kantor') }}" required>
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="form-group">
                   <label for="label">Label Sales</label>
                   <input type="text" class="form-control @error('label') is-invalid @enderror" id="label" name="label" value="{{ isset($sales) ? $sales->label : old('label') }}" required>
                </div>
@@ -46,7 +52,7 @@
                   </select>
                </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                <div class="form-group">
                   <label for="deskripsi">Deskripsi</label>
                   <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="3" required>{{ isset($sales) ? $sales->deskripsi : old('deskripsi') }}</textarea>

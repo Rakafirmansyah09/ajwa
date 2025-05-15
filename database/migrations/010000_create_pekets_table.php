@@ -40,6 +40,7 @@ return new class extends Migration
 
         Schema::create('sales', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('kantor');
             $table->string('label');
             $table->string('nama');
             $table->boolean('aktif');

@@ -26,8 +26,9 @@
          <thead>
             <tr>
                <th>No.</th>
+               <th>Kantor</th>
                <th>Label</th>
-               <th>Nama</th>
+               <th>Sales</th>
                <th>Aktif</th>
                <th>Deskripsi</th>
                <th>Jemaah</th>
@@ -38,6 +39,7 @@
             @forelse ($data as $d)
             <tr>
                <td>{{$loop->iteration}}</td>
+               <td>{{$d->kantor}}</td>
                <td>{{$d->label}}</td>
                <td>{{$d->nama}}</td>
                <td>{{ $d->aktif ? 'Ya' : 'Tidak'}}</td>
