@@ -167,11 +167,11 @@
             </div>
             @endif
             <!-- ganti group paket -->
-            <a href="" class="btn btn-sm btn-warning w-100 mb-2 @if($jemaah->id_rombongan) disabled @endif" data-bs-toggle="modal" data-bs-target="#modal-ganti-group-keberangkatan">
+            <!-- <a href="" class="btn btn-sm btn-warning w-100 mb-2 @if($jemaah->id_rombongan) disabled @endif" data-bs-toggle="modal" data-bs-target="#modal-ganti-group-keberangkatan">
                <b>Ganti Group Keberangkatan</b>
-            </a>
+            </a> -->
 
-            <div class="modal fade text-left" id="modal-ganti-group-keberangkatan" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+            <!-- <div class="modal fade text-left" id="modal-ganti-group-keberangkatan" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
                <div class="modal-dialog modal-dialog-scrollable" role="document">
                   <div class="modal-content">
                      <div class="modal-header">
@@ -214,7 +214,7 @@
                      </div>
                   </div>
                </div>
-            </div>
+            </div> -->
 
             <!-- batal Rombongan -->
             @if($jemaah->id_rombongan)
@@ -222,6 +222,62 @@
                onclick="confirmDelete(event, this)" class="btn btn-sm btn-danger w-100 mb-2">
                <b>Keluar Rombongan</b>
             </a>
+
+            <a href="" class="btn btn-sm btn-primary w-100 mb-2 mt-3 mt-md-0" data-bs-toggle="modal" data-bs-target="#modal-list-anggota-rombongan">
+               <b>Anggota Rombongan</b>
+            </a>
+            <div class="modal fade text-left" id="modal-list-anggota-rombongan" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+               <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel1">Anggota Rombongan</h5>
+                        <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                              <line x1="18" y1="6" x2="6" y2="18"></line>
+                              <line x1="6" y1="6" x2="18" y2="18"></line>
+                           </svg>
+                        </button>
+                     </div>
+                     <div class="modal-body">
+                        <div class="table-responsive">
+                           <table class="table table-striped">
+                              <thead>
+                                 <tr class="bg-primary-subtle">
+                                    <td>No</td>
+                                    <td>Nama</td>
+                                    <td>Usia</td>
+                                    <td>Jenis Kelamin</td>
+                                    <td>Pembayaran</td>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 @forelse ( $memberRombongan as $j)
+                                 <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{$j->bioJemaah->nama_lengkap}}</td>
+                                    <td>{{$j->usia}}</td>
+                                    <td>{{$j->bioJemaah->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan'}}</td>
+                                    @php
+                                    $totalBayar = $j->pembayaran ? $j->pembayaran->sum('harga') : 0;
+                                    @endphp
+                                    <td>
+                                       Rp. {{ number_format($totalBayar, 0, ',', '.') }} /
+                                       Rp. {{ number_format($group->paket->harga, 0, ',', '.') }}
+                                    </td>
+                                 </tr>
+
+                                 @empty
+                                 <tr>
+                                    <td colspan="7" class="text-center">Tidak ada data</td>
+                                 </tr>
+                                 @endforelse
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
 
             @else
             <a href="" class="btn btn-sm btn-primary w-100 mb-2" data-bs-toggle="modal" data-bs-target="#modal-tambah-rombongan">

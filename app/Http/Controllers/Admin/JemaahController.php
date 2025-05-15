@@ -155,11 +155,12 @@ class JemaahController extends Controller
     public function detail($id)
     {
         $jemaah = jemaah::find($id);
-        $ketuaRombongan = $jemaah->listRombongan($jemaah->group_id);
-
         $paket = paket::find($jemaah->group->paket_id);
-
         $group = group::find($jemaah->group_id);
+
+        $ketuaRombongan = $jemaah->listRombongan($jemaah->group_id);
+        $memberRombongan = $jemaah->id_rombongan ? $jemaah->memberRombongan($jemaah->id_rombongan) : [];
+
         return view(
             'Admin.DataBioJamaah.DataJemaah.detail',
             [
@@ -167,6 +168,7 @@ class JemaahController extends Controller
                 'jemaah' => $jemaah,
                 'group' => $group,
                 'ketuaRombongan' => $ketuaRombongan,
+                'memberRombongan' => $memberRombongan,
                 'paket' => $paket,
             ]
         );

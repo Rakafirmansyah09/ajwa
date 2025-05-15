@@ -144,6 +144,8 @@
             value = max;
          }
 
+         document.getElementById('harga').value = value;
+
          e.target.value = formatRupiah(value);
       }
    });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\group;
+use App\Models\jemaah;
 use App\Models\paket;
 use App\Models\paketKeberangkatan;
 use Illuminate\Http\Request;
@@ -96,8 +97,8 @@ class GroupController extends Controller
     {
         $group = group::find($id);
 
-        // return $group->list_penerbangan;
-        // return $group->list_akomodasi;
+        // return jemaah::listRombongan($group->id);
+        // return $group->jemaah->groupBy('id_rombongan');
 
         $paket = $group->paket;
         return view('Admin.DataPaket.DataGroup.detail', [

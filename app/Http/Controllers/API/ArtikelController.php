@@ -9,9 +9,10 @@ use Illuminate\Http\Request;
 class ArtikelController extends Controller
 {
     // GET /api/artikel
-    public function index()
+    public function list()
     {
         $data = news::where('status', 'publish')
+            ->whereDate('tanggal_publish', '<=', now())
             ->orderBy('tanggal_publish', 'desc')
             ->get();
 

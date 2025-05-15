@@ -29,7 +29,7 @@
                   <th>Nama</th>
                   <th>Tanggal Keberangkatan</th>
                   <th>Tanggal Kepulangan</th>
-                  <th>Jemaah</th>
+                  <th>Jamaah</th>
                   <th>Aksi</th>
                </tr>
             </thead>
@@ -54,7 +54,7 @@
                         <!-- <i class="fas fa-pencil-alt"></i> -->
                         <b>Edit</b>
                      </a>
-                     <a href="{{route('admin.group.detail', ['id' => $item->id])}}" class="btn btn-sm btn-info">
+                     <a href="{{route('admin.group.listJemaah', ['id' => $item->id])}}" class="btn btn-sm btn-info">
                         <!-- <i class="fas fa-info-circle"></i> -->
                         <b>Detail</b>
                      </a>

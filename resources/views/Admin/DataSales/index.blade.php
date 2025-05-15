@@ -28,8 +28,8 @@
                <th>No.</th>
                <th>Label</th>
                <th>Nama</th>
-               <th>Deskripsi</th>
                <th>Aktif</th>
+               <th>Deskripsi</th>
                <th>Jemaah</th>
                <th>Aksi</th>
             </tr>
