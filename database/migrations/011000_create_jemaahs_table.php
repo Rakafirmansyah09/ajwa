@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('file_ktp')->nullable();
             $table->string('file_paspor')->nullable();
 
+            $table->uuid('id_akun')->nullable();
+            $table->foreign('id_akun')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
 

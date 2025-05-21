@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helper\UploadFileController;
+use App\Mail\AkunJemaahCreated;
 use App\Models\bioJemaah;
 use App\Models\jemaah;
+use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class BioJemahController extends Controller
 {
@@ -134,10 +138,65 @@ class BioJemahController extends Controller
     public function detail($id)
     {
         $data = bioJemaah::find($id);
-        // return $data->jemaah[0]->group->tanggal_keberangkatan;
+
+        // return $data->user;
         return view('Admin.DataBioJamaah.detail', [
             'pageTitle' => 'Detail Jemaah : ' . $data->nama_lengkap,
             'data' => $data,
         ]);
+    }
+
+    public function updateAkun(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|string|exists:bioJemaahs,id',
+            'email' => 'required|string|email|unique:users,email,' . $request->id,
+        ]);
+
+        $biojemaah = bioJemaah::find($request->id);
+
+        if ($biojemaah->id_akun != null) {
+            return redirect()->route('admin.biojemaah.detail', $request->id)->with('error', 'Akun jemaah sudah ada');
+        }
+
+        $password = Str::random(8);
+        $user = User::create([
+            'name' => $biojemaah->nama_lengkap,
+            'email' => $request->email,
+            'password' => bcrypt($password),
+            'type' => 'jemaah',
+        ]);
+
+        $biojemaah->update([
+            'id_akun' => $user->id,
+        ]);
+
+        // Kirim Email
+        Mail::to($request->email)->send(new AkunJemaahCreated(
+            $biojemaah->nama_lengkap,
+            $request->email,
+            $password
+        ));
+
+        return redirect()->route('admin.biojemaah.detail', $request->id)->with('success', 'Berhasil membuat akun jemaah, password: ' . $password);
+    }
+    public function deleteAkun(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|string|exists:bioJemaahs,id',
+            'email' => 'required|string|email|exists:users,email',
+        ]);
+
+        $biojemaah = bioJemaah::find($request->id);
+        if ($biojemaah->id_akun == null) {
+            return redirect()->route('admin.biojemaah.detail', $request->id)->with('error', 'Akun jemaah belum ada');
+        }
+
+        $user = User::find($biojemaah->id_akun);
+        $biojemaah->update([
+            'id_akun' => null,
+        ]);
+        $user->delete();
+        return redirect()->route('admin.biojemaah.detail', $request->id)->with('success', 'Berhasil menghapus akun jemaah');
     }
 }

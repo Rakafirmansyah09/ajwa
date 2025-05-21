@@ -56,6 +56,26 @@
    <script src="{{ asset('mazer/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
 
    <script src="{{ asset('mazer/compiled/js/app.js') }}"></script>
+   <script>
+      document.addEventListener('DOMContentLoaded', function() {
+         // ambil semua button
+         document.querySelectorAll('button').forEach(function(button) {
+            if (button.getAttribute('form')) {
+               let formId = button.getAttribute('form');
+               let type = button.getAttribute('type');
+
+               button.addEventListener('click', function() {
+                  let form = document.getElementById(formId);
+                  if (type === 'submit') {
+                     form.submit();
+                  } else if (type === 'reset') {
+                     form.reset();
+                  }
+               });
+            }
+         });
+      });
+   </script>
    @yield('js')
 
 

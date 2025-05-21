@@ -20,62 +20,104 @@
    </div>
 </div>
 
-<div class="card mb-2">
-   <div class="card-header d-flex justify-content-between align-items-center">
-      <h5 class="mb-0"><b>Biodata : {{$data->nama_lengkap}}</b></h5>
-      <a href="{{route('admin.biojemaah.edit', ['id' => $data->id])}}" class="btn btn-sm btn-primary"><b>Edit Jemaah</b></a>
-   </div>
-   <div class="card-body">
-      <div class="row">
-         <div class="col-12 col-md-6">
-            <table class="table table-borderless table-custom">
-               <tr>
-                  <td>NIK</td>
-                  <td>:</td>
-                  <td>{{$data->nik}}</td>
-               </tr>
-               <tr>
-                  <td>Tempat Lahir</td>
-                  <td>:</td>
-                  <td>{{$data->tempat_lahir}}</td>
-               </tr>
-               <tr>
-                  <td>Tanggal Lahir</td>
-                  <td>:</td>
-                  <td>{{$data->tanggal_lahir}}</td>
-               </tr>
-               <tr>
-                  <td>Jenis Kelamin</td>
-                  <td>:</td>
-                  <td>{{$data->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan'}}</td>
-               </tr>
-            </table>
+<div class="row">
+   <div class="col-12 col-md-8">
+      <div class="card ">
+         <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><b>Biodata : {{$data->nama_lengkap}}</b></h5>
+            <a href="{{route('admin.biojemaah.edit', ['id' => $data->id])}}" class="btn btn-sm btn-primary"><b>Edit Jemaah</b></a>
          </div>
-         <div class="col-12 col-md-6">
-            <table class="table table-borderless table-custom">
-               <tr>
-                  <td>File KTP</td>
-                  <td>:</td>
-                  <td>
-                     <a href="{{asset($data->file_ktp)}}" target="_blank">
-                        <b>Lihat File</b>
-                     </a>
-                  </td>
-               </tr>
-               <tr>
-                  <td>File Paspor</td>
-                  <td>:</td>
-                  <td>
-                     <a href="{{asset($data->file_paspor)}}" target="_blank">
-                        <b>Lihat File</b>
-                     </a>
-                  </td>
-               </tr>
-            </table>
+         <div class="card-body">
+            <div class="row">
+               <div class="col-12 col-md-6">
+                  <table class="table table-borderless table-custom">
+                     <tr>
+                        <td>NIK</td>
+                        <td>:</td>
+                        <td>{{$data->nik}}</td>
+                     </tr>
+                     <tr>
+                        <td>Tempat Lahir</td>
+                        <td>:</td>
+                        <td>{{$data->tempat_lahir}}</td>
+                     </tr>
+                     <tr>
+                        <td>Tanggal Lahir</td>
+                        <td>:</td>
+                        <td>{{$data->tanggal_lahir}}</td>
+                     </tr>
+                     <tr>
+                        <td>Jenis Kelamin</td>
+                        <td>:</td>
+                        <td>{{$data->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan'}}</td>
+                     </tr>
+                  </table>
+               </div>
+               <div class="col-12 col-md-6">
+                  <table class="table table-borderless table-custom">
+                     <tr>
+                        <td>File KTP</td>
+                        <td>:</td>
+                        <td>
+                           <a href="{{asset($data->file_ktp)}}" target="_blank">
+                              <b>Lihat File</b>
+                           </a>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>File Paspor</td>
+                        <td>:</td>
+                        <td>
+                           <a href="{{asset($data->file_paspor)}}" target="_blank">
+                              <b>Lihat File</b>
+                           </a>
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-auto col-md-4">
+      <div class="card">
+         <div class="card-header d-flex justify-content-between align-items-center">
+            <h5><b>Akun Jemaah</b></h5>
+            @if ($data->user)
+            <span class="badge bg-success">Aktif</span>
+            @else
+            <span class="badge bg-danger">Tidak Aktif</span>
+            @endif
+         </div>
+         <div class="card-body">
+            <form id="form-email" action="{{route($data->user ? 'admin.biojemaah.deleteAkun' : 'admin.biojemaah.updateAkun')}}" method="post">
+               @csrf
+               <div class="form-group mb-3">
+                  <input type="hidden" name="id" value="{{$data->id}}">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" name="email" value="{{$data->user ? $data->user->email : ''}}" class="form-control" placeholder="Masukkan Email" {{$data->user ? 'readonly' : ''}}>
+                  @error('email')
+                  <div class="invalid-feedback">
+                     {{$message}}
+                  </div>
+                  @enderror
+               </div>
+            </form>
+            <div class="d-flex justify-content-between">
+               @if ($data->user)
+               <div></div>
+               <button type="submit" class="btn btn-danger" form="form-email">Hapus Akun</button>
+               @else
+               <div></div>
+               <button type="submit" class="btn btn-primary" form="form-email">Buat Akun</button>
+               @endif
+            </div>
          </div>
       </div>
    </div>
 </div>
+
+
 
 <div class="card">
    <div class="card-header">

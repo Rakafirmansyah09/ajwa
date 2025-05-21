@@ -21,6 +21,7 @@ class bioJemaah extends Model
         'tempat_lahir',
         'file_ktp',
         'file_paspor',
+        'id_akun',
     ];
 
     public static function boot()
@@ -39,5 +40,11 @@ class bioJemaah extends Model
     public function jemaah()
     {
         return $this->hasMany(jemaah::class, 'jemaah_id');
+    }
+
+    // Relasi ke tabel users
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_akun');
     }
 }

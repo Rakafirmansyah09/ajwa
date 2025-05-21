@@ -45,6 +45,8 @@ Route::middleware('auth1:admin')->group(function () {
    Route::post('/admin/editJemaah', [BioJemahController::class, 'editPost'])->name('admin.biojemaah.editPost');
    Route::post('/admin/DeleteJemaah', [BioJemahController::class, 'delete'])->name('admin.biojemaah.delete');
    Route::get('/admin/Jemaah/{id}', [BioJemahController::class, 'detail'])->name('admin.biojemaah.detail');
+   Route::post('/admin/DeleteAkun', [BioJemahController::class, 'deleteAkun'])->name('admin.biojemaah.deleteAkun');
+   Route::post('/admin/UpdateAkun', [BioJemahController::class, 'updateAkun'])->name('admin.biojemaah.updateAkun');
 
    // ====================================== pendaftaran ======================================
    Route::get('/admin/pendaftaran', [PendaftaranController::class, 'index'])->name('admin.pendaftaran');

@@ -6,11 +6,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens,  HasFactory, Notifiable;
 
     public $incrementing = false;
     protected $keyType = 'string';
@@ -19,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'tyoe'
     ];
 
     public static function boot()
