@@ -44,7 +44,7 @@
                <tr>
                   <td>Nama Lengkap</td>
                   <td>:</td>
-                  <td>{{$jemaah->bioJemaah->nama_lengkap}}</td>
+                  <td>{{$jemaah->bioJemaah->nama_lengkap ?? '-'}} </td>
                </tr>
                <tr>
                   <td>Rombongan</td>
@@ -87,9 +87,9 @@
                   <td>{{$group->nama}}</td>
                </tr>
                <tr>
-                  <td>Usia</td>
+                  <td>Tanggal Keberangkatan</td>
                   <td>:</td>
-                  <td>{{$group->tanggal_keberangkatan}}</td>
+                  <td>{{ \Carbon\Carbon::parse($group->tanggal_keberangkatan)->translatedFormat('d F Y') }}</td>
                </tr>
                <tr>
                   <td>Harga</td>
@@ -114,8 +114,11 @@
             <h5><b>Pembayaran</b></h5>
             <p>Total : Rp {{ number_format($jemaah->pembayaran->sum('harga'), 0, ',', '.') }} / Rp {{ number_format($group->paket->harga, 0, ',', '.') }}</p>
             @php
-            $progress = ($jemaah->pembayaran->sum('harga') / $group->paket->harga) * 100;
+            $totalBayar = $jemaah->pembayaran->sum('harga');
+            $hargaPaket = $group->paket->harga;
+            $progress = ($hargaPaket > 0) ? ($totalBayar / $hargaPaket) * 100 : 0;
             @endphp
+
             <div class="progress" style="height: 20px;">
                <div class="progress-bar" role="progressbar" style="width: {{ $progress }}%;" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100">{{ number_format($progress, 1) }}%</div>
             </div>
@@ -170,6 +173,10 @@
             <!-- <a href="" class="btn btn-sm btn-warning w-100 mb-2 @if($jemaah->id_rombongan) disabled @endif" data-bs-toggle="modal" data-bs-target="#modal-ganti-group-keberangkatan">
                <b>Ganti Group Keberangkatan</b>
             </a> -->
+            <a href="{{ route('invoice.show', $jemaah->id) }}" target="_blank" class="btn btn-sm btn-primary w-100 mb-2 mt-3 mt-md-0">
+               <i class="bi bi-receipt"></i> Lihat Invoice
+            </a>
+
 
             <!-- <div class="modal fade text-left" id="modal-ganti-group-keberangkatan" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
                <div class="modal-dialog modal-dialog-scrollable" role="document">

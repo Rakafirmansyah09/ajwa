@@ -26,7 +26,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('jemaah', function (Blueprint $table) {
+        Schema::create('pendaftaran', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('jemaah_id');
             $table->uuid('group_id');
@@ -70,7 +70,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Foreign key constraint yang sesuai
-            $table->foreign('jemaah_id')->references('id')->on('jemaah')->onDelete('cascade');
+            $table->foreign('jemaah_id')->references('id')->on('pendaftaran')->onDelete('cascade');
         });
     }
 

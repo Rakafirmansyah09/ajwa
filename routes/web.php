@@ -71,6 +71,9 @@ Route::middleware('auth1:admin')->group(function () {
    Route::get('/admin/Group/jemaah/{id}/pembayaran', [JemaahController::class, 'addPembayaran'])->name('admin.jemaah.addPembayaran');
    Route::post('/admin/Group/jemaah/pembayaran', [JemaahController::class, 'storePembayaran'])->name('admin.jemaah.storePembayaran');
    Route::post('/admin/Group/jemaah/pembayaran/delete', [JemaahController::class, 'deletePembayaran'])->name('admin.jemaah.deletePembayaran');
+   // data jemaah invoice
+   Route::get('/admin/invoice/jemaah/{id}', [JemaahController::class, 'showInvoice'])->name('invoice.show');
+
 
    // ====================================== data paket ======================================
    Route::get('/admin/listPaket', [PaketController::class, 'index'])->name('admin.paket.list');

@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\API\ArtikelController;
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\FAQController;
 use App\Http\Controllers\API\PaketController;
+use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +24,17 @@ Route::get('/allFaQ', [FAQController::class, 'index']);
 Route::get('/showFaQ/{$id}', [FaQController::class, 'show']);
 
 // auth
+Route::post('/auth/login', [AuthController::class, 'login']);
+Route::post('/auth/forgot-password', [AuthController::class, 'forgotPassword']);
+Route::post('/auth/reset-password', [AuthController::class, 'resetPassword']);
 
+Route::middleware('auth:sanctum')->group(function () {
+   // user
+   Route::get('/user/profile', [UserController::class, 'profile']);
+   Route::post('/user/change-password', [UserController::class, 'changePassword']);
 
-// rombongan
+   // paketku
+   
+
+   // rombonganku
+});

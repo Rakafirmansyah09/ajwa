@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 class jemaah extends Model
 {
-    protected $table = 'jemaah';
+    protected $table = 'pendaftaran';
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';

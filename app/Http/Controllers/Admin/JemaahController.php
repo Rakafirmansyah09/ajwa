@@ -9,7 +9,9 @@ use App\Models\group;
 use App\Models\jemaah;
 use App\Models\paket;
 use App\Models\pembayaran;
+use App\Models\pengaturan_web;
 use App\Models\sales;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class JemaahController extends Controller
@@ -319,5 +321,42 @@ class JemaahController extends Controller
         $this->upload->delete($pembayaran->bukti);
         $pembayaran->delete();
         return redirect()->back()->with('success', 'Data pembayaran berhasil dihapus!');
+    }
+
+
+    public function showInvoice($id)
+    {
+        $jemaah = Jemaah::with(['bioJemaah', 'pembayaran', 'group.paket'])->findOrFail($id);
+        $totalBayar = $jemaah->pembayaran->sum('harga');
+        $hargaPaket = $jemaah->group->paket->harga ?? 0;
+
+        $namaPerusahaan = pengaturan_web::where('code', 'nama_perusahaan')->first()->value;
+        $noTelpPerusahaan = pengaturan_web::where('code', 'no_telp_perusahaan')->first()->value;
+        $emailPerusahaan = pengaturan_web::where('code', 'email_perusahaan')->first()->value;
+        $webPerusahaan = pengaturan_web::where('code', 'web_perusahaan')->first()->value;
+
+        return view('Admin.DataBioJamaah.DataJemaah.invoice', compact(
+            'jemaah',
+            'totalBayar',
+            'hargaPaket',
+            'namaPerusahaan',
+            'noTelpPerusahaan',
+            'emailPerusahaan',
+            'webPerusahaan'
+        ));
+
+        $pdf = Pdf::loadView('Admin.DataBioJamaah.DataJemaah.invoice', compact(
+            'jemaah',
+            'totalBayar',
+            'hargaPaket',
+            'namaPerusahaan',
+            'alamatPerusahaan',
+            'noTelpPerusahaan',
+            'emailPerusahaan',
+            'webPerusahaan'
+        ));
+
+        $filename = 'invoice-jemaah-' . $jemaah->bioJemaah->nama_lengkap . '.pdf';
+        return $pdf->download($filename);
     }
 }

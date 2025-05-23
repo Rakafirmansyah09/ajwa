@@ -96,4 +96,29 @@ class PaketController extends Controller
             'data' => $data,
         ]);
     }
+    // GET: /api/myPaket
+    public function myPaket(Request $request)
+    {
+        $user = $request->user();
+        $data = group::with('paket', 'jemaah.bioJemaah')
+            ->whereHas('jemaah', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })->get();
+
+        if ($data->isEmpty()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Data tidak ditemukan',
+                'data' => [],
+            ]);
+        }
+        $data->map(function ($item) {
+            $item->jumlahTerdaftar = $item->jemaah->count();
+        });
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data berhasil diambil',
+            'data' => $data,
+        ]);
+    }
 }
