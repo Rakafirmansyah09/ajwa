@@ -277,7 +277,7 @@ class JemaahController extends Controller
         // return $request;
 
         $request->validate([
-            'jemaah_id' => 'required|exists:jemaah,id',
+            'jemaah_id' => 'required|exists:pendaftaran,id',
             'harga' => 'required|numeric',
             'method' => 'required|string',
             'detail' => 'required|string',
