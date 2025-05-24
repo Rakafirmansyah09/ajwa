@@ -95,7 +95,7 @@
                <div class="form-group mb-3">
                   <input type="hidden" name="id" value="{{$data->id}}">
                   <label for="email" class="form-label">Email</label>
-                  <input type="email" name="email" value="{{$data->user ? $data->user->email : ''}}" class="form-control" placeholder="Masukkan Email" {{$data->user ? 'readonly' : ''}}>
+                  <input type="email" name="email" value="{{$data->email}}" class="form-control" placeholder="Masukkan Email" {{$data->user ? 'readonly' : ''}}>
                   @error('email')
                   <div class="invalid-feedback">
                      {{$message}}

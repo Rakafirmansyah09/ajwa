@@ -16,6 +16,7 @@ class bioJemaah extends Model
         'id',
         'nama_lengkap',
         'nik',
+        'email',
         'tanggal_lahir',
         'jenis_kelamin',
         'tempat_lahir',

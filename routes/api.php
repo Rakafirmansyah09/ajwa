@@ -8,7 +8,9 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/hello', [ApiController::class, 'index']);
+Route::get('/test', [ApiController::class, 'test']);
+Route::get('/unauthorized', [ApiController::class, 'unauthorized'])->name('login');
+
 
 // Paket
 Route::get('/allGroupPaket', [PaketController::class, 'allGroup']);
@@ -24,17 +26,17 @@ Route::get('/allFaQ', [FAQController::class, 'index']);
 Route::get('/showFaQ/{$id}', [FaQController::class, 'show']);
 
 // auth
-Route::post('/auth/login', [AuthController::class, 'login']);
+Route::post('/auth/login', [AuthController::class, 'login']); //oke
 Route::post('/auth/forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('/auth/reset-password', [AuthController::class, 'resetPassword']);
 
 Route::middleware('auth:sanctum')->group(function () {
    // user
-   Route::get('/user/profile', [UserController::class, 'profile']);
-   Route::post('/user/change-password', [UserController::class, 'changePassword']);
+   Route::get('/user/profile', [UserController::class, 'profile']); //oke
+   Route::post('/user/change-password', [UserController::class, 'changePassword']);  //oke
 
-   // paketku
-   
+   // mypaket
+
 
    // rombonganku
 });

@@ -139,6 +139,8 @@ class BioJemahController extends Controller
     {
         $data = bioJemaah::find($id);
 
+        // return $data;
+
         // return $data->user;
         return view('Admin.DataBioJamaah.detail', [
             'pageTitle' => 'Detail Jemaah : ' . $data->nama_lengkap,
@@ -152,6 +154,10 @@ class BioJemahController extends Controller
             'id' => 'required|string|exists:bioJemaahs,id',
             'email' => 'required|string|email|unique:users,email,' . $request->id,
         ]);
+        $emailBiojemaah = bioJemaah::where('email', $request->email)->get();
+        if (count($emailBiojemaah) > 1) {
+            return redirect()->route('admin.biojemaah.detail', $request->id)->with('error', 'Email sudah terdaftar');
+        }
 
         $biojemaah = bioJemaah::find($request->id);
 
@@ -169,6 +175,7 @@ class BioJemahController extends Controller
 
         $biojemaah->update([
             'id_akun' => $user->id,
+            'email' => $request->email,
         ]);
 
         // Kirim Email

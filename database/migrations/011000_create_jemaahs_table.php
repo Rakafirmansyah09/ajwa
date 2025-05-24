@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('nama_lengkap');
             $table->string('nik')->unique();
+            $table->string('email')->unique()->nullable();
             $table->date('tanggal_lahir');
             $table->enum('jenis_kelamin', ['L', 'P']);
             $table->string('tempat_lahir');

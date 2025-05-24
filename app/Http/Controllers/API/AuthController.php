@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
@@ -45,7 +46,17 @@ class AuthController extends Controller
     // Forgot Password (send reset link)
     public function forgotPassword(Request $request)
     {
-        $request->validate(['email' => 'required|email']);
+        // $request->validate(['email' => 'required|email']);
+        $validator = Validator::make($request->all(), [
+             'email' => 'required|email',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Email tidak valid',
+                'errors' => $validator->errors()
+            ], 422);
+        }
 
         $status = Password::sendResetLink(
             $request->only('email')

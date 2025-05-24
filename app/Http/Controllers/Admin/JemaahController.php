@@ -64,6 +64,7 @@ class JemaahController extends Controller
             'tanggalLahir' => 'date|nullable',
             'jenis_kelamin' => 'nullable|in:L,P',
             'tempatLahir' => 'string|nullable',
+            'email' => 'string|nullable',
             'no_hp' => 'string|required',
             'alamat' => 'string|required',
             'kecamatan' => 'string|required',
@@ -87,6 +88,7 @@ class JemaahController extends Controller
                 'tanggalLahir' => 'required|date',
                 'jenis_kelamin' => 'required|in:L,P',
                 'tempatLahir' => 'required|string',
+                'email' => 'nullable|string',
 
                 'file_ktp' => 'required|file|mimes:jpg,jpeg,png,pdf|max:1048',
             ]);
@@ -96,15 +98,15 @@ class JemaahController extends Controller
             $filePaspor = null;
 
             $bioJemaah = bioJemaah::where('nik', $request->nik)->first();
-            if (!$bioJemaah) {
-                $bioJemaah = bioJemaah::create([
-                    'nama_lengkap' => $request->namaLengkap,
-                    'nik' => $request->nik,
-                    'tanggal_lahir' => $request->tanggalLahir,
-                    'jenis_kelamin' => $request->jenis_kelamin,
-                    'tempat_lahir' => $request->tempatLahir,
-                ]);
-            }
+            $bioJemaah = bioJemaah::create([
+                'nama_lengkap' => $request->namaLengkap,
+                'nik' => $request->nik,
+                'tanggal_lahir' => $request->tanggalLahir,
+                'jenis_kelamin' => $request->jenis_kelamin,
+                'tempat_lahir' => $request->tempatLahir,
+                'email' => $request->email,
+            ]);
+
 
             if ($request->hasFile('file_ktp')) {
                 $fileKtp = $this->upload->create($bioJemaah->id, 'Biojemaah', $request->file('file_ktp'));
@@ -350,7 +352,6 @@ class JemaahController extends Controller
             'totalBayar',
             'hargaPaket',
             'namaPerusahaan',
-            'alamatPerusahaan',
             'noTelpPerusahaan',
             'emailPerusahaan',
             'webPerusahaan'

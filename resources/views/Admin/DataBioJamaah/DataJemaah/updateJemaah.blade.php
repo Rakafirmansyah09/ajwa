@@ -77,20 +77,29 @@
             </div>
             <div class="col-12 col-md-6">
                <div class="form-group">
-                  <label for="no_hp">Nomor HP</label>
-                  <input type="text" id="no_hp" name="no_hp" class="form-control" required value="{{ isset($jemaah) ? $jemaah->no_hp : '' }}">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" class="form-control" required value="{{ old('email', $bioJemaah->email ?? '') }}" placeholder="Email" {{ isset($bioJemaah) ? 'readonly disabled' : '' }}>
                </div>
             </div>
             <div class="col-12 col-md-6">
                <div class="form-group">
-                  <label for="alamat">Alamat</label>
-                  <input id="alamat" name="alamat" class="form-control" required value="{{ isset($jemaah) ? $jemaah->alamat : '' }}">
+                  <label for="no_hp">Nomor HP</label>
+                  <div class="input-group">
+                     <span class="input-group-text">+62</span>
+                     <input type="text" id="no_hp" name="no_hp" class="form-control" required value="{{ isset($jemaah) ? substr($jemaah->no_hp, 3) : '' }}" placeholder="8xxxxxxxxxx" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                  </div>
                </div>
             </div>
             <div class="col-12 col-md-6">
                <div class="form-group">
                   <label for="kecamatan">Kecamatan</label>
-                  <input type="text" id="kecamatan" name="kecamatan" class="form-control" required value="{{ isset($jemaah) ? $jemaah->kecamatan : '' }}">
+                  <input type="text" id="kecamatan" name="kecamatan" class="form-control" required value="{{ isset($jemaah) ? $jemaah->kecamatan : '' }}" placeholder="Kecamatan">
+               </div>
+            </div>
+            <div class="col-12">
+               <div class="form-group">
+                  <label for="alamat">Alamat</label>
+                  <input id="alamat" name="alamat" class="form-control" required value="{{ isset($jemaah) ? $jemaah->alamat : '' }}" placeholder="Alamat">
                </div>
             </div>
          </div>
