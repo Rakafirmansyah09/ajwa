@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\ArtikelController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\FAQController;
+use App\Http\Controllers\API\jemaahController;
 use App\Http\Controllers\API\PaketController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\ApiController;
@@ -38,6 +39,9 @@ Route::middleware('auth:sanctum')->group(function () {
    // mypaket
    Route::get('/allMyPaket', [PaketController::class, 'allMyPaket']); //oke
    Route::get('/myPaket/{id}', [PaketController::class, 'myPaket']); //oke
+
+   // jemaah
+   Route::get('/jemaah/{id}', [jemaahController::class, 'jemaahById']);
 
 
    // rombonganku

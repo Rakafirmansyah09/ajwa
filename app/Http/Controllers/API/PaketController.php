@@ -177,25 +177,17 @@ class PaketController extends Controller
             'harga' => $group->paket->harga,
         ];
 
-        $data['listJemaah'] = $group->jemaah->map(function ($item) {
+        $jemaah = $group->jemaah->where('jemaah_id', $dataBio->id)->first();
+        $rombongan = jemaah::where('id_rombongan', $jemaah->id_rombongan)->get();
+        $data['jemaah'] = $rombongan->map(function ($item) {
             return [
                 'id' => $item->id,
                 'nama' => $item->bioJemaah->nama_lengkap,
                 'usia' => $item->usia,
                 'jenis_kelamin' => $item->bioJemaah->jenis_kelamin,
+                'terbayar' => $item->pembayaran->where('status', 'success')->sum('harga'),
             ];
         });
-
-        $jemaah = $group->jemaah->where('jemaah_id', $dataBio->id)->first();
-        $data['jemaah'] = $jemaah;
-
-        if ($jemaah->id_rombongan != null) {
-            $rombongan = jemaah::where('id_rombongan', $jemaah->id_rombongan)->get();
-            $data['rombongan'] = $rombongan->map();
-        } else {
-            $data['rombongan'] = collect([$jemaah]);
-        }
-
 
         return response()->json([
             'status' => 'success',

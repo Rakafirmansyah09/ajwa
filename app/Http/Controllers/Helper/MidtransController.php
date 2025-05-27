@@ -4,36 +4,43 @@ namespace App\Http\Controllers\Helper;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Midtrans\Config;
 use Midtrans\Transaction;
+use Midtrans\Snap;
 
 class MidtransController extends Controller
 {
     public function __construct()
     {
-        // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = 'SB-Mid-server-dvS9mWzaI5eiN_nH4sbYe18W';
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = false;
-        // Set sanitization on (default)
-        \Midtrans\Config::$isSanitized = true;
-        // Set 3DS transaction for credit card to true
-        \Midtrans\Config::$is3ds = true;
+        // Set Midtrans Configuration
+        Config::$serverKey = config('midtrans.serverKey');
+        Config::$isProduction = config('midtrans.isProduction');
+        Config::$isSanitized = config('midtrans.isSanitized');
+        Config::$is3ds = config('midtrans.is3ds');
     }
 
     public function checkPaymentStatus($orderId)
     {
         try {
             $status = Transaction::status($orderId);
+
             return [
                 'success' => true,
                 'message' => 'Payment status retrieved successfully',
                 'data' => json_decode(json_encode($status), true),
             ];
         } catch (\Exception $e) {
-            $errorData = json_decode(substr($e->getMessage(), strpos($e->getMessage(), '{')), true);
+            // Jika error dari Midtrans, parsing response JSON
+            $message = $e->getMessage();
+            $errorData = null;
+
+            if (strpos($message, '{') !== false) {
+                $errorData = json_decode(substr($message, strpos($message, '{')), true);
+            }
+
             return [
                 'success' => false,
-                'message' => 'Failed to retrieve payment status: ' . $errorData['status_message'],
+                'message' => 'Failed to retrieve payment status: ' . ($errorData['status_message'] ?? $e->getMessage()),
                 'data' => [
                     'status_code' => $errorData['status_code'] ?? 500,
                     'id' => $errorData['id'] ?? null,
@@ -41,18 +48,18 @@ class MidtransController extends Controller
             ];
         }
     }
-    // function generate snap token
+
     public function generateSnapToken($params)
     {
         try {
-            $snapToken = \Midtrans\Snap::getSnapToken($params);
+            $snapToken = Snap::getSnapToken($params);
+
             return [
                 'success' => true,
                 'message' => 'Snap token generated successfully',
                 'data' => $snapToken,
             ];
         } catch (\Exception $e) {
-            // throw new \Exception('Failed to generate Snap token: ' . $e->getMessage());
             return [
                 'success' => false,
                 'message' => 'Failed to generate Snap token: ' . $e->getMessage(),

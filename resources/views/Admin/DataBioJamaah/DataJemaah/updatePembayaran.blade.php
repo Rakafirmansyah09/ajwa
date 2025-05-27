@@ -14,6 +14,10 @@
       cursor: pointer;
       color: white;
    }
+
+   .hidden {
+      display: none;
+   }
 </style>
 @endsection
 
@@ -29,66 +33,68 @@
 
 <div class="card">
    <div class="card-body">
-      <div class="row">
-         @php
-         $hargas = [1000000, 2000000, 5000000, 7000000, 10000000, 15000000];
-         @endphp
-         @foreach ($hargas as $harga)
-         <div class=" col-sm-6 col-md-3 mb-3" onclick="setHarga({{$harga}})">
-            <div class="card-harga">
-               Rp. {{ number_format($harga, 0, ',', '.') }}
-            </div>
-         </div>
-         @endforeach
-      </div>
-   </div>
-</div>
-
-<div class="card">
-   <div class="card-body">
-      <form action="{{ isset($pembayaran) ? route('admin.group.jemaah.updatePembayaran', $pembayaran->id) : route('admin.jemaah.storePembayaran') }}" method="POST" enctype="multipart/form-data">
+      <form id="form-pembayaran" action="{{ isset($pembayaran) ? route('admin.group.jemaah.updatePembayaran', $pembayaran->id) : route('admin.jemaah.storePembayaran') }}" method="POST" enctype="multipart/form-data">
          @csrf
          <input type="hidden" name="jemaah_id" value="{{ $jemaah->id }}">
-         <div class="row">
-            <div class="col-md-4">
-               <div class="form-group">
-                  <label for="harga_display">Jumlah Pembayaran (Max: Rp. {{ number_format($belumBayar, 0, ',', '.') }})</label>
-                  <input type="text" id="harga_display" class="form-control" required data-max="{{$belumBayar}}">
-                  <input type="hidden" name="harga" id="harga" value="{{ old('harga', $pembayaran->harga ?? '') }}">
+         <input type="hidden" name="harga" id="harga" value="{{ old('harga', $pembayaran->harga ?? '') }}">
+         <input type="hidden" name="method" id="selected-method" value="{{ old('method', $pembayaran->method ?? '') }}">
+
+         {{-- Metode Pembayaran --}}
+         <div class="form-group mb-4">
+            <label for="method">Pilih Metode Pembayaran</label>
+            <select id="methodSelector" class="form-control" required>
+               <option value="">-- Pilih Metode --</option>
+               <option value="transfer" {{ old('method', $pembayaran->method ?? '') == 'transfer' ? 'selected' : '' }}>Transfer (Midtrans)</option>
+               <option value="tunai" {{ old('method', $pembayaran->method ?? '') == 'tunai' ? 'selected' : '' }}>Tunai</option>
+            </select>
+         </div>
+
+         {{-- Bagian Pilihan Harga --}}
+         <div id="section-harga" class="mb-4 hidden">
+            <label>Pilih Jumlah Pembayaran</label>
+            <div class="row">
+               @php
+               $hargas = [1000000, 2000000, 5000000, 7000000, 10000000, 15000000];
+               @endphp
+               @foreach ($hargas as $harga)
+               <div class="col-sm-6 col-md-3 mb-3" onclick="setHarga({{$harga}})">
+                  <div class="card-harga">
+                     Rp. {{ number_format($harga, 0, ',', '.') }}
+                  </div>
                </div>
+               @endforeach
             </div>
-            <div class="col-md-4">
-               <div class="form-group">
-                  <label for="method">Metode Pembayaran</label>
-                  <select name="method" class="form-control" id="metode_pembayaran" required>
-                     <option value="">-- Pilih Metode --</option>
-                     <option value="transfer" {{ old('method', $pembayaran->method ?? '') == 'transfer' ? 'selected' : '' }}>Transfer</option>
-                     <option value="tunai" {{ old('method', $pembayaran->method ?? '') == 'tunai' ? 'selected' : '' }}>Tunai</option>
-                     <!-- Tambahkan metode lain jika perlu -->
-                  </select>
-               </div>
-            </div>
-            <div class="col-md-4">
-               <div class="form-group">
-                  <label for="bukti">Upload Bukti Pembayaran</label>
-                  <input type="file" name="bukti" class="form-control" id="upload_bukti">
-                  @if(isset($pembayaran) && $pembayaran->bukti)
-                  <a href="{{ asset('storage/' . $pembayaran->bukti) }}" target="_blank">Lihat Bukti</a>
-                  @endif
-               </div>
-            </div>
-            <div class="col-12">
-               <div class="form-group">
-                  <label for="detail">Catatan / Detail Tambahan</label>
-                  <textarea name="detail" class="form-control" rows="3">{{ old('detail', $pembayaran->detail ?? '') }}</textarea>
-               </div>
+            <div class="form-group">
+               <label>Jumlah Pembayaran Manual</label>
+               <input type="text" id="harga_display" class="form-control" placeholder="Isi nominal jika manual..." data-max="{{ $belumBayar }}">
             </div>
          </div>
-         <div class="text-end">
-            <button type="submit" class="btn btn-primary">
-               {{ isset($pembayaran) ? 'Update' : 'Simpan' }}
-            </button>
+
+         {{-- Jika Tunai --}}
+         <div id="form-tunai" class="hidden">
+            <div class="form-group">
+               <label for="bukti">Upload Bukti Pembayaran</label>
+               <input type="file" name="bukti" class="form-control">
+               @if(isset($pembayaran) && $pembayaran->bukti)
+               <a href="{{ asset('storage/' . $pembayaran->bukti) }}" target="_blank">Lihat Bukti</a>
+               @endif
+            </div>
+            <div class="form-group">
+               <label for="detail">Catatan / Detail Tambahan</label>
+               <textarea name="detail" class="form-control" rows="3">{{ old('detail', $pembayaran->detail ?? '') }}</textarea>
+            </div>
+            <div class="text-end">
+               <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
          </div>
+
+         {{-- Jika Transfer --}}
+         <div id="form-transfer" class="hidden">
+            <div class="text-center">
+               <button type="button" id="btn-bayar" class="btn btn-success">Bayar Sekarang (Midtrans)</button>
+            </div>
+         </div>
+
       </form>
    </div>
 </div>
@@ -109,45 +115,95 @@
       document.getElementById('harga_display').value = formatRupiah(amount);
    }
 
-   // Initialize display value
    document.addEventListener('DOMContentLoaded', function() {
       const initialValue = document.getElementById('harga').value;
       if (initialValue) {
          document.getElementById('harga_display').value = formatRupiah(initialValue);
       }
-   });
 
-   // Handle select change
-   document.getElementById('metode_pembayaran').addEventListener('change', function(e) {
-      const selectedValue = e.target.value;
-      if (selectedValue === 'tunai') {
-         document.getElementById('upload_bukti').disabled = true;
-      } else {
-         document.getElementById('upload_bukti').disabled = false;
+      const methodSelector = document.getElementById('methodSelector');
+      const sectionHarga = document.getElementById('section-harga');
+      const formTunai = document.getElementById('form-tunai');
+      const formTransfer = document.getElementById('form-transfer');
+      const selectedMethod = document.getElementById('selected-method');
+
+      function toggleForm(method) {
+         selectedMethod.value = method;
+         if (method === 'tunai') {
+            sectionHarga.classList.remove('hidden');
+            formTunai.classList.remove('hidden');
+            formTransfer.classList.add('hidden');
+         } else if (method === 'transfer') {
+            sectionHarga.classList.remove('hidden');
+            formTunai.classList.add('hidden');
+            formTransfer.classList.remove('hidden');
+         } else {
+            sectionHarga.classList.add('hidden');
+            formTunai.classList.add('hidden');
+            formTransfer.classList.add('hidden');
+         }
       }
-   });
 
-   // Handle manual input
-   document.getElementById('harga_display').addEventListener('input', function(e) {
-      // Hapus semua karakter yang bukan angka
-      let value = e.target.value;
-      let max = e.target.dataset.max;
+      methodSelector.addEventListener('change', function(e) {
+         toggleForm(e.target.value);
+      });
 
-      // Cek jika tidak null atau tidak kosong
-      if (value) {
-         // Bersihkan dari karakter non-angka
-         value = value.replace(/[^\d]/g, '');
-         // konfersi ke angka
-         value = parseInt(value);
-         // jika lebih dari max maka set ke max
-         if (value > max) {
-            value = max;
+      toggleForm(methodSelector.value); // Init
+
+      // Handle Midtrans payment
+      document.getElementById('btn-bayar').addEventListener('click', function() {
+         const harga = document.getElementById('harga').value;
+         const jemaah_id = '{{ $jemaah->id }}';
+         if (!harga || harga == 0) {
+            alert('Silakan pilih atau isi nominal pembayaran.');
+            return;
          }
 
-         document.getElementById('harga').value = value;
+         fetch("{{ route('api.generate-snap') }}", {
+               method: 'POST',
+               headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRF-TOKEN': '{{ csrf_token() }}'
+               },
+               body: JSON.stringify({
+                  jemaah_id: jemaah_id,
+                  harga: harga
+               })
+            })
+            .then(response => response.json())
+            .then(data => {
+               if (data.success) {
+                  window.snap.pay(data.data, {
+                     onSuccess: function(result) {
+                        alert('Pembayaran berhasil!');
+                        location.reload();
+                     },
+                     onPending: function(result) {
+                        alert('Pembayaran pending!');
+                        location.reload();
+                     },
+                     onError: function(result) {
+                        alert('Pembayaran gagal.');
+                     }
+                  });
+               } else {
+                  alert(data.message);
+               }
+            });
+      });
 
-         e.target.value = formatRupiah(value);
-      }
+   });
+
+   // Format input harga manual
+   document.getElementById('harga_display').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/[^\d]/g, '');
+      let max = e.target.dataset.max;
+      value = parseInt(value) || 0;
+      if (value > max) value = max;
+      document.getElementById('harga').value = value;
+      e.target.value = formatRupiah(value);
    });
 </script>
+
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}"></script>
 @endsection
