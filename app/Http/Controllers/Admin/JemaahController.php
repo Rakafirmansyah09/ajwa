@@ -181,8 +181,8 @@ class JemaahController extends Controller
     public function addRombongan(Request $request)
     {
         $request->validate([
-            'idJemaah' => 'required|string|exists:jemaah,id',
-            'ketuaRombongan' => 'required|string|exists:jemaah,id'
+            'idJemaah' => 'required|string|exists:pendaftaran,id',
+            'ketuaRombongan' => 'required|string|exists:pendaftaran,id'
         ]);
 
         jemaah::addRombongan($request->idJemaah, $request->ketuaRombongan);

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\bioJemaah;
 use App\Models\group;
+use App\Models\jemaah;
 use Illuminate\Http\Request;
 
 class PaketController extends Controller
@@ -12,6 +14,7 @@ class PaketController extends Controller
     public function allGroup()
     {
         $data = group::with('paket')->get();
+
         if ($data->isEmpty()) {
             return response()->json([
                 'status' => 'error',
@@ -20,14 +23,25 @@ class PaketController extends Controller
             ]);
         }
 
-        $data->map(function ($item) {
-            $item->jumlahTerdaftar = $item->jemaah->count();
+        $group = $data->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'nama' => $item->nama,
+                'paket' => $item->paket->nama,
+                'jumlah_terdaftar' =>  $item->jemaah->count(),
+                'tanggal_keberangkatan' => $item->tanggal_keberangkatan,
+                'penerbangan' => $item->list_penerbangan ? $item->list_penerbangan[0]->maskapai : null,
+                'durasi' => $item->paket->durasi,
+                'kuota' => $item->paket->kuota,
+                'jemaah_terdaftar' => $item->jemaah->count(),
+                'harga' => $item->paket->harga,
+            ];
         });
 
         return response()->json([
             'status' => 'success',
             'message' => 'Data berhasil diambil',
-            'data' => $data,
+            'data' => $group,
         ]);
     }
 
@@ -87,38 +101,106 @@ class PaketController extends Controller
             ]);
         }
 
-        $data->map(function ($item) {
-            $item->jumlahTerdaftar = $item->jemaah->count();
+        $group = $data->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'nama' => $item->nama,
+                'paket' => $item->paket->nama,
+                'jumlah_terdaftar' =>  $item->jemaah->count(),
+                'tanggal_keberangkatan' => $item->tanggal_keberangkatan,
+                'penerbangan' => $item->list_penerbangan ? $item->list_penerbangan[0]->maskapai : null,
+                'durasi' => $item->paket->durasi,
+                'kuota' => $item->paket->kuota,
+                'jemaah_terdaftar' => $item->jemaah->count(),
+                'harga' => $item->paket->harga,
+            ];
         });
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data berhasil diambil',
+            'data' => $group,
+        ]);
+    }
+    // GET: /api/allMyPaket
+    public function allMyPaket(Request $request)
+    {
+        $user = $request->user();
+        $dataBio = bioJemaah::where('id_akun', $user->id)->first();
+
+        $data = $dataBio->jemaah->map(function ($item) {
+            return [
+                'id' => $item->group->id,
+                'nama' => $item->group->nama,
+                'paket' => $item->group->paket->nama,
+                'jumlah_terdaftar' =>  $item->group->jemaah->count(),
+                'tanggal_keberangkatan' => $item->group->tanggal_keberangkatan,
+                'penerbangan' => $item->group->list_penerbangan ? $item->group->list_penerbangan[0]->maskapai : null,
+                'durasi' => $item->group->paket->durasi,
+                'kuota' => $item->group->paket->kuota,
+                'jemaah_terdaftar' => $item->group->jemaah->count(),
+                'harga' => $item->group->paket->harga,
+            ];
+        });
+
         return response()->json([
             'status' => 'success',
             'message' => 'Data berhasil diambil',
             'data' => $data,
         ]);
     }
-    // GET: /api/myPaket
-    public function myPaket(Request $request)
+
+    public function myPaket($id, Request $request)
     {
         $user = $request->user();
-        $data = group::with('paket', 'jemaah.bioJemaah')
-            ->whereHas('jemaah', function ($query) use ($user) {
-                $query->where('user_id', $user->id);
-            })->get();
+        $dataBio = bioJemaah::where('id_akun', $user->id)->first();
+        $group = group::find($id);
 
-        if ($data->isEmpty()) {
+        if (!$group) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Data tidak ditemukan',
                 'data' => [],
-            ]);
+            ], 404);
         }
-        $data->map(function ($item) {
-            $item->jumlahTerdaftar = $item->jemaah->count();
+
+        $data['group'] = [
+            'id' => $group->id,
+            'nama' => $group->nama,
+            'paket' => $group->paket->nama,
+            'jumlah_terdaftar' =>  $group->jemaah->count(),
+            'tanggal_keberangkatan' => $group->tanggal_keberangkatan,
+            'penerbangan' => $group->list_penerbangan ? $group->list_penerbangan[0]->maskapai : null,
+            'durasi' => $group->paket->durasi,
+            'kuota' => $group->paket->kuota,
+            'jemaah_terdaftar' => $group->jemaah->count(),
+            'harga' => $group->paket->harga,
+        ];
+
+        $data['listJemaah'] = $group->jemaah->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'nama' => $item->bioJemaah->nama_lengkap,
+                'usia' => $item->usia,
+                'jenis_kelamin' => $item->bioJemaah->jenis_kelamin,
+            ];
         });
+
+        $jemaah = $group->jemaah->where('jemaah_id', $dataBio->id)->first();
+        $data['jemaah'] = $jemaah;
+
+        if ($jemaah->id_rombongan != null) {
+            $rombongan = jemaah::where('id_rombongan', $jemaah->id_rombongan)->get();
+            $data['rombongan'] = $rombongan->map();
+        } else {
+            $data['rombongan'] = collect([$jemaah]);
+        }
+
+
         return response()->json([
             'status' => 'success',
             'message' => 'Data berhasil diambil',
             'data' => $data,
-        ]);
+        ], 200);
     }
 }

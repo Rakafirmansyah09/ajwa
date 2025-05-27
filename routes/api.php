@@ -13,9 +13,9 @@ Route::get('/unauthorized', [ApiController::class, 'unauthorized'])->name('login
 
 
 // Paket
-Route::get('/allGroupPaket', [PaketController::class, 'allGroup']);
-Route::get('/showGroup/{id}', [PaketController::class, 'groupById']);
-Route::get('/searchGroupByName/{name}', [PaketController::class, 'searchGroupByName']);
+Route::get('/allGroupPaket', [PaketController::class, 'allGroup']); //oke
+Route::get('/showGroup/{id}', [PaketController::class, 'groupById']); //oke
+Route::get('/searchGroupByName/{name}', [PaketController::class, 'searchGroupByName']); //oke
 
 // news artikel
 Route::get('/allNews', [ArtikelController::class, 'list']);
@@ -27,8 +27,8 @@ Route::get('/showFaQ/{$id}', [FaQController::class, 'show']);
 
 // auth
 Route::post('/auth/login', [AuthController::class, 'login']); //oke
-Route::post('/auth/forgot-password', [AuthController::class, 'forgotPassword']);
-Route::post('/auth/reset-password', [AuthController::class, 'resetPassword']);
+Route::post('/auth/forgot-password', [AuthController::class, 'forgotPassword']); //oke
+Route::post('/auth/reset-password', [AuthController::class, 'resetPassword']); //oke
 
 Route::middleware('auth:sanctum')->group(function () {
    // user
@@ -36,6 +36,8 @@ Route::middleware('auth:sanctum')->group(function () {
    Route::post('/user/change-password', [UserController::class, 'changePassword']);  //oke
 
    // mypaket
+   Route::get('/allMyPaket', [PaketController::class, 'allMyPaket']); //oke
+   Route::get('/myPaket/{id}', [PaketController::class, 'myPaket']); //oke
 
 
    // rombonganku

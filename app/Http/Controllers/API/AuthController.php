@@ -17,11 +17,18 @@ class AuthController extends Controller
     // Login API
     public function login(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors()
+            ], 422);
+        }
         $user = User::where('email', $request->email)->first();
 
         if (! $user || ! Hash::check($request->password, $user->password)) {
@@ -46,9 +53,8 @@ class AuthController extends Controller
     // Forgot Password (send reset link)
     public function forgotPassword(Request $request)
     {
-        // $request->validate(['email' => 'required|email']);
         $validator = Validator::make($request->all(), [
-             'email' => 'required|email',
+            'email' => 'required|email',
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -77,11 +83,19 @@ class AuthController extends Controller
 
     public function resetPassword(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'token' => 'required',
             'password' => 'required|min:6|confirmed',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors()
+            ], 422);
+        }
 
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),

@@ -142,8 +142,8 @@ class PaketController extends Controller
             'id' => 'required|string|exists:pakets,id',
         ]);
 
-        $paket = paket::with('paket_keberangkatan')->find($request->id);
-        if ($paket->paket_keberangkatan->count() > 0) {
+        $paket = paket::with('group')->find($request->id);
+        if ($paket->group->count() > 0) {
             return redirect()->back()->with('error', 'Tidak dapat menghapus paket karena sudah ada Keberangkatan');
         }
         $paket->delete();

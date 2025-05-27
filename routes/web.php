@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PaketController;
 use App\Http\Controllers\Admin\PendaftaranController;
 use App\Http\Controllers\Admin\SalesController;
+use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -131,4 +132,7 @@ Route::middleware('auth1:admin')->group(function () {
    Route::get('/admin/EditFaQ/{id}', [FaQController::class, 'edit'])->name('admin.faq.edit');
    Route::post('/admin/EditFaQ', [FaQController::class, 'update'])->name('admin.faq.update');
    Route::post('/admin/DeleteFaQ', [FaQController::class, 'delete'])->name('admin.faq.delete');
+
+   // ====================================== mobile ======================================
+   Route::get('/reset-password/{token}', [ApiController::class, 'resetPassword'])->name('password.reset');
 });
