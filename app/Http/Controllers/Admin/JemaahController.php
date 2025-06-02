@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helper\MidtransController;
 use App\Http\Controllers\Helper\UploadFileController;
 use App\Models\bioJemaah;
 use App\Models\group;
@@ -17,10 +18,12 @@ use Illuminate\Http\Request;
 class JemaahController extends Controller
 {
     public $upload;
+    public $midtrans;
 
     public function __construct()
     {
         $this->upload = new UploadFileController();
+        $this->midtrans = new MidtransController();
     }
 
     public function addJemaah($id, Request $request)
@@ -263,6 +266,11 @@ class JemaahController extends Controller
     {
         $jemaah = jemaah::find($id);
 
+        // dd(config('midtrans.clientKey'));
+        // dd(env('MIDTRANS_CLIENT_KEY'));
+
+
+
         $terbayar = $jemaah->pembayaran->sum('harga');
         $harga = $jemaah->group->paket->harga;
         $belumBayar = $harga - $terbayar;
@@ -272,6 +280,30 @@ class JemaahController extends Controller
             'jemaah' => $jemaah,
             'belumBayar' => $belumBayar,
         ]);
+    }
+
+    public function apiGenerateSnap(Request $request)
+    {
+        $request->validate([
+            'jemaah_id' => 'required|exists:pendaftaran,id',
+            'harga' => 'required|numeric|min:10000',
+        ]);
+
+        $params = [
+            'transaction_details' => [
+                'order_id' => 'ORDER-' . uniqid(),
+                'gross_amount' => $request->harga,
+            ],
+            'customer_details' => [
+                'first_name' => 'Jemaah',
+                'last_name' => '',
+                'email' => 'jemaah@example.com',
+                'phone' => '08123456789',
+            ],
+        ];
+
+        $result = $this->midtrans->generateSnapToken($params);
+        return response()->json($result);
     }
 
     public function storePembayaran(Request $request)
