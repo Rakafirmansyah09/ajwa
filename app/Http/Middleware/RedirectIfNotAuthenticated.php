@@ -14,22 +14,23 @@ class RedirectIfNotAuthenticated
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $type = null): Response
+    public function handle(Request $request, Closure $next, $role = null): Response
     {
         // Jika tidak ada tipe diberikan, lanjutkan saja
-        if (is_null($type)) {
+        if (is_null($role)) {
             return $next($request);
         }
 
         // Jika tipe adalah 'guest'
-        if ($type === 'guest') {
+        if ($role === 'guest') {
             if (!Auth::check()) {
                 return $next($request);
             }
+            return redirect()->route('admin.dashboard');
         }
 
         // Jika user terautentikasi dan tipe sesuai
-        if (Auth::check() && Auth::user()->type === $type) {
+        if (Auth::check() && Auth::user()->role === $role) {
             return $next($request);
         }
 

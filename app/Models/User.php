@@ -22,14 +22,15 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'tyoe'
+        'role',
+        'admin_role'
     ];
 
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
     }
-    
+
     public static function boot()
     {
         parent::boot();

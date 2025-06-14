@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BioJemahController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\Admin\JemaahController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PaketController;
 use App\Http\Controllers\Admin\PendaftaranController;
+use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\Admin\SalesController;
 use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Route;
@@ -19,17 +21,15 @@ Route::get('/', function () {
 });
 
 
-Route::middleware('auth1:guest')->group(
-   function () {
-      // auth
-      Route::get('/admin/login', [AuthController::class, 'login'])->name('admin.login');
-      Route::post('/admin/login', [AuthController::class, 'loginPost'])->name('admin.login.post');
-      Route::get('/admin/forgot-password', [AuthController::class, 'forgotPassword'])->name('admin.forgotPassword');
-      Route::post('/admin/forgot-password', [AuthController::class, 'forgotPasswordPost'])->name('admin.forgotPassword.post');
-      Route::get('/admin/reset-password/{token}', [AuthController::class, 'resetPassword'])->name('admin.resetPassword');
-      Route::post('/admin/reset-password', [AuthController::class, 'resetPasswordPost'])->name('admin.resetPassword.post');
-   }
-);
+Route::middleware('auth1:guest')->group(function () {
+   // auth
+   Route::get('/admin/login', [AuthController::class, 'login'])->name('admin.login');
+   Route::post('/admin/login', [AuthController::class, 'loginPost'])->name('admin.login.post');
+   Route::get('/admin/forgot-password', [AuthController::class, 'forgotPassword'])->name('admin.forgotPassword');
+   Route::post('/admin/forgot-password', [AuthController::class, 'forgotPasswordPost'])->name('admin.forgotPassword.post');
+   Route::get('/admin/reset-password/{token}', [AuthController::class, 'resetPassword'])->name('admin.resetPassword');
+   Route::post('/admin/reset-password', [AuthController::class, 'resetPasswordPost'])->name('admin.resetPassword.post');
+});
 
 Route::middleware('auth1:admin')->group(function () {
    // auth
@@ -134,6 +134,24 @@ Route::middleware('auth1:admin')->group(function () {
    Route::get('/admin/EditFaQ/{id}', [FaQController::class, 'edit'])->name('admin.faq.edit');
    Route::post('/admin/EditFaQ', [FaQController::class, 'update'])->name('admin.faq.update');
    Route::post('/admin/DeleteFaQ', [FaQController::class, 'delete'])->name('admin.faq.delete');
+
+   // ====================================== profile ======================================
+   Route::get('/admin/profile', [ProfileController::class, 'index'])->name('admin.profile');
+   Route::post('/profile/biodata', [ProfileController::class, 'updateBiodata'])->name('profile.updateBiodata');
+   Route::post('/profile/email', [ProfileController::class, 'updateEmail'])->name('profile.updateEmail');
+   Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
+
+   // ====================================== profile ======================================
+   Route::get('/admin/listadmin', [AdminController::class, 'index'])->name('admin.admin.list');
+   Route::get('/admin/TambahAdmin', [AdminController::class, 'create'])->name('admin.admin.create');
+   Route::post('/admin/TambahAdmin', [AdminController::class, 'store'])->name('admin.admin.store');
+   Route::get('/admin/EditAdmin/{id}', [AdminController::class, 'edit'])->name('admin.admin.edit');
+   Route::post('/admin/EditAdmin', [AdminController::class, 'update'])->name('admin.admin.update');
+   Route::post('/admin/DeleteAdmin', [AdminController::class, 'destroy'])->name('admin.admin.delete');
+
+
+
+
 
    // ====================================== mobile ======================================
    Route::get('/reset-password/{token}', [ApiController::class, 'resetPassword'])->name('password.reset');
