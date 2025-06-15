@@ -138,3 +138,6 @@ Route::middleware('auth1:admin')->group(function () {
    // ====================================== mobile ======================================
    Route::get('/reset-password/{token}', [ApiController::class, 'resetPassword'])->name('password.reset');
 });
+Route::post('/admin/biojemaah/upload-ktp', [BioJemahController::class, 'uploadKtp'])->name('admin.biojemaah.uploadKtp');
+Route::post('/admin/biojemaah/upload-paspor', [BioJemahController::class, 'uploadPaspor'])->name('admin.biojemaah.uploadPaspor');
+

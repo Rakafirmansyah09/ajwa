@@ -104,7 +104,7 @@
             </div>
          </div>
 
-         <p class="fw-bold mb-1 mt-3">Kelengkapan File</p>
+         {{-- <p class="fw-bold mb-1 mt-3">Kelengkapan File</p>
          <div class="row">
             <div class="col-md-6">
                <div class="form-group">
@@ -124,7 +124,7 @@
                   @endif
                </div>
             </div>
-         </div>
+         </div> --}}
 
          <p class="fw-bold mb-1 mt-3">Sumber Informasi</p>
          <div class="row">
@@ -142,11 +142,11 @@
                </div>
             </div>
             <div class="col-md-8">
-               <div class="form-group">
+               {{-- <div class="form-group">
                   <label for="detail_info">Detail Sumber Informasi</label>
                   <input type="text" name="detail_info" class="form-control" id="detail_info" placeholder="Detail Sumber Informasi" value="{{ old('detail_info', $jemaah->detail_info ?? '') }}" required>
                </div>
-            </div>
+            </div> --}}
          </div>
 
          <div class="text-end">
