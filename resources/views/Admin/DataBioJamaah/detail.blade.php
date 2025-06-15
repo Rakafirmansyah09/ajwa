@@ -54,49 +54,49 @@
                   </table>
                </div>
                <div class="col-12 col-md-6">
-   <table class="table table-borderless table-custom">
-      <tr>
-         <td>File KTP</td>
-         <td>:</td>
-         <td>
-            <form action="{{ route('admin.biojemaah.uploadKtp') }}" method="post" enctype="multipart/form-data">
-               @csrf
-               <input type="hidden" name="id" value="{{ $data->id }}">
-               <label class="btn btn-sm btn-warning mb-1">
-                  Upload File KTP
-                  <input type="file" name="file_ktp" hidden onchange="this.form.submit()">
-               </label>
-               @if ($data->file_ktp)
-                  <br>
-                  <small class="text-muted">
-                     File saat ini: <a href="{{ asset($data->file_ktp) }}" target="_blank"><b>Lihat File</b></a>
-                  </small>
-               @endif
-            </form>
-         </td>
-      </tr>
-      <tr>
-         <td>File Paspor</td>
-         <td>:</td>
-         <td>
-            <form action="{{ route('admin.biojemaah.uploadPaspor') }}" method="post" enctype="multipart/form-data">
-               @csrf
-               <input type="hidden" name="id" value="{{ $data->id }}">
-               <label class="btn btn-sm btn-warning mb-1">
-                  Upload File Paspor
-                  <input type="file" name="file_paspor" hidden onchange="this.form.submit()">
-               </label>
-               @if ($data->file_paspor)
-                  <br>
-                  <small class="text-muted">
-                     File saat ini: <a href="{{ asset($data->file_paspor) }}" target="_blank"><b>Lihat File</b></a>
-                  </small>
-               @endif
-            </form>
-         </td>
-      </tr>
-   </table>
-</div>
+                  <table class="table table-borderless table-custom">
+                     <tr>
+                        <td>File KTP</td>
+                        <td>:</td>
+                        <td>
+                           @if ($data->file_ktp)
+                           <small class="text-muted">
+                              <a href="{{ asset($data->file_ktp) }}" target="_blank"><b>Lihat File</b></a>
+                           </small>
+                           @else
+                           <form action="{{ route('admin.biojemaah.uploadKtp') }}" method="post" enctype="multipart/form-data">
+                              @csrf
+                              <input type="hidden" name="id" value="{{ $data->id }}">
+                              <label class="btn btn-sm btn-warning mb-1">
+                                 Upload File KTP
+                                 <input type="file" name="file_ktp" hidden onchange="this.form.submit()">
+                              </label>
+                           </form>
+                           @endif
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>File Paspor</td>
+                        <td>:</td>
+                        <td>
+                           @if ($data->file_paspor)
+                           <small class="text-muted">
+                              <a href="{{ asset($data->file_paspor) }}" target="_blank"><b>Lihat File</b></a>
+                           </small>
+                           @else
+                           <form action="{{ route('admin.biojemaah.uploadPaspor') }}" method="post" enctype="multipart/form-data">
+                              @csrf
+                              <input type="hidden" name="id" value="{{ $data->id }}">
+                              <label class="btn btn-sm btn-warning mb-1">
+                                 Upload File Paspor
+                                 <input type="file" name="file_paspor" hidden onchange="this.form.submit()">
+                              </label>
+                           </form>
+                           @endif
+                        </td>
+                     </tr>
+                  </table>
+               </div>
 
             </div>
          </div>
@@ -164,7 +164,13 @@
                <td>{{$p->group->nama}}</td>
                <td>{{$p->group->tanggal_keberangkatan}}</td>
                <td>{{$p->group->paket->durasi}} Hari</td>
-               <td>Tidak</td>
+               <td>
+                  @if ($p->pembatalan)
+                  <span class="fw-bold text-danger">Dibatalkan</span>
+                  @else
+                  -
+                  @endif
+               </td>
 
                @php
                $totalBayar = $p->pembayaran ? $p->pembayaran->sum('harga') : 0;

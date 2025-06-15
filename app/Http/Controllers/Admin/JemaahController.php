@@ -75,8 +75,8 @@ class JemaahController extends Controller
             'sumber_info' => 'string|required',
             // 'detail_info' => 'string|required',
 
-            'file_ktp' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:1048',
-            'file_paspor' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:1048',
+            // 'file_ktp' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:1048',
+            // 'file_paspor' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:1048',
 
         ]);
 
@@ -93,12 +93,12 @@ class JemaahController extends Controller
                 'tempatLahir' => 'required|string',
                 'email' => 'nullable|string',
 
-                'file_ktp' => 'required|file|mimes:jpg,jpeg,png,pdf|max:1048',
+                // 'file_ktp' => 'required|file|mimes:jpg,jpeg,png,pdf|max:1048',
             ]);
 
 
-            $fileKtp = null;
-            $filePaspor = null;
+            // $fileKtp = null;
+            // $filePaspor = null;
 
             $bioJemaah = bioJemaah::where('nik', $request->nik)->first();
             $bioJemaah = bioJemaah::create([
@@ -111,18 +111,18 @@ class JemaahController extends Controller
             ]);
 
 
-            if ($request->hasFile('file_ktp')) {
-                $fileKtp = $this->upload->create($bioJemaah->id, 'Biojemaah', $request->file('file_ktp'));
-            }
+            // if ($request->hasFile('file_ktp')) {
+            //     $fileKtp = $this->upload->create($bioJemaah->id, 'Biojemaah', $request->file('file_ktp'));
+            // }
 
-            if ($request->hasFile('file_paspor')) {
-                $filePaspor = $this->upload->create($bioJemaah->id, 'Jemaah', $request->file('file_paspor'));
-            }
+            // if ($request->hasFile('file_paspor')) {
+            //     $filePaspor = $this->upload->create($bioJemaah->id, 'Jemaah', $request->file('file_paspor'));
+            // }
 
-            $bioJemaah->update([
-                'file_ktp' => $fileKtp,
-                'file_paspor' => $filePaspor,
-            ]);
+            // $bioJemaah->update([
+            //     'file_ktp' => $fileKtp,
+            //     'file_paspor' => $filePaspor,
+            // ]);
 
             $request->merge(['idJemaah' => $bioJemaah->id]);
         } else {

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\admin\FaQController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\JemaahController;
+use App\Http\Controllers\admin\LaporanController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PaketController;
 use App\Http\Controllers\Admin\PendaftaranController;
@@ -149,6 +150,10 @@ Route::middleware('auth1:admin')->group(function () {
    Route::post('/admin/EditAdmin', [AdminController::class, 'update'])->name('admin.admin.update');
    Route::post('/admin/DeleteAdmin', [AdminController::class, 'destroy'])->name('admin.admin.delete');
 
+   // ====================================== profile ======================================
+   Route::get('/admin/Laporan', [LaporanController::class, 'index'])->name('admin.laporan');
+   // Route::get('/admin/Laporan/Download', [LaporanController::class, 'download'])->name('admin.laporan.download');
+   Route::get('/admin/Laporan/{id}/DownloadExcel', [LaporanController::class, 'downloadExcel'])->name('admin.laporan.downloadExcel');
 
 
 
@@ -158,4 +163,3 @@ Route::middleware('auth1:admin')->group(function () {
 });
 Route::post('/admin/biojemaah/upload-ktp', [BioJemahController::class, 'uploadKtp'])->name('admin.biojemaah.uploadKtp');
 Route::post('/admin/biojemaah/upload-paspor', [BioJemahController::class, 'uploadPaspor'])->name('admin.biojemaah.uploadPaspor');
-

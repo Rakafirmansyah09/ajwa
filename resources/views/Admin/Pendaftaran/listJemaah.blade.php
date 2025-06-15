@@ -74,7 +74,13 @@
                   Rp. {{ number_format($totalBayar, 0, ',', '.') }} /
                   Rp. {{ number_format($group->paket->harga, 0, ',', '.') }}
                </td>
-               <td>{{$j->pembatalan ? 'Dibatalkan' : '-'}}</td>
+               <td>
+                  @if ($j->pembatalan)
+                  <span class="fw-bold text-danger">Dibatalkan</span>
+                  @else
+                  -
+                  @endif
+               </td>
                <td>
                   <a href="{{route('admin.jemaah.detail', ['id' => $j->id])}}" class="btn btn-sm btn-info" target="_blank">
                      <b>Detail</b>

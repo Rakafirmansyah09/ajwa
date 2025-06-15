@@ -117,6 +117,12 @@
                    <span>Profile</span>
                 </a>
              </li>
+             <li class="sidebar-item">
+                <a href="{{route('admin.laporan')}}" class='sidebar-link'>
+                   <i class="far fa-save"></i>
+                   <span>Laporan Data</span>
+                </a>
+             </li>
 
              <li class="sidebar-title">Auth</li>
              <li class="sidebar-item">
