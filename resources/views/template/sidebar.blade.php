@@ -101,13 +101,13 @@
              </li>
 
 
-             <li class="sidebar-title">Data Admin</li>
+             <li class="sidebar-title">Data User</li>
 
              @if (Auth::user()->admin_role == 'super_admin')
              <li class="sidebar-item">
                 <a href="{{route('admin.admin.list')}}" class='sidebar-link'>
                    <i class="bi bi-people-fill"></i>
-                   <span>List Admin</span>
+                   <span>List User</span>
                 </a>
              </li>
              @endif
