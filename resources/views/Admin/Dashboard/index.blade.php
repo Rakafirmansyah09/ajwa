@@ -1,5 +1,22 @@
 @extends('template.index')
 
+@section('css')
+<style>
+   .lgreen1 {
+      background-color: #00B07426;
+   }
+
+   .icon-ntv {
+      background-color: #FFF5D9;
+      border-radius: 40%;
+   }
+
+   .icon-ntv img {
+      padding: 12px;
+   }
+</style>
+@endsection
+
 @section('main')
 <header class="mb-3">
    <a href="#" class="burger-btn d-block d-xl-none">
@@ -7,131 +24,71 @@
    </a>
 </header>
 
-<div class="page-heading">
-   <h3>Profile Statistics</h3>
-</div>
-
-
 <section class="row">
-   <div class="col-12 col-lg-9">
-      <div class="row">
-         <div class="col-6 col-lg-3 col-md-6">
-            <div class="card">
-               <div class="card-body px-4 py-4-5">
-                  <div class="row">
-                     <div
-                        class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                        <div class="stats-icon purple mb-2">
-                           <i class="iconly-boldShow"></i>
-                        </div>
-                     </div>
-                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                        <h6 class="text-muted font-semibold">Profile Views</h6>
-                        <h6 class="font-extrabold mb-0">112.000</h6>
-                     </div>
+   <div class="col-6 col-lg-3 col-md-6">
+      <div class="card">
+         <div class="card-body ">
+            <div class="row">
+               <div class="col-md-4">
+                  <div class="stats-icon lgreen1">
+                     <img src="{{asset('asset/picture/Group 121.png')}}" alt="icon" class="img-fluid">
                   </div>
+
                </div>
-            </div>
-         </div>
-         <div class="col-6 col-lg-3 col-md-6">
-            <div class="card">
-               <div class="card-body px-4 py-4-5">
-                  <div class="row">
-                     <div
-                        class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                        <div class="stats-icon blue mb-2">
-                           <i class="iconly-boldProfile"></i>
-                        </div>
-                     </div>
-                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                        <h6 class="text-muted font-semibold">Followers</h6>
-                        <h6 class="font-extrabold mb-0">183.000</h6>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="col-6 col-lg-3 col-md-6">
-            <div class="card">
-               <div class="card-body px-4 py-4-5">
-                  <div class="row">
-                     <div
-                        class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                        <div class="stats-icon green mb-2">
-                           <i class="iconly-boldAdd-User"></i>
-                        </div>
-                     </div>
-                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                        <h6 class="text-muted font-semibold">Following</h6>
-                        <h6 class="font-extrabold mb-0">80.000</h6>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="col-6 col-lg-3 col-md-6">
-            <div class="card">
-               <div class="card-body px-4 py-4-5">
-                  <div class="row">
-                     <div
-                        class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                        <div class="stats-icon red mb-2">
-                           <i class="iconly-boldBookmark"></i>
-                        </div>
-                     </div>
-                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                        <h6 class="text-muted font-semibold">Saved Post</h6>
-                        <h6 class="font-extrabold mb-0">112</h6>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <div class="row">
-         <div class="col-12">
-            <div class="card">
-               <div class="card-header">
-                  <h4>Profile Visit</h4>
-               </div>
-               <div class="card-body">
-                  <div id="chart-profile-visit"></div>
+               <div class="col-md-8">
+                  <h6 class="text-muted font-semibold">Pendaftaran</h6>
+                  <h6 class="font-extrabold mb-0">{{$data1}}</h6>
                </div>
             </div>
          </div>
       </div>
    </div>
-   <div class="col-12 col-lg-3">
+   <div class="col-6 col-lg-3 col-md-6">
       <div class="card">
-         <div class="card-header">
-            <h4>Recent Messages</h4>
+         <div class="card-body ">
+            <div class="row">
+               <div class="col-md-4">
+                  <div class="stats-icon lgreen1">
+                     <img src="{{asset('asset/picture/Group 121.png')}}" alt="icon" class="img-fluid">
+                  </div>
+               </div>
+               <div class="col-md-8">
+                  <h6 class="text-muted font-semibold">Keberangkatan</h6>
+                  <h6 class="font-extrabold mb-0">{{$data2}}</h6>
+               </div>
+            </div>
          </div>
-         <div class="card-content pb-4">
-            <div class="recent-message d-flex px-4 py-3">
-               <div class="avatar avatar-lg">
-                  <img src="./assets/compiled/jpg/4.jpg">
+      </div>
+   </div>
+   <div class="col-6 col-lg-3 col-md-6">
+      <div class="card">
+         <div class="card-body ">
+            <div class="row">
+               <div class="col-md-4">
+                  <div class="stats-icon lgreen1">
+                     <img src="{{asset('asset/picture/Group 121.png')}}" alt="icon" class="img-fluid">
+                  </div>
                </div>
-               <div class="name ms-4">
-                  <h5 class="mb-1">Hank Schrader</h5>
-                  <h6 class="text-muted mb-0">@johnducky</h6>
-               </div>
-            </div>
-            <div class="recent-message d-flex px-4 py-3">
-               <div class="avatar avatar-lg">
-                  <img src="./assets/compiled/jpg/5.jpg">
-               </div>
-               <div class="name ms-4">
-                  <h5 class="mb-1">Dean Winchester</h5>
-                  <h6 class="text-muted mb-0">@imdean</h6>
+               <div class="col-md-8">
+                  <h6 class="text-muted font-semibold">Total Paket</h6>
+                  <h6 class="font-extrabold mb-0">{{$data3}}</h6>
                </div>
             </div>
-            <div class="recent-message d-flex px-4 py-3">
-               <div class="avatar avatar-lg">
-                  <img src="./assets/compiled/jpg/1.jpg">
+         </div>
+      </div>
+   </div>
+   <div class="col-6 col-lg-3 col-md-6">
+      <div class="card">
+         <div class="card-body ">
+            <div class="row">
+               <div class="col-md-4">
+                  <div class="stats-icon lgreen1">
+                     <img src="{{asset('asset/picture/Group 121.png')}}" alt="icon" class="img-fluid">
+                  </div>
                </div>
-               <div class="name ms-4">
-                  <h5 class="mb-1">John Dodol</h5>
-                  <h6 class="text-muted mb-0">@dodoljohn</h6>
+               <div class="col-md-8">
+                  <h6 class="text-muted font-semibold">Pembatalan </h6>
+                  <h6 class="font-extrabold mb-0">{{$data4}}</h6>
                </div>
             </div>
          </div>
@@ -139,4 +96,92 @@
    </div>
 </section>
 
+<section class="row">
+   <div class="col-12 col-lg-8">
+      <div class="card">
+         <div class="card-body">
+            <div id="chart-pendaftaran-visit"></div>
+         </div>
+      </div>
+   </div>
+   <div class="col-12 col-lg-4">
+      <div class="card">
+         <div class="card-header">
+            <h4>Notifikasi</h4>
+         </div>
+         <div class="card-content pb-4">
+
+            @foreach ($data5 as $not)
+            <div class="recent-message d-flex px-4 py-3">
+               <div>
+                  <div class="icon-ntv">
+                     <img src="{{asset('asset/picture/Vector1.png')}}" alt="avatar">
+                  </div>
+               </div>
+               <div class="name ms-4">
+                  <p>{{$not}}</p>
+               </div>
+            </div>
+            @endforeach
+
+
+         </div>
+      </div>
+   </div>
+
+</section>
+@endsection
+
+
+@section('js')
+<script src="{{ asset('mazer/extensions/apexcharts/apexcharts.min.js') }}"></script>
+<script>
+   const rawData = @json($data6);
+
+   // Inisialisasi array bulan dari Jan - Dec
+   const bulanMap = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+   const dataChart = Array(12).fill(0); // default 0 untuk semua bulan
+
+   rawData.forEach(item => {
+      const index = parseInt(item.bulan) - 1;
+      dataChart[index] = item.total;
+   });
+
+   var optionsProfileVisit = {
+      annotations: {
+         position: "back",
+      },
+      dataLabels: {
+         enabled: false,
+      },
+      chart: {
+         type: "bar",
+         height: 300,
+      },
+      fill: {
+         opacity: 1,
+      },
+      plotOptions: {
+         bar: {
+            borderRadius: 4,
+            horizontal: false,
+         }
+      },
+      series: [{
+         name: "Jemaah",
+         data: dataChart,
+      }],
+      colors: ["#435ebe"],
+      xaxis: {
+         categories: bulanMap,
+      },
+   }
+
+   var chartProfileVisit = new ApexCharts(
+      document.querySelector("#chart-pendaftaran-visit"),
+      optionsProfileVisit
+   )
+
+   chartProfileVisit.render()
+</script>
 @endsection

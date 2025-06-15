@@ -73,7 +73,7 @@ class JemaahController extends Controller
             'kecamatan' => 'string|required',
 
             'sumber_info' => 'string|required',
-            'detail_info' => 'string|required',
+            // 'detail_info' => 'string|required',
 
             'file_ktp' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:1048',
             'file_paspor' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:1048',
