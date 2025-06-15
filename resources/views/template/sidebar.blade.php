@@ -103,14 +103,16 @@
 
              <li class="sidebar-title">Data Admin</li>
 
+             @if (Auth::user()->admin_role == 'super_admin')
              <li class="sidebar-item">
-                <a href="" class='sidebar-link'>
+                <a href="{{route('admin.admin.list')}}" class='sidebar-link'>
                    <i class="bi bi-people-fill"></i>
                    <span>List Admin</span>
                 </a>
              </li>
+             @endif
              <li class="sidebar-item">
-                <a href="" class='sidebar-link'>
+                <a href="{{route('admin.profile')}}" class='sidebar-link'>
                    <i class="bi bi-person-circle"></i>
                    <span>Profile</span>
                 </a>
