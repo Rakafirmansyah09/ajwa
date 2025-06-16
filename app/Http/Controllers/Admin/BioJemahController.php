@@ -25,8 +25,8 @@ class BioJemahController extends Controller
     {
         $data = isset($request->search)
             ? bioJemaah::where('nama_lengkap', 'like', '%' . $request->search . '%')
-                ->orWhere('nik', 'like', '%' . $request->search . '%')
-                ->paginate(20)
+            ->orWhere('nik', 'like', '%' . $request->search . '%')
+            ->paginate(20)
             : bioJemaah::paginate(20);
 
         return view('Admin.DataBioJamaah.index', [

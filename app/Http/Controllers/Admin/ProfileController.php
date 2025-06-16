@@ -15,7 +15,7 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         // return $user;
-        return view('admin.profile.index', compact('user'));
+        return view('Admin.profile.index', compact('user'));
     }
 
     public function updateBiodata(Request $request)
