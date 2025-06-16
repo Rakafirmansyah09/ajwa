@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BioJemahController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FaQController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\JemaahController;
-use App\Http\Controllers\admin\LaporanController;
+use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PaketController;
 use App\Http\Controllers\Admin\PendaftaranController;
