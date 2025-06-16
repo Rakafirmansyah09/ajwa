@@ -4,7 +4,7 @@ use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BioJemahController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\admin\FaQController;
+use App\Http\Controllers\Admin\FaQController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\JemaahController;
 use App\Http\Controllers\admin\LaporanController;
