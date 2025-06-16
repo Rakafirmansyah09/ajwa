@@ -17,14 +17,14 @@ class AdminController extends Controller
     public function index()
     {
         $admins = User::whereIn('role', ['admin', 'superadmin'])->get();
-        return view('admin.admin.index', compact('admins'));
+        return view('Admin.admin.index', compact('admins'));
     }
 
     // Form tambah admin/super admin
     public function create()
     {
 
-        return view('admin.admin.create');
+        return view('Admin.admin.create');
     }
 
     // Simpan data baru
@@ -58,7 +58,7 @@ class AdminController extends Controller
     {
         $admin = User::findOrFail($id);
 
-        return view('admin.admin.edit', compact('admin'));
+        return view('Admin.admin.edit', compact('admin'));
     }
 
     // Update data
