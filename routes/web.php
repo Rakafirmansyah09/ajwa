@@ -11,7 +11,7 @@ use App\Http\Controllers\admin\LaporanController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PaketController;
 use App\Http\Controllers\Admin\PendaftaranController;
-use App\Http\Controllers\admin\ProfileController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SalesController;
 use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Route;
