@@ -21,7 +21,7 @@ class PaketSeeder extends Seeder
      */
     public function run(): void
     {
-        $paket1 = Paket::create([
+        $paket1 = paket::create([
             'id' => Str::uuid(),
             'nama' => 'Umroh Reguler Desember 2024',
             'gambar' => null,
@@ -127,7 +127,7 @@ class PaketSeeder extends Seeder
             ]),
         ]);
 
-        $paket2 = Paket::create([
+        $paket2 = paket::create([
             'id' => Str::uuid(),
             'nama' => 'Umroh Plus Istanbul Januari 2025',
             'gambar' => null,
@@ -256,7 +256,7 @@ class PaketSeeder extends Seeder
             ]),
         ]);
 
-        $paket3 = Paket::create([
+        $paket3 = paket::create([
             'id' => Str::uuid(),
             'nama' => 'Umroh Plus Istanbul Januari 2026',
             'gambar' => null,

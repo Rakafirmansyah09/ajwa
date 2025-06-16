@@ -152,7 +152,7 @@ class PaketController extends Controller
 
     public function detail($id)
     {
-        $paket = Paket::with(['group' => function ($query) {
+        $paket = paket::with(['group' => function ($query) {
             $query->orderBy('created_at', 'asc');
         }])->find($id);
 
@@ -186,7 +186,7 @@ class PaketController extends Controller
             'fasilitas' => 'required|array'
         ]);
 
-        $paket = Paket::find($request->paket_id);
+        $paket = paket::find($request->paket_id);
         $paket->fasilitas = array_map(function ($item, $index) {
             return ['nama' => $item];
         }, $request->fasilitas, array_keys($request->fasilitas));
@@ -216,7 +216,7 @@ class PaketController extends Controller
             'lokasi' => 'required|array',
         ]);
 
-        $paket = Paket::find($request->paket_id);
+        $paket = paket::find($request->paket_id);
         $itinerary = [];
         foreach ($request->judul as $key => $judul) {
             $itinerary[] = [

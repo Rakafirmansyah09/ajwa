@@ -41,7 +41,7 @@ class group extends Model
 
     public function paket()
     {
-        return $this->belongsTo(Paket::class);
+        return $this->belongsTo(paket::class);
     }
 
     public function jemaah()
