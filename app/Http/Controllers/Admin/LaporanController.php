@@ -22,7 +22,7 @@ class LaporanController extends Controller
             $jemaah = null;
         }
 
-        return view('Admin.Laporan.index', [
+        return view('Admin.laporan.index', [
             'pageTitle' => 'Laporan',
             'groups' => $group,
             'jemaah' => $jemaah
