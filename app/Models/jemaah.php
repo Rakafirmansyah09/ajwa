@@ -50,7 +50,7 @@ class jemaah extends Model
 
     public function bioJemaah()
     {
-        return $this->belongsTo(BioJemaah::class, 'jemaah_id');
+        return $this->belongsTo(bioJemaah::class, 'jemaah_id');
     }
 
     public function infoSales()
