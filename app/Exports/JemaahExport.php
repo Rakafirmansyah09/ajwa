@@ -17,7 +17,7 @@ class JemaahExport implements FromCollection, WithHeadings
 
     public function collection()
     {
-        return Jemaah::with(['bioJemaah', 'infoSales']) // load relasi
+        return jemaah::with(['bioJemaah', 'infoSales']) // load relasi
             ->where('group_id', $this->groupId)
             ->get()
             ->map(function ($jemaah) {

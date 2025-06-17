@@ -360,7 +360,7 @@ class JemaahController extends Controller
 
     public function showInvoice($id)
     {
-        $jemaah = Jemaah::with(['bioJemaah', 'pembayaran', 'group.paket'])->findOrFail($id);
+        $jemaah = jemaah::with(['bioJemaah', 'pembayaran', 'group.paket'])->findOrFail($id);
         $totalBayar = $jemaah->pembayaran->sum('harga');
         $hargaPaket = $jemaah->group->paket->harga ?? 0;
 

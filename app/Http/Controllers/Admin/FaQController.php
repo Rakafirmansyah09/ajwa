@@ -30,7 +30,7 @@ class FaQController extends Controller
             'jawaban' => 'required|string',
         ]);
 
-        Faq::create([
+        faq::create([
             'pertanyaan' => $request->pertanyaan,
             'jawaban' => $request->jawaban,
         ]);
@@ -40,7 +40,7 @@ class FaQController extends Controller
 
     public function edit($id)
     {
-        $faq = Faq::findOrFail($id);
+        $faq = faq::findOrFail($id);
         return view('Admin.DataFaq.update', compact('faq'));
     }
 
@@ -52,7 +52,7 @@ class FaQController extends Controller
             'jawaban' => 'required|string',
         ]);
 
-        $faq = Faq::findOrFail($request->id);
+        $faq = faq::findOrFail($request->id);
         $faq->update([
             'pertanyaan' => $request->pertanyaan,
             'jawaban' => $request->jawaban,
@@ -67,7 +67,7 @@ class FaQController extends Controller
             'id' => 'required|exists:faq,id',
         ]);
 
-        $faq = Faq::findOrFail($request->id);
+        $faq = faq::findOrFail($request->id);
         $faq->delete();
 
         return redirect()->route('admin.faq.list')->with('success', 'FAQ berhasil dihapus.');

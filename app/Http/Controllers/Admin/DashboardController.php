@@ -42,7 +42,7 @@ class DashboardController extends Controller
 
     private function getnotive()
     {
-        $jemaah = Jemaah::with([
+        $jemaah = jemaah::with([
             'group.paket', // untuk ambil harga dari paket
             'pembayaran' => function ($query) {
                 $query->where('status', 'success');
@@ -78,7 +78,7 @@ class DashboardController extends Controller
 
     public function getKeberangkatanPerBulan()
     {
-        $keberangkatanPerBulan = Jemaah::selectRaw('COUNT(*) as total, MONTH(group.tanggal_keberangkatan) as bulan')
+        $keberangkatanPerBulan = jemaah::selectRaw('COUNT(*) as total, MONTH(group.tanggal_keberangkatan) as bulan')
             ->join('group', 'pendaftaran.group_id', '=', 'group.id')
             ->groupBy('bulan')
             ->get();

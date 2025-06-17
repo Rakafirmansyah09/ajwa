@@ -45,7 +45,7 @@ class jemaah extends Model
     // Relasi
     public function ketuaRombongan()
     {
-        return $this->belongsTo(Jemaah::class, 'id_rombongan');
+        return $this->belongsTo(jemaah::class, 'id_rombongan');
     }
 
     public function bioJemaah()
@@ -55,17 +55,17 @@ class jemaah extends Model
 
     public function infoSales()
     {
-        return $this->belongsTo(Sales::class, 'sumber_info');
+        return $this->belongsTo(sales::class, 'sumber_info');
     }
 
     public function group()
     {
-        return $this->belongsTo(Group::class, 'group_id');
+        return $this->belongsTo(group::class, 'group_id');
     }
 
     public function pembayaran()
     {
-        return $this->hasMany(Pembayaran::class, 'jemaah_id');
+        return $this->hasMany(pembayaran::class, 'jemaah_id');
     }
 
     // Fungsi rombongan
