@@ -7,6 +7,29 @@
    <title>{{ $pageTilte ?? 'Dashboard' }} - AJWA</title>
 
    <link rel="shortcut icon" href="{{ asset('asset/picture/logoajwa.png') }}" type="image/x-icon">
+   <!-- mazee teaser -->
+   <script>
+      (function(m, a, z, e) {
+         var s, t;
+         try {
+            t = m.sessionStorage.getItem('maze-us');
+         } catch (err) {}
+
+         if (!t) {
+            t = new Date().getTime();
+            try {
+               m.sessionStorage.setItem('maze-us', t);
+            } catch (err) {}
+         }
+
+         s = a.createElement('script');
+         s.src = z + '?apiKey=' + e;
+         s.async = true;
+         a.getElementsByTagName('head')[0].appendChild(s);
+         m.mazeUniversalSnippetApiKey = e;
+      })(window, document, 'https://snippet.maze.co/maze-universal-loader.js', '41aa8a1f-259b-4156-af76-e16016a3dcba');
+   </script>
+
 
    <link rel="stylesheet" href="{{ asset('mazer/compiled/css/app.css') }}">
    <link rel="stylesheet" href="{{ asset('mazer/compiled/css/app-dark.css') }}">
