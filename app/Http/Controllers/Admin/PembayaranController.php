@@ -8,6 +8,7 @@ use App\Http\Controllers\Helper\UploadFileController;
 use App\Models\jemaah;
 use App\Models\pembayaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PembayaranController extends Controller
 {
@@ -108,6 +109,9 @@ class PembayaranController extends Controller
     public function webhook(Request $request)
     {
         $notification = json_decode($request->getContent(), true);
+
+        // masukkan ke log
+        Log::info('Midtrans webhook notification:', $notification);
 
         $status = $notification['transaction_status'];
         $fraud = $notification['fraud_status'];
