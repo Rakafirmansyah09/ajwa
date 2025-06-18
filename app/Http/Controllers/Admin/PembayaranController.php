@@ -77,7 +77,7 @@ class PembayaranController extends Controller
         $result = $this->midtrans->generateSnapToken($params);
 
         $pembayaran->update([
-            'snap_token' =>  $result['data'],
+            'key' =>  $result['data'],
         ]);
 
         return response()->json($result);
@@ -117,7 +117,7 @@ class PembayaranController extends Controller
         $fraud = $notification['fraud_status'];
         $order_id = $notification['order_id'];
 
-        $pembayaran = pembayaran::find($order_id);
+        $pembayaran = pembayaran::where('key', $order_id)->first();
 
         if ($status == 'capture') {
             if ($fraud == 'challenge') {
