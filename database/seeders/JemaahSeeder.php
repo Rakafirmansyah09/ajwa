@@ -22,7 +22,7 @@ class JemaahSeeder extends Seeder
             bioJemaah::create([
                 'id' => Str::uuid(),
                 'nama_lengkap' => $faker->name(),
-                'nik' => $faker->unique()->numerify('##############'),
+                'nik' => $faker->unique()->numerify('#################'),
                 'tanggal_lahir' => $faker->date(),
                 'tempat_lahir' => $faker->city(),
                 'file_ktp' => 'foto.jpg',

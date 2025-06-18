@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('bioJemaahs', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('nama_lengkap');
-            $table->integer('nik')->unique();
+            $table->bigInteger('nik')->unique(); 
+
             $table->string('email')->unique()->nullable();
             $table->date('tanggal_lahir');
             $table->enum('jenis_kelamin', ['L', 'P']);
