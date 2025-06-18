@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\JemaahController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PaketController;
+use App\Http\Controllers\admin\PembayaranController;
 use App\Http\Controllers\Admin\PendaftaranController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SalesController;
@@ -41,8 +42,6 @@ Route::middleware('auth1:admin')->group(function () {
 
    // ====================================== data Biojemaah ======================================
    Route::get('/admin/listJemaah', [BioJemahController::class, 'index'])->name('admin.biojemaah.list');
-   // Route::get('/admin/addJemaah', [BioJemahController::class, 'add'])->name('admin.biojemaah.add');
-   // Route::post('/admin/addJemaah', [BioJemahController::class, 'addPost'])->name('admin.biojemaah.addPost');
    Route::get('/admin/editJemaah/{id}', [BioJemahController::class, 'edit'])->name('admin.biojemaah.edit');
    Route::post('/admin/editJemaah', [BioJemahController::class, 'editPost'])->name('admin.biojemaah.editPost');
    Route::post('/admin/DeleteJemaah', [BioJemahController::class, 'delete'])->name('admin.biojemaah.delete');
@@ -52,36 +51,34 @@ Route::middleware('auth1:admin')->group(function () {
 
    // ====================================== pendaftaran ======================================
    Route::get('/admin/pendaftaran', [PendaftaranController::class, 'index'])->name('admin.pendaftaran');
-   Route::get('/admin/Group/{id}/listJemaah', [PendaftaranController::class, 'listJemaah'])->name('admin.group.listJemaah');
    Route::get('/admin/Group/{id}/addJemaah', [JemaahController::class, 'addJemaah'])->name('admin.pendaftaran.addJemaah');
-   Route::get('/admin/Group/{id}/addJemaah/cariNik', [JemaahController::class, 'cariNik'])->name('admin.pendaftaran.addJemaah.cariNik');
-   // data Jemaah
    Route::post('/admin/Group/{id}/addJemaah', [JemaahController::class, 'storeJemaah'])->name('admin.pendaftaran.storeJemaah');
-   Route::get('/admin/Group/jemaah/{id}', [JemaahController::class, 'detail'])->name('admin.jemaah.detail');
-   Route::post('/admin/Group/jemaah/delete', [JemaahController::class, 'delete'])->name('admin.jemaah.delete');
-   // jemaah update?
-   // data jemaah peembatalan
-   Route::post('/admin/Group/jemaah/{id}/pembatalan', [JemaahController::class, 'batalBerangkat'])->name('admin.jemaah.batalBerangkat');
-   Route::get('/admin/Group/jemaah/{id}/lanjutkan', [JemaahController::class, 'lanjuttBerangkat'])->name('admin.jemaah.lanjuttBerangkat');
-   // ganti group
-   Route::get('/admin/Group/jemaah/{idJemaah}/gantiGrup/{idgrup}', [JemaahController::class, 'gantiGrup'])->name('admin.jemaah.gantiGrup');
+   Route::get('/admin/Group/{id}/addJemaah/cariNik', [JemaahController::class, 'cariNik'])->name('admin.pendaftaran.addJemaah.cariNik');
 
+   // ====================================== group Keberangkatan ======================================
+   Route::get('/admin/Group/All', [PaketController::class, 'listAllGroup'])->name('admin.paket.listAllGroup');
+   Route::get('/admin/Group/{id}/listJemaah', [PendaftaranController::class, 'listJemaah'])->name('admin.group.listJemaah');
+
+   // ====================================== Jemaah ======================================
+   Route::get('/admin/jemaah/{id}', [JemaahController::class, 'detail'])->name('admin.jemaah.detail');
+   Route::post('/admin/jemaah/delete', [JemaahController::class, 'delete'])->name('admin.jemaah.delete');
+   // data peembatalan
+   Route::post('/admin/jemaah/{id}/pembatalan', [JemaahController::class, 'batalBerangkat'])->name('admin.jemaah.batalBerangkat');
+   Route::get('/admin/jemaah/{id}/pelanjutan', [JemaahController::class, 'lanjuttBerangkat'])->name('admin.jemaah.lanjuttBerangkat');
    // data rombongan
    Route::post('/admin/jemaah/addRombongan/', [JemaahController::class, 'addRombongan'])->name('admin.jemaah.addRombongan');
    Route::get('/admin/jemaah/{idJemaah}/deleteRombongan', [JemaahController::class, 'deleteRombongan'])->name('admin.jemaah.deleteRombongan');
-   // data jemaah pembayaran
-   Route::get('/admin/Group/jemaah/{id}/pembayaran', [JemaahController::class, 'addPembayaran'])->name('admin.jemaah.addPembayaran');
-   Route::post('/admin/Group/jemaah/pembayaran', [JemaahController::class, 'storePembayaran'])->name('admin.jemaah.storePembayaran');
-   Route::post('/admin/Group/jemaah/pembayaran/delete', [JemaahController::class, 'deletePembayaran'])->name('admin.jemaah.deletePembayaran');
-   // data jemaah pembayaran mitrans
-   Route::post('/generate-snap', [JemaahController::class, 'apiGenerateSnap'])->name('api.generate-snap');
-   // data jemaah invoice
+   // data invoice
    Route::get('/admin/invoice/jemaah/{id}', [JemaahController::class, 'showInvoice'])->name('invoice.show');
 
+   // ====================================== Pembayaran ======================================
+   Route::get('/admin/jemaah/{id}/pembayaran', [PembayaranController::class, 'create'])->name('admin.jemaah.addPembayaran');
+   Route::post('/admin/jemaah/pembayaran', [PembayaranController::class, 'storeManual'])->name('admin.jemaah.storePembayaran');
+   Route::post('/generate-snap', [PembayaranController::class, 'apiCreateSnap'])->name('api.generate-snap');
+   Route::post('/admin/jemaah/pembayaran/delete', [PembayaranController::class, 'delete'])->name('admin.jemaah.deletePembayaran');
 
    // ====================================== data paket ======================================
    Route::get('/admin/listPaket', [PaketController::class, 'index'])->name('admin.paket.list');
-   Route::get('/admin/listAllGroup', [PaketController::class, 'listAllGroup'])->name('admin.paket.listAllGroup');
    Route::get('/admin/TambahPaket', [PaketController::class, 'create'])->name('admin.paket.create');
    Route::post('/admin/TambahPaket', [PaketController::class, 'store'])->name('admin.paket.store');
    Route::get('/admin/EditPaket/{id}', [PaketController::class, 'edit'])->name('admin.paket.edit');
@@ -142,7 +139,7 @@ Route::middleware('auth1:admin')->group(function () {
    Route::post('/profile/email', [ProfileController::class, 'updateEmail'])->name('profile.updateEmail');
    Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
 
-   // ====================================== profile ======================================
+   // ====================================== list admin ======================================
    Route::get('/admin/listadmin', [AdminController::class, 'index'])->name('admin.admin.list');
    Route::get('/admin/TambahAdmin', [AdminController::class, 'create'])->name('admin.admin.create');
    Route::post('/admin/TambahAdmin', [AdminController::class, 'store'])->name('admin.admin.store');
@@ -150,16 +147,14 @@ Route::middleware('auth1:admin')->group(function () {
    Route::post('/admin/EditAdmin', [AdminController::class, 'update'])->name('admin.admin.update');
    Route::post('/admin/DeleteAdmin', [AdminController::class, 'destroy'])->name('admin.admin.delete');
 
-   // ====================================== profile ======================================
+   // ====================================== laporan ======================================
    Route::get('/admin/Laporan', [LaporanController::class, 'index'])->name('admin.laporan');
-   // Route::get('/admin/Laporan/Download', [LaporanController::class, 'download'])->name('admin.laporan.download');
    Route::get('/admin/Laporan/{id}/DownloadExcel', [LaporanController::class, 'downloadExcel'])->name('admin.laporan.downloadExcel');
-
-
 
 
    // ====================================== mobile ======================================
    Route::get('/reset-password/{token}', [ApiController::class, 'resetPassword'])->name('password.reset');
 });
+
 Route::post('/admin/biojemaah/upload-ktp', [BioJemahController::class, 'uploadKtp'])->name('admin.biojemaah.uploadKtp');
 Route::post('/admin/biojemaah/upload-paspor', [BioJemahController::class, 'uploadPaspor'])->name('admin.biojemaah.uploadPaspor');

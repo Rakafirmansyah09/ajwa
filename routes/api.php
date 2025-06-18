@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\PembayaranController;
 use App\Http\Controllers\API\ArtikelController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\FAQController;
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/test', [ApiController::class, 'test']);
 Route::get('/unauthorized', [ApiController::class, 'unauthorized'])->name('login');
 
+// ====================================== webhook ======================================
+Route::post('/webhook', [PembayaranController::class, 'webhook'])->name('webhook');
 
 // Paket
 Route::get('/allGroupPaket', [PaketController::class, 'allGroup']); //oke

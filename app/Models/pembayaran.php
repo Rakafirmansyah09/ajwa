@@ -16,7 +16,6 @@ class pembayaran extends Model
         'jemaah_id',
         'dibayar_oleh',
         'harga',
-        'bukti',
         'method',
         'key',
         'status',

@@ -35,44 +35,6 @@ class BioJemahController extends Controller
         ]);
     }
 
-    public function add()
-    {
-        return view('Admin.DataBioJamaah.add', [
-            'pageTitle' => 'Tambah Biodata Jemaah',
-        ]);
-    }
-
-    public function addPost(Request $request)
-    {
-        $request->validate([
-            'namaLengkap' => 'required|string',
-            'nik' => 'required|string',
-            'tanggalLahir' => 'required|date',
-            'tempatLahir' => 'required|string',
-            'jenisKelamin' => 'required|in:L,P',
-            'file_ktp' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
-            'file_kk' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
-        ]);
-
-        $bio = bioJemaah::create([
-            'nama_lengkap' => $request->namaLengkap,
-            'nik' => $request->nik,
-            'tanggal_lahir' => $request->tanggalLahir,
-            'tempat_lahir' => $request->tempatLahir,
-            'jenis_kelamin' => $request->jenisKelamin,
-        ]);
-
-        $fileKtp = $this->upload->create($bio->id, 'Biojemaah', $request->file('file_ktp'));
-        $fileKk  = $this->upload->create($bio->id, 'Biojemaah', $request->file('file_kk'));
-
-        $bio->update([
-            'file_ktp' => $fileKtp,
-            'file_kk' => $fileKk,
-        ]);
-
-        return redirect()->route('admin.biojemaah.list')->with('success', 'Data berhasil ditambahkan!');
-    }
-
     public function edit($id)
     {
         $data = bioJemaah::findOrFail($id);

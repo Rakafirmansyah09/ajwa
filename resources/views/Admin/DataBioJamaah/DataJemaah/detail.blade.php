@@ -169,59 +169,10 @@
                </div>
             </div>
             @endif
-            <!-- ganti group paket -->
-            <!-- <a href="" class="btn btn-sm btn-warning w-100 mb-2 @if($jemaah->id_rombongan) disabled @endif" data-bs-toggle="modal" data-bs-target="#modal-ganti-group-keberangkatan">
-               <b>Ganti Group Keberangkatan</b>
-            </a> -->
+
             <a href="{{ route('invoice.show', $jemaah->id) }}" target="_blank" class="btn btn-sm btn-primary w-100 mb-2 mt-3 mt-md-0">
                <i class="bi bi-receipt"></i> Lihat Invoice
             </a>
-
-
-            <!-- <div class="modal fade text-left" id="modal-ganti-group-keberangkatan" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
-               <div class="modal-dialog modal-dialog-scrollable" role="document">
-                  <div class="modal-content">
-                     <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel1">Ganti Group Keberangkatan</h5>
-                        <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                              <line x1="18" y1="6" x2="6" y2="18"></line>
-                              <line x1="6" y1="6" x2="18" y2="18"></line>
-                           </svg>
-                        </button>
-                     </div>
-                     <div class="modal-body">
-                        <div class="form-group">
-                           <label for="idGrup">Group keberangkatan</label>
-                           <ul class="list-unstyled">
-                              @forelse ($paket->group as $gr)
-                              <li>
-                                 <a href="{{ route('admin.jemaah.gantiGrup', ['idJemaah' => $jemaah->id, 'idgrup' => $gr->id]) }}"
-                                    class="btn btn-success w-100 text-start mb-2 d-flex justify-content-between align-items-center">
-                                    <div>
-                                       {{$gr->nama}} - {{$gr->tanggal_keberangkatan}}
-                                    </div>
-                                    <div class="badge">
-                                       {{$gr->jemaah->count()}}/{{$paket->kuota}}
-                                    </div>
-                                 </a>
-                              </li>
-                              @empty
-                              <li>Belum ada group keberangkatan</li>
-                              @endforelse
-                           </ul>
-
-                        </div>
-                     </div>
-                     <div class="modal-footer">
-                        <button type="button" class="btn" data-bs-dismiss="modal">
-                           <i class="bx bx-x d-block d-sm-none"></i>
-                           <span class="d-none d-sm-block">Close</span>
-                        </button>
-                     </div>
-                  </div>
-               </div>
-            </div> -->
 
             <!-- batal Rombongan -->
             @if($jemaah->id_rombongan)

@@ -18,12 +18,10 @@ use Illuminate\Http\Request;
 class JemaahController extends Controller
 {
     public $upload;
-    public $midtrans;
 
     public function __construct()
     {
         $this->upload = new UploadFileController();
-        $this->midtrans = new MidtransController();
     }
 
     public function addJemaah($id, Request $request)
@@ -229,28 +227,6 @@ class JemaahController extends Controller
         return redirect()->back()->with('success', 'Data jemaah berhasil dilanjutkan!');
     }
 
-    public function gantiGrup($idjemaah, $idgrup)
-    {
-        $jemaah = jemaah::find($idjemaah);
-
-        if (jemaah::memberRombongan($jemaah->id)->count() >  1) {
-            return redirect()->back()->with('error', 'Data jemaah tidak dapat diganti grup karena memiliki rombongan!');
-        }
-
-        $group = group::find($idgrup);
-        if ($group->paket_id != $jemaah->group->paket_id) {
-            return redirect()->back()->with('error', 'Data jemaah tidak dapat diganti grup karena paket tidak sama!');
-        }
-        if ($group->paket->kuota - $group->jemaah->count() == 0) {
-            return redirect()->back()->with('error', 'Data jemaah tidak dapat diganti grup karena paket sudah penuh!');
-        }
-
-        $jemaah->update([
-            'group_id' => $idgrup,
-        ]);
-
-        return redirect()->back()->with('success', 'Data jemaah berhasil diganti grup!');
-    }
     public function delete(Request $request)
     {
         $jemaah = jemaah::find($request->idJemaah);
@@ -262,101 +238,7 @@ class JemaahController extends Controller
         return redirect()->back()->with('success', 'Data jemaah berhasil dihapus!');
     }
 
-    public function addPembayaran($id)
-    {
-        $jemaah = jemaah::find($id);
-
-        // dd(config('midtrans.clientKey'));
-        // dd(env('MIDTRANS_CLIENT_KEY'));
-
-
-
-        $terbayar = $jemaah->pembayaran->sum('harga');
-        $harga = $jemaah->group->paket->harga;
-        $belumBayar = $harga - $terbayar;
-        // isset
-        return view('Admin.DataBioJamaah.DataJemaah.updatePembayaran', [
-            'pageTitle' => 'Tambah Pembayaran',
-            'jemaah' => $jemaah,
-            'belumBayar' => $belumBayar,
-        ]);
-    }
-
-    public function apiGenerateSnap(Request $request)
-    {
-        $request->validate([
-            'jemaah_id' => 'required|exists:pendaftaran,id',
-            'harga' => 'required|numeric|min:10000',
-        ]);
-
-        $params = [
-            'transaction_details' => [
-                'order_id' => 'ORDER-' . uniqid(),
-                'gross_amount' => $request->harga,
-            ],
-            'customer_details' => [
-                'first_name' => 'Jemaah',
-                'last_name' => '',
-                'email' => 'jemaah@example.com',
-                'phone' => '08123456789',
-            ],
-        ];
-
-        $result = $this->midtrans->generateSnapToken($params);
-        return response()->json($result);
-    }
-
-    public function storePembayaran(Request $request)
-    {
-        // return $request;
-
-        $request->validate([
-            'jemaah_id' => 'required|exists:pendaftaran,id',
-            'harga' => 'required|numeric',
-            'method' => 'required|string',
-            'detail' => 'required|string',
-            'bukti' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:1048',
-        ]);
-
-        if ($request->method == 'transfer') {
-            $request->validate([
-                'bukti' => 'required|file|mimes:jpg,jpeg,png,pdf|max:1048',
-            ]);
-        }
-
-        $jemaah = jemaah::find($request->jemaah_id);
-        $bukti = '-';
-        if ($request->hasFile('bukti')) {
-            $bukti = $this->upload->create($jemaah->id, 'Pembayaran', $request->file('bukti'));
-        }
-
-        $jemaah->pembayaran()->create([
-            'harga' => $request->harga,
-            'method' => $request->method,
-            'status' => 'success',
-            'dibayar_oleh' => 'admin',
-            'detail' => $request->detail,
-            'bukti' => $bukti,
-        ]);
-        return redirect()->route('admin.jemaah.detail', ['id' => $request->jemaah_id])->with('success', 'Data pembayaran berhasil ditambahkan!');
-    }
-
-    public function deletePembayaran(Request $request)
-    {
-        $request->validate([
-            'id' => 'required|exists:pembayarans,id',
-        ]);
-
-        $pembayaran = pembayaran::find($request->id);
-        if ($pembayaran->dibayar_oleh != 'admin') {
-            return redirect()->back()->with('error', 'Anda tidak dapat menghapus pembayaran yang dilakukan oleh jemaah!');
-        }
-
-        $this->upload->delete($pembayaran->bukti);
-        $pembayaran->delete();
-        return redirect()->back()->with('success', 'Data pembayaran berhasil dihapus!');
-    }
-
+    // add, store, delete pembayaran di pembayaran Controller
 
     public function showInvoice($id)
     {

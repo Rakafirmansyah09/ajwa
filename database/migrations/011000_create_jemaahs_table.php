@@ -63,8 +63,7 @@ return new class extends Migration
             $table->uuid('jemaah_id');
             $table->uuid('dibayar_oleh')->nullable();
             $table->decimal('harga', 10, 2);
-            $table->string('bukti');
-            $table->string('method');
+            $table->enum('method', ['tunai', 'digital']);
             $table->string('key')->nullable();
             $table->enum('status', ['pending', 'success', 'failed'])->default('pending');
             $table->text('detail');

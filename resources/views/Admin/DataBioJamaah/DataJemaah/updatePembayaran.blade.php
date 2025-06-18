@@ -44,7 +44,7 @@
             <label for="method">Pilih Metode Pembayaran</label>
             <select id="methodSelector" class="form-control" required>
                <option value="">-- Pilih Metode --</option>
-               <option value="transfer" {{ old('method', $pembayaran->method ?? '') == 'transfer' ? 'selected' : '' }}>Transfer (Midtrans)</option>
+               <option value="digital" {{ old('method', $pembayaran->method ?? '') == 'digital' ? 'selected' : '' }}>Digital (Midtrans)</option>
                <option value="tunai" {{ old('method', $pembayaran->method ?? '') == 'tunai' ? 'selected' : '' }}>Tunai</option>
             </select>
          </div>
@@ -73,13 +73,6 @@
          {{-- Jika Tunai --}}
          <div id="form-tunai" class="hidden">
             <div class="form-group">
-               <label for="bukti">Upload Bukti Pembayaran</label>
-               <input type="file" name="bukti" class="form-control">
-               @if(isset($pembayaran) && $pembayaran->bukti)
-               <a href="{{ asset('storage/' . $pembayaran->bukti) }}" target="_blank">Lihat Bukti</a>
-               @endif
-            </div>
-            <div class="form-group">
                <label for="detail">Catatan / Detail Tambahan</label>
                <textarea name="detail" class="form-control" rows="3">{{ old('detail', $pembayaran->detail ?? '') }}</textarea>
             </div>
@@ -88,8 +81,8 @@
             </div>
          </div>
 
-         {{-- Jika Transfer --}}
-         <div id="form-transfer" class="hidden">
+         {{-- Jika Digital --}}
+         <div id="form-digital" class="hidden">
             <div class="text-center">
                <button type="button" id="btn-bayar" class="btn btn-success">Bayar Sekarang (Midtrans)</button>
             </div>
@@ -124,7 +117,7 @@
       const methodSelector = document.getElementById('methodSelector');
       const sectionHarga = document.getElementById('section-harga');
       const formTunai = document.getElementById('form-tunai');
-      const formTransfer = document.getElementById('form-transfer');
+      const formTransfer = document.getElementById('form-digital');
       const selectedMethod = document.getElementById('selected-method');
 
       function toggleForm(method) {
@@ -133,7 +126,7 @@
             sectionHarga.classList.remove('hidden');
             formTunai.classList.remove('hidden');
             formTransfer.classList.add('hidden');
-         } else if (method === 'transfer') {
+         } else if (method === 'digital') {
             sectionHarga.classList.remove('hidden');
             formTunai.classList.add('hidden');
             formTransfer.classList.remove('hidden');
@@ -192,16 +185,16 @@
             });
       });
 
-   });
+      // Format input harga manual
+      document.getElementById('harga_display').addEventListener('input', function(e) {
+         let value = e.target.value.replace(/[^\d]/g, '');
+         let max = e.target.dataset.max;
+         value = parseInt(value) || 0;
+         if (value > max) value = max;
+         document.getElementById('harga').value = value;
+         e.target.value = formatRupiah(value);
+      });
 
-   // Format input harga manual
-   document.getElementById('harga_display').addEventListener('input', function(e) {
-      let value = e.target.value.replace(/[^\d]/g, '');
-      let max = e.target.dataset.max;
-      value = parseInt(value) || 0;
-      if (value > max) value = max;
-      document.getElementById('harga').value = value;
-      e.target.value = formatRupiah(value);
    });
 </script>
 
