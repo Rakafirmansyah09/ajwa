@@ -44,10 +44,11 @@ class PembayaranController extends Controller
         $jemaah = jemaah::find($request->jemaah_id);
 
         $pembayaran = $jemaah->pembayaran()->create([
+            'dibayar_oleh' => 'admin',
             'harga' => $request->harga,
             'method' => 'digital',
+            // 'ket' => '',
             'status' => 'pending',
-            'dibayar_oleh' => 'admin',
             'detail' => '-',
         ]);
 
@@ -117,7 +118,7 @@ class PembayaranController extends Controller
         $fraud = $notification['fraud_status'];
         $order_id = $notification['order_id'];
 
-        $pembayaran = pembayaran::where('key', $order_id)->first();
+        $pembayaran = pembayaran::where('id', $order_id)->first();
 
         if ($status == 'capture') {
             if ($fraud == 'challenge') {
@@ -133,7 +134,7 @@ class PembayaranController extends Controller
             $pembayaran->update(['status' => 'pending']);
         }
 
-        return response()->json(['status' => 'success']);
+        return response()->json(['message' => 'Callback received successfully']);
     }
 
     public function delete(Request $request)
