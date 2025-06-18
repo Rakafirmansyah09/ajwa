@@ -14,7 +14,8 @@ Route::get('/test', [ApiController::class, 'test']);
 Route::get('/unauthorized', [ApiController::class, 'unauthorized'])->name('login');
 
 // ====================================== webhook ======================================
-Route::post('/webhook', [PembayaranController::class, 'webhook'])->name('webhook');
+Route::post('/midtrans/notification', [PembayaranController::class, 'webhook'])->name('webhook');
+// https://tiketadjwa.my.id/api/midtrans/notification
 
 // Paket
 Route::get('/allGroupPaket', [PaketController::class, 'allGroup']); //oke
