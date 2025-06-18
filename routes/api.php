@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\admin\PembayaranController;
+use App\Http\Controllers\Admin\PembayaranController;
 use App\Http\Controllers\API\ArtikelController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\FAQController;

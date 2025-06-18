@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\JemaahController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PaketController;
-use App\Http\Controllers\admin\PembayaranController;
+use App\Http\Controllers\Admin\PembayaranController;
 use App\Http\Controllers\Admin\PendaftaranController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SalesController;
