@@ -61,7 +61,7 @@ class JemaahController extends Controller
             'idJemaah' => 'string|nullable|exists:bioJemaahs,id',
 
             'namaLengkap' => 'string|nullable',
-            'nik' => 'string|nullable',
+            'nik' => 'integer|nullable',
             'tanggalLahir' => 'date|nullable',
             'jenis_kelamin' => 'nullable|in:L,P',
             'tempatLahir' => 'string|nullable',
@@ -84,7 +84,7 @@ class JemaahController extends Controller
         if (!isset($request->idJemaah)) {
 
             $request->validate([
-                'nik' => 'required|string|unique:bioJemaahs,nik',
+                'nik' => 'required|integer|unique:bioJemaahs,nik',
                 'namaLengkap' => 'required|string',
                 'tanggalLahir' => 'required|date',
                 'jenis_kelamin' => 'required|in:L,P',

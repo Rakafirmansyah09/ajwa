@@ -65,7 +65,7 @@
                @endforeach
             </div>
             <div class="form-group">
-               <label>Jumlah Pembayaran Manual</label>
+               <label>Jumlah Pembayaran</label>
                <input type="text" id="harga_display" class="form-control" placeholder="Isi nominal jika manual..." data-max="{{ $belumBayar }}">
             </div>
          </div>
@@ -95,6 +95,9 @@
 
 @section('js')
 <script>
+   // jumlah max pembayaran
+   const maxAmount = <?php echo $belumBayar; ?>;
+
    function formatRupiah(angka) {
       return new Intl.NumberFormat('id-ID', {
          style: 'currency',
@@ -104,6 +107,10 @@
    }
 
    function setHarga(amount) {
+      if (amount > maxAmount) {
+         amount = maxAmount;
+         alert('Jumlah tagihan yang belum dibayar ' + formatRupiah(maxAmount));
+      }
       document.getElementById('harga').value = amount;
       document.getElementById('harga_display').value = formatRupiah(amount);
    }

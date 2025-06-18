@@ -27,7 +27,7 @@
          <form action="{{route('admin.pendaftaran.addJemaah.cariNik', ['id' => $group->id])}}" method="get">
             @csrf
             <div class="input-group mb-3">
-               <input type="text" class="form-control" placeholder="Masukkan NIk" name="nik">
+               <input type="number" class="form-control" placeholder="Masukkan NIk" name="nik">
                <button class="input-group-text" id="cari-nik" type="submit">
                   <i class="fas fa-search"></i>
                </button>
@@ -50,7 +50,7 @@
             <div class="col-md-6">
                <div class="form-group">
                   <label for="nik">NIK</label>
-                  <input type="text" name="nik" class="form-control" id="nik" placeholder="NIK" value="{{ old('nik', $bioJemaah->nik ?? '') }}" {{ isset($bioJemaah) ? 'readonly disabled' : '' }}>
+                  <input type="number" name="nik" class="form-control" id="nik" placeholder="NIK" value="{{ old('nik', $bioJemaah->nik ?? '') }}" {{ isset($bioJemaah) ? 'readonly disabled' : '' }}>
                </div>
             </div>
             <div class="col-md-6">
