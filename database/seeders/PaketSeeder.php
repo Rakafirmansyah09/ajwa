@@ -411,7 +411,7 @@ class PaketSeeder extends Seeder
         sales::create([
             'kantor' => 'Kantor Pusat',
             'label' => 'Media Sosial',
-            'nama' => 'Indtagram',
+            'nama' => 'Instagram',
             'aktif' => true,
             'deskripsi' => 'Media sosial untuk promosi',
         ]);
