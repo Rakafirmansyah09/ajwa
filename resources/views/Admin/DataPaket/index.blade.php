@@ -49,10 +49,12 @@
                   <form method="post" action="{{ route('admin.paket.delete') }}" class="d-inline">
                      @csrf
                      <input type="hidden" name="id" value="{{$j->id}}">
-                     <button type="submit" class="btn btn-danger btn-sm">
-                        <b>Hapus</b>
-                        <!-- <i class="fas fa-trash-alt"></i> -->
-                     </button>
+                     <button
+                        type="submit"
+                        class="btn btn-sm btn-danger"
+                        onclick="confirmDanger('Hapus Paket', 
+                           'Yakin akan menghapsu paket : {{$j->nama}}?', 
+                           ()=>{this.form.submit();})">Hapus</button>
                   </form>
                   <a href="{{route('admin.paket.edit', ['id' => $j->id, 'b' => 'admin.paket.list']) }}" class="btn btn-primary btn-sm">
                      <b>Edit</b>

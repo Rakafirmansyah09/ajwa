@@ -21,22 +21,22 @@
       <form method="post" action="{{ isset($keberangkatan) ? route('admin.group.update') : route('admin.group.store') }}">
          @csrf
          <div class="row">
-            <div class="col-12">
+            <div class="col-4">
+               <div class="form-group">
+                  <label for="code">Nama Group</label>
+                  <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama Group" value="{{ old('nama', $keberangkatan->nama ?? '')}}">
+               </div>
+            </div>
+            <div class="col-8">
                <fieldset disabled>
                   <div class="row">
-                     <div class="col-md-3">
-                        <div class="form-group">
-                           <label for="code">Code Paket</label>
-                           <input type="text" name="code" class="form-control" id="code" placeholder="Nama Paket" value="{{$paket->code}}" readonly>
-                        </div>
-                     </div>
                      <div class="col-md-6">
                         <div class="form-group">
                            <label for="nama">Nama Paket</label>
                            <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama Paket" value="{{$paket->nama}}" readonly>
                         </div>
                      </div>
-                     <div class="col-md-3">
+                     <div class="col-md-6">
                         <div class="form-group">
                            <label for="kapasitas">Kapasitas Paket</label>
                            <input type="text" name="kapasitas" class="form-control" id="kapasitas" placeholder="kapasitas Paket" value="{{$paket->kuota}} Orang" readonly>

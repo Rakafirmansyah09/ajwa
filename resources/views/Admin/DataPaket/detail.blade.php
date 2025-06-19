@@ -183,10 +183,12 @@
                   <form method="post" action="{{ route('admin.group.delete') }}" class="d-inline">
                      @csrf
                      <input type="hidden" name="keberangkatan_id" value="{{$item->id}}">
-                     <button type="submit" class="btn btn-danger btn-sm">
-                        <!-- <i class="fas fa-trash-alt"></i> -->
-                        <b>Hapus</b>
-                     </button>
+                     <button
+                        type="submit"
+                        class="btn btn-sm btn-danger"
+                        onclick="confirmDanger('Hapus Group Paket', 
+                           'Yakin akan menghapsu group : {{$item->nama}}?', 
+                           ()=>{this.form.submit();})">Hapus</button>
                   </form>
                   <a href="{{route('admin.group.edit', ['id' => $item->id])}}" class="btn btn-sm btn-warning">
                      <!-- <i class="fas fa-pencil-alt"></i> -->

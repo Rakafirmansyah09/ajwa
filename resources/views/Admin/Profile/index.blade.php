@@ -90,7 +90,13 @@
             </div>
             <div class="modal-footer">
                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-               <button type="submit" class="btn btn-primary">Simpan</button>
+               <button
+                  type="submit"
+                  class="btn btn-primary"
+                  onclick="confirmWarning('Ganti Password?', 
+                     'Apakah Anda yakin ingin mengganti password?', () => {
+                     $('#gantiPasswordModal form').submit();
+                  })">Simpan</button>
             </div>
          </div>
       </form>

@@ -35,6 +35,7 @@
 
    // ========== CONFIRM ==========
    function confirmInfo(title = 'Konfirmasi Info', message = 'Apakah Anda yakin?', confirmCallback = () => {}) {
+      event.preventDefault(); // cegah submit langsung
       Swal.fire({
          icon: 'info',
          title: title,
@@ -50,6 +51,7 @@
    }
 
    function confirmWarning(title = 'Konfirmasi Peringatan', message = 'Tindakan ini bisa berisiko.', confirmCallback = () => {}) {
+      event.preventDefault(); // cegah submit langsung
       Swal.fire({
          icon: 'warning',
          title: title,
@@ -67,6 +69,7 @@
    }
 
    function confirmDanger(title = 'Hapus Data?', message = 'Data akan dihapus permanen.', confirmCallback = () => {}) {
+      event.preventDefault(); // cegah submit langsung
       Swal.fire({
          icon: 'error',
          title: title,

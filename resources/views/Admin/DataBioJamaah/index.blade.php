@@ -51,10 +51,12 @@
                   <form method="post" action="{{ route('admin.biojemaah.delete') }}" class="d-inline">
                      @csrf
                      <input type="hidden" name="id" value="{{$j->id}}">
-                     <button type="submit" class="btn btn-sm btn-danger">
-                        <!-- <i class="fas fa-trash-alt"></i> -->
-                        <b>Hapus</b>
-                     </button>
+                     <button
+                        type="submit"
+                        class="btn btn-sm btn-danger"
+                        onclick="confirmDanger('Hapus Biodata Jemaah', 
+                           'Yakin akan menghapsu jemaah : {{$j->nama_lengkap}}?', 
+                           ()=>{this.form.submit();})"><b>Hapus</b></button>
                   </form>
                   <a href="{{route('admin.biojemaah.detail', ['id'=>$j->id])}}" class="btn btn-sm btn-info">
                      <!-- <i class="fas fa-info-circle"></i> -->

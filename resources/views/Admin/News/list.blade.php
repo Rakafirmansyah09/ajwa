@@ -60,12 +60,22 @@
                      <form action="{{ route('admin.news.delete') }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus berita ini?')">
                         @csrf
                         <input type="hidden" name="id" value="{{$berita->id}}">
-                        <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                        <button
+                           type="submit"
+                           class="btn btn-sm btn-danger"
+                           onclick="confirmDanger('Hapus News', 
+                           'Yakin akan menghapsu News : {{$berita->judul}}?', 
+                           ()=>{this.form.submit();})">Hapus</button>
                      </form>
                      <!-- tombol show dan publis -->
                      <a href="{{ route('admin.news.detail', ['id' => $berita->id]) }}" class="btn btn-sm btn-info">Lihat</a>
                      @if($berita->status == 'draft')
-                     <a href="{{ route('admin.news.publish', ['id' => $berita->id]) }}" class="btn btn-sm btn-success">Publish</a>
+                     <a
+                        href="{{ route('admin.news.publish', ['id' => $berita->id]) }}"
+                        class="btn btn-sm btn-success"
+                        onclick="confirmInfo('Publist news',
+                        'Publis news : {{$berita->judul}}?',
+                        ()=>{this.form.submit();})">Publish</a>
                      @endif
                   </td>
                </tr>

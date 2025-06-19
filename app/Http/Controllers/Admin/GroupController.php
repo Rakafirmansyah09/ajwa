@@ -25,27 +25,17 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'nama' => 'required|string',
             'paket_id' => 'required|exists:pakets,id',
             'tanggal_keberangkatan' => 'required|date',
             'tanggal_kepulangan' => 'nullable|date',
         ]);
 
-        $paket = paket::find($request->paket_id);
-        $lastGroup = $paket->group->last();
-
-        if ($lastGroup && preg_match('/Batch (\d+)/i', $lastGroup->nama, $match)) {
-            $nextNumber = intval($match[1]) + 1;
-        } else {
-            $nextNumber = 1;
-        }
-
-        $namaGroup = 'Batch ' . $nextNumber;
-
         group::create([
             'paket_id' => $request->paket_id,
             'tanggal_keberangkatan' => $request->tanggal_keberangkatan,
             'tanggal_kepulangan' => $request->tanggal_kepulangan,
-            'nama' => $namaGroup,
+            'nama' => $request->nama
         ]);
 
         return redirect()->route('admin.paket.detail', ['id' => $request->paket_id])->with('success', 'Data berhasil ditambahkan');
@@ -65,14 +55,15 @@ class GroupController extends Controller
     {
         $request->validate([
             'paket_id' => 'required|exists:pakets,id',
+            'nama' => 'required|string',
             'keberangkatan_id' => 'required|exists:group,id',
             'tanggal_keberangkatan' => 'required|date',
             'tanggal_kepulangan' => 'nullable|date',
         ]);
 
         $group = group::find($request->keberangkatan_id);
-        $paket = $group->paket;
         $group->update([
+            'nama' => $request->nama,
             'tanggal_keberangkatan' => $request->tanggal_keberangkatan,
             'tanggal_kepulangan' => $request->tanggal_kepulangan,
         ]);

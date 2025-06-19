@@ -55,9 +55,13 @@
                   <form method="post" action="{{ route('admin.sales.delete') }}" class="d-inline">
                      @csrf
                      <input type="hidden" name="id" value="{{$d->id}}">
-                     <button type="submit" class="btn btn-danger btn-sm">
-                        <b>Hapus</b>
-                     </button>
+
+                     <button
+                        type="submit"
+                        class="btn btn-sm btn-danger"
+                        onclick="confirmDanger('Hapus Sales', 
+                           'Yakin akan menghapsu sales : {{$d->nama}}?', 
+                           ()=>{this.form.submit();})">Hapus</button>
                   </form>
                </td>
             </tr>

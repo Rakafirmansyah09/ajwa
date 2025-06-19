@@ -36,7 +36,15 @@
                   <form action="{{ route('admin.admin.delete') }}" method="POST" style="display:inline-block;">
                      @csrf
                      <input type="hidden" name="id" value="{{ $admin->id }}">
-                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
+                     <button type="submit"
+                        class="btn btn-danger btn-sm"
+                        onclick="confirmDanger(
+                           'Hapus akun admin',
+                           'Yakin akan menghapus akun admin {{ $admin->name }}?!',
+                           () => { this.form.submit(); }
+                        )">
+                        Hapus
+                     </button>
                   </form>
                   @endif
                </td>

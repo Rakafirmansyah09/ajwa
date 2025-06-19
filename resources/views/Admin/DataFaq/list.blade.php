@@ -34,7 +34,12 @@
                      <form action="{{ route('admin.faq.delete') }}" method="POST" class="d-inline">
                         @csrf
                         <input type="hidden" name="id" value="{{ $faq->id }}">
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus FAQ ini?')">Hapus</button>
+                        <button
+                           type="submit"
+                           class="btn btn-sm btn-danger"
+                           onclick="confirmDanger('Hapus FaQ', 
+                           'Yakin akan menghapsu FaQ ini?', 
+                           ()=>{this.form.submit();})">Hapus</button>
                      </form>
                   </td>
                </tr>

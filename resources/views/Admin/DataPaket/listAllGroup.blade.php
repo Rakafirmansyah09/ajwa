@@ -42,21 +42,9 @@
                   <td>{{ $item->tanggal_kepulangan ? \Carbon\Carbon::parse($item->tanggal_kepulangan)->format('d M Y') : '-' }}</td>
                   <td>{{ $item->jemaah->count() }} / {{$item->paket->kuota}}</td>
                   <td>
-                     <form method="post" action="{{ route('admin.group.delete') }}" class="d-inline">
-                        @csrf
-                        <input type="hidden" name="keberangkatan_id" value="{{$item->id}}">
-                        <button type="submit" class="btn btn-danger btn-sm">
-                           <!-- <i class="fas fa-trash-alt"></i> -->
-                           <b>Hapus</b>
-                        </button>
-                     </form>
-                     <a href="{{route('admin.group.edit', ['id' => $item->id])}}" class="btn btn-sm btn-warning">
-                        <!-- <i class="fas fa-pencil-alt"></i> -->
-                        <b>Edit</b>
-                     </a>
                      <a href="{{route('admin.group.listJemaah', ['id' => $item->id])}}" class="btn btn-sm btn-info">
                         <!-- <i class="fas fa-info-circle"></i> -->
-                        <b>Detail</b>
+                        <b>Lihat</b>
                      </a>
                   </td>
                </tr>
