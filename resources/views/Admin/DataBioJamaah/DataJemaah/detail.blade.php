@@ -114,13 +114,13 @@
             <h5><b>Pembayaran</b></h5>
             <p>Total : Rp {{ number_format($jemaah->pembayaran->sum('harga'), 0, ',', '.') }} / Rp {{ number_format($group->paket->harga, 0, ',', '.') }}</p>
             @php
-            $totalBayar = $jemaah->pembayaran->sum('harga');
+            $totalBayar = $jemaah->pembayaran->where('status', 'success')->sum('harga');
             $hargaPaket = $group->paket->harga;
             $progress = ($hargaPaket > 0) ? ($totalBayar / $hargaPaket) * 100 : 0;
             @endphp
 
             <div class="progress" style="height: 20px;">
-               <div class="progress-bar" role="progressbar" style="width: {{ $progress }}%;" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100">{{ number_format($progress, 1) }}%</div>
+               <div class="progress-bar" role="progressbar" style="width: <?php echo $progress ?>%;" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100">{{ number_format($progress, 1) }}%</div>
             </div>
          </div>
          <div class="col-12 col-md-2">
@@ -303,7 +303,6 @@
                   <td>Tanggal</td>
                   <td>Dibayar Oleh</td>
                   <td>Harga</td>
-                  <td>Bukti</td>
                   <td>Method</td>
                   <td>Status</td>
                   <td></td>
@@ -316,12 +315,14 @@
                   <td>{{$item->created_at}}</td>
                   <td>{{$item->dibayar_oleh}}</td>
                   <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
-                  <td>
-                     <a href="{{asset($item->bukti)}}" target="_blank" class="btn btn-sm btn-info">Lihat File</a>
-                  </td>
                   <td>{{$item->method}}</td>
                   <td>{{$item->status}}</td>
                   <td>
+                     @if ($item->status == 'pending')
+                     <button type="button" style="border: none;" class="btn-snap" data-snap="{{$item->key}}">
+                        <i class="fas fa-eye" style="color: #0e7acd;"></i>
+                     </button>
+                     @else
                      <form action="{{route('admin.jemaah.deletePembayaran')}}" method="post">
                         @csrf
                         <input type="hidden" name="id" value="{{$item->id}}">
@@ -329,6 +330,7 @@
                            <i class="fas fa-trash-alt" style="color: #ff0000;"></i>
                         </button>
                      </form>
+                     @endif
                   </td>
                </tr>
                @empty
@@ -389,4 +391,38 @@
          });
       }
    </script>
+
+   <script>
+      let btn_snap = document.querySelectorAll('.btn-snap');
+      btn_snap.forEach(btn => {
+         btn.addEventListener('click', function() {
+            let snap = this.dataset.snap;
+            showSnapPopup(snap);
+         });
+      });
+
+      function showSnapPopup(token) {
+         window.snap.pay(token, {
+            onSuccess: function(result) {
+               alert('Pembayaran berhasil!');
+               window.location.href = "{{ route('admin.jemaah.detail', $jemaah->id) }}";
+            },
+            onPending: function(result) {
+               alert('Pembayaran pending!');
+               window.location.href = "{{ route('admin.jemaah.detail', $jemaah->id) }}";
+            },
+            onError: function(result) {
+               alert('Pembayaran gagal.');
+               window.location.href = "{{ route('admin.jemaah.detail', $jemaah->id) }}";
+            },
+            onClose: function() {
+               alert('Anda belum menyelesaikan pembayaran.');
+               // Tidak perlu apa-apa, token sudah tersimpan
+            }
+         });
+      }
+   </script>
+
+   <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.clientKey') }}"></script>
+
    @endsection

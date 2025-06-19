@@ -12,18 +12,15 @@ use Illuminate\Support\Facades\Log;
 
 class PembayaranController extends Controller
 {
-    public $midtrans;
-
-    public function __construct()
-    {
-        $this->midtrans = new MidtransController();
-    }
 
     public function create($id)
     {
         $jemaah = jemaah::find($id);
 
-        $terbayar = $jemaah->pembayaran->sum('harga');
+        $terbayar = $jemaah->pembayaran()->where(function ($query) {
+            $query->where('status', 'pending')
+                ->orWhere('status', 'success');
+        })->sum('harga');
         $harga = $jemaah->group->paket->harga;
         $belumBayar = $harga - $terbayar;
 

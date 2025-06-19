@@ -44,8 +44,8 @@
             <label for="method">Pilih Metode Pembayaran</label>
             <select id="methodSelector" class="form-control" required>
                <option value="">-- Pilih Metode --</option>
-               <option value="digital" {{ old('method', $pembayaran->method ?? '') == 'digital' ? 'selected' : '' }}>Digital (Midtrans)</option>
-               <option value="tunai" {{ old('method', $pembayaran->method ?? '') == 'tunai' ? 'selected' : '' }}>Tunai</option>
+               <option value="digital" {{ old( $pembayaran->method ?? '') == 'digital' ? 'selected' : '' }}>Digital (Midtrans)</option>
+               <option value="tunai" {{ old( $pembayaran->method ?? '') == 'tunai' ? 'selected' : '' }}>Tunai</option>
             </select>
          </div>
 
@@ -57,7 +57,7 @@
                $hargas = [1000000, 2000000, 5000000, 7000000, 10000000, 15000000];
                @endphp
                @foreach ($hargas as $harga)
-               <div class="col-sm-6 col-md-3 mb-3" onclick="setHarga({{$harga}})">
+               <div class="col-sm-6 col-md-3 mb-3" onclick="setHarga('{{$harga}}')">
                   <div class="card-harga">
                      Rp. {{ number_format($harga, 0, ',', '.') }}
                   </div>
@@ -150,12 +150,21 @@
 
       toggleForm(methodSelector.value); // Init
 
+      let snapToken = null; // Menyimpan token SNAP
+
       // Handle Midtrans payment
       document.getElementById('btn-bayar').addEventListener('click', function() {
          const harga = document.getElementById('harga').value;
          const jemaah_id = '{{ $jemaah->id }}';
+
          if (!harga || harga == 0) {
             alert('Silakan pilih atau isi nominal pembayaran.');
+            return;
+         }
+
+         // Jika snapToken sudah ada, langsung tampilkan popup tanpa fetch ulang
+         if (snapToken) {
+            showSnapPopup(snapToken);
             return;
          }
 
@@ -173,24 +182,38 @@
             .then(response => response.json())
             .then(data => {
                if (data.success) {
-                  window.snap.pay(data.data, {
-                     onSuccess: function(result) {
-                        alert('Pembayaran berhasil!');
-                        location.reload();
-                     },
-                     onPending: function(result) {
-                        alert('Pembayaran pending!');
-                        location.reload();
-                     },
-                     onError: function(result) {
-                        alert('Pembayaran gagal.');
-                     }
-                  });
+                  snapToken = data.data; // Simpan token snap
+                  showSnapPopup(snapToken);
                } else {
-                  alert(data.message);
+                  alert(data.message || 'Gagal mendapatkan token pembayaran.');
                }
+            })
+            .catch(error => {
+               console.error(error);
+               alert('Terjadi kesalahan saat menghubungi server.');
             });
       });
+
+      function showSnapPopup(token) {
+         window.snap.pay(token, {
+            onSuccess: function(result) {
+               showAlertSuccess('Berhasil', 'Pembayaran berhasil!');
+               window.location.href = "{{ route('admin.jemaah.detail', $jemaah->id) }}";
+            },
+            onPending: function(result) {
+               // alert('Pembayaran pending!');
+               showAlertWarning('Pending', 'Pembayaran sedang diproses.');
+               window.location.href = "{{ route('admin.jemaah.detail', $jemaah->id) }}";
+            },
+            onError: function(result) {
+               showAlertError('Gagal', 'Pembayaran gagal!');
+               window.location.href = "{{ route('admin.jemaah.detail', $jemaah->id) }}";
+            },
+            onClose: function() {
+               showAlertWarning('Pending', 'Anda belum menyelesaikan pembayaran ');
+            }
+         });
+      }
 
       // Format input harga manual
       document.getElementById('harga_display').addEventListener('input', function(e) {

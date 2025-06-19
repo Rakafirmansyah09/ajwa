@@ -80,6 +80,7 @@
 
    <script src="{{ asset('mazer/compiled/js/app.js') }}"></script>
    <script>
+      // tombol submit di luar form
       document.addEventListener('DOMContentLoaded', function() {
          // ambil semua button
          document.querySelectorAll('button').forEach(function(button) {
@@ -99,6 +100,8 @@
          });
       });
    </script>
+
+   @include('template.alert')
    @yield('js')
 
 
