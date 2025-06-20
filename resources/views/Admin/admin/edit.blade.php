@@ -40,7 +40,7 @@
                </div>
             </div>
             <div class="mt-4 text-end">
-               <button type="submit" class="btn btn-primary">Update</button>
+               <button type="submit" class="btn btn-warning">Update</button>
             </div>
          </div>
       </form>

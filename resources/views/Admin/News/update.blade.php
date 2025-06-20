@@ -76,7 +76,7 @@
          </div>
 
          <div class="text-end">
-            <button type="submit" class="btn btn-primary">{{ isset($news) ? 'Update' : 'Simpan' }}</button>
+            <button type="submit" class="btn btn-warning">{{ isset($news) ? 'Update' : 'Simpan' }}</button>
          </div>
       </form>
    </div>

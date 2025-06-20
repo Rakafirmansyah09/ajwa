@@ -73,7 +73,7 @@
             @if (isset($paket))
             <a href="{{ isset($_GET['b']) ? route($_GET['b']) : route('admin.paket.detail', ['id' => $paket->id]) }}" class="btn btn-secondary me-2">Kembali</a>
             @endif
-            <button type="submit" class="btn btn-primary">{{ isset($paket) ? 'Update' : 'Simpan' }}</button>
+            <button type="submit" class="btn btn-warning">{{ isset($paket) ? 'Update' : 'Simpan' }}</button>
          </div>
       </form>
    </div>

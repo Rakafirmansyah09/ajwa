@@ -25,7 +25,7 @@
 
          <div class="text-end">
             <a href="{{ route('admin.faq.list') }}" class="btn btn-secondary">Kembali</a>
-            <button type="submit" class="btn btn-primary">{{ isset($faq) ? 'Update' : 'Simpan' }}</button>
+            <button type="submit" class="btn btn-warning">{{ isset($faq) ? 'Update' : 'Simpan' }}</button>
          </div>
       </form>
    </div>

@@ -81,7 +81,7 @@
             </div>
          </div>
          <div class="text-end">
-            <button type="submit" class="btn btn-primary">{{ isset($jemaah) ? 'Update' : 'Simpan' }}</button>
+            <button type="submit" class="btn btn-warning">{{ isset($jemaah) ? 'Update' : 'Simpan' }}</button>
          </div>
       </form>
    </div>

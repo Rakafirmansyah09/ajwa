@@ -84,7 +84,7 @@
          {{-- Jika Digital --}}
          <div id="form-digital" class="hidden">
             <div class="text-center">
-               <button type="button" id="btn-bayar" class="btn btn-success">Bayar Sekarang (Midtrans)</button>
+               <button type="button" id="btn-bayar" class="btn btn-primary">Bayar Sekarang (Midtrans)</button>
             </div>
          </div>
 

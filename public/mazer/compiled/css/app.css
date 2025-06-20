@@ -23083,7 +23083,7 @@ body .bi:before,
     padding-left: 0;
     /* margin-top: 2rem; */
     padding: 0 2rem;
-    font-weight: 600
+    /* font-weight: 600 */
 }
 
 .sidebar-wrapper .menu .sidebar-title {
@@ -23091,7 +23091,7 @@ body .bi:before,
     margin: 1.5rem 0 1rem;
     font-size: 1rem;
     list-style: none;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: #FFF
 }
 

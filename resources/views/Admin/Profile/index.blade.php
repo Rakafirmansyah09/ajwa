@@ -26,7 +26,7 @@
             <div class="col-12 col-md-6">
                <div class="form-group">
                   <label for="email">Email</label>
-                  <input type="email" class="form-control" id="email" value="{{ $user->email }}" readonly>
+                  <input type="email" class="form-control bg-light-secondary" id="email" value="{{ $user->email }}" readonly>
                </div>
             </div>
          </div>

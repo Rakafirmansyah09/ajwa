@@ -56,23 +56,23 @@
              <li class="sidebar-item">
                 <a href="{{route('admin.biojemaah.list')}}" class='sidebar-link'>
                    <i class="bi bi-people-fill"></i>
-                   <span>Data Biodata Jamaah</span>
+                   <span>Biodata Jamaah</span>
                 </a>
              </li>
 
-            <li class="sidebar-item">
-               <a href="{{route('admin.paket.list')}}" class="sidebar-link">
-                  <i class="bi bi-box-seam-fill"></i>
-                  <span>Data Paket</span>
-               </a>
-            </li>
-             
-            <li class="sidebar-item">
+             <li class="sidebar-item">
+                <a href="{{route('admin.paket.list')}}" class="sidebar-link">
+                   <i class="bi bi-box-seam-fill"></i>
+                   <span>Data Paket</span>
+                </a>
+             </li>
+
+             <li class="sidebar-item">
                 <a href="{{route('admin.paket.listAllGroup')}}" class="sidebar-link">
-                  <i class="bi bi-airplane-fill"></i>
-                  <span>List Keberangkatan</span>
-               </a>
-            </li>
+                   <i class="bi bi-airplane-fill"></i>
+                   <span>List Keberangkatan</span>
+                </a>
+             </li>
 
              <li class="sidebar-item">
                 <a href="{{route('admin.sales.list')}}" class='sidebar-link'>
@@ -110,21 +110,22 @@
 
              <li class="sidebar-item">
                 <a href="{{route('admin.laporan')}}" class='sidebar-link'>
-                   <i class="far fa-save"></i>
+                   <!-- <i class="far fa-save"></i> -->
+                   <i class="bi bi-file-earmark-medical-fill"></i>
                    <span>Laporan Data</span>
                 </a>
              </li>
-            
-            @if (Auth::user()->admin_role == 'super_admin')
+
+             @if (Auth::user()->admin_role == 'super_admin')
              <li class="sidebar-item">
                 <a href="{{route('admin.admin.list')}}" class='sidebar-link'>
                    <i class="bi bi-people-fill"></i>
                    <span>List User</span>
                 </a>
              </li>
-            @endif
-            
-             
+             @endif
+
+
 
              <li class="sidebar-title">Auth</li>
              <li class="sidebar-item">
