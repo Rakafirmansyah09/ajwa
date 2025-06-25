@@ -88,8 +88,15 @@
                   <form action="{{route('admin.jemaah.delete')}}" method="post" class="d-inline">
                      @csrf
                      <input type="hidden" name="idJemaah" value="{{$j->id}}">
-                     <button type="submit" class="btn btn-sm btn-danger">
-                        <b>Hapus</b>
+
+                     <button type="submit"
+                        class="btn btn-danger btn-sm"
+                        onclick="confirmDanger(
+                           'Hapus akun jemaah',
+                           'Yakin akan menghapus jemaah {{ $j->bioJemaah->nama_lengkap }}?!',
+                           () => { this.form.submit(); }
+                        )">
+                        Hapus
                      </button>
                   </form>
                </td>

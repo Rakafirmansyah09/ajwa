@@ -129,7 +129,15 @@
             <div class="d-flex justify-content-between">
                @if ($data->user)
                <div></div>
-               <button type="submit" class="btn btn-danger" form="form-email">Hapus Akun</button>
+               <button type="submit"
+                  class="btn btn-danger btn-sm"
+                  form="form-email"
+                  onclick="confirmDanger('Hapus akun jemaah',
+                           'Yakin akan menghapus akun {{ $data->email }}?!',
+                           () => { this.form.submit(); }
+                        )">
+                  Hapus
+               </button>
                @else
                <div></div>
                <button type="submit" class="btn btn-primary" form="form-email">Buat Akun</button>

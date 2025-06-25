@@ -31,7 +31,7 @@
             <tr>
                <th>No. </th>
                <th>Nama</th>
-               <th>NIK</th>
+               <th>Akun</th>
                <th>Jenis Kelamin</th>
                <th>Tempat Lahir</th>
                <th>Tanggal Lahir</th>
@@ -43,7 +43,7 @@
             <tr>
                <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
                <td>{{$j->nama_lengkap}}</td>
-               <td>{{$j->nik}}</td>
+               <td>{{$j->email}}</td>
                <td>{{$j->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan'}}</td>
                <td>{{$j->tempat_lahir}}</td>
                <td>{{$j->tanggal_lahir}}</td>
