@@ -131,12 +131,9 @@
                <div></div>
                <button type="submit"
                   class="btn btn-danger btn-sm"
-                  form="form-email"
                   onclick="confirmDanger('Hapus akun jemaah',
                            'Yakin akan menghapus akun {{ $data->email }}?!',
-                           () => { this.form.submit(); }
-                        )">
-                  Hapus
+                           () => { window.formAction('form-email', 'submit'); })"> Hapus
                </button>
                @else
                <div></div>
