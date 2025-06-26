@@ -9,7 +9,7 @@
 
    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
    <style>
-      * {
+      body {
          font-family: 'Poppins' !important;
       }
    </style>
