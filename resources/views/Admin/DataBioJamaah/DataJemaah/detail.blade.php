@@ -326,7 +326,13 @@
                      <form action="{{route('admin.jemaah.deletePembayaran')}}" method="post">
                         @csrf
                         <input type="hidden" name="id" value="{{$item->id}}">
-                        <button type="submit" style="border: none;">
+
+                        <button
+                           type="submit"
+                           style="border: none;"
+                           onclick="confirmDanger('Hapus pembayaran Jemaah', 
+                           'Yakin akan pembayaran per {{$item->created_at}} sebanyak Rp {{ number_format($item->harga) }}?', 
+                           ()=>{this.form.submit();})">
                            <i class="fas fa-trash-alt" style="color: #ff0000;"></i>
                         </button>
                      </form>
