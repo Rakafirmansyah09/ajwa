@@ -67,7 +67,7 @@
                      @endif
                   </td>
                   <td>{{$j->usia}}</td>
-                  <td>{{$j->bioJemaah->jenis_kelamin == 'l' ? 'Laki-laki' : 'Perempuan'}}</td>
+                  <td>{{$j->bioJemaah->jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan'}}</td>
                   @php
                   $totalBayar = $j->pembayaran ? $j->pembayaran->sum('harga') : 0;
                   @endphp

@@ -44,46 +44,57 @@
                 </a>
              </li>
 
+             @roleadmin(['admin', 'super_admin'])
              <li class="sidebar-item">
                 <a href="{{route('admin.pendaftaran')}}" class='sidebar-link'>
                    <i class="bi bi-person-plus-fill"></i>
                    <span>Pendaftaran</span>
                 </a>
              </li>
+             @endroleadmin
 
              <li class="sidebar-title">Data Master</li>
 
+             @roleadmin(['admin', 'front_office', 'super_admin'])
              <li class="sidebar-item">
                 <a href="{{route('admin.biojemaah.list')}}" class='sidebar-link'>
                    <i class="bi bi-people-fill"></i>
                    <span>Biodata Jamaah</span>
                 </a>
              </li>
+             @endroleadmin
 
+             @roleadmin(['admin', 'super_admin'])
              <li class="sidebar-item">
                 <a href="{{route('admin.paket.list')}}" class="sidebar-link">
                    <i class="bi bi-box-seam-fill"></i>
                    <span>Data Paket</span>
                 </a>
              </li>
+             @endroleadmin
 
+             @roleadmin(['admin', 'front_office', 'super_admin'])
              <li class="sidebar-item">
                 <a href="{{route('admin.paket.listAllGroup')}}" class="sidebar-link">
                    <i class="bi bi-airplane-fill"></i>
                    <span>List Keberangkatan</span>
                 </a>
              </li>
+             @endroleadmin
 
+             @roleadmin(['admin', 'super_admin'])
              <li class="sidebar-item">
                 <a href="{{route('admin.sales.list')}}" class='sidebar-link'>
                    <i class="bi bi-person-badge-fill"></i>
                    <span>Data Sales</span>
                 </a>
              </li>
+             @endroleadmin
 
 
              <li class="sidebar-title">Data Mobile</li>
 
+             @roleadmin(['admin', 'super_admin'])
              <li class="sidebar-item">
                 <a href="{{route('admin.news.list')}}" class='sidebar-link'>
                    <i class="bi bi-newspaper"></i>
@@ -97,6 +108,7 @@
                    <span>Data FaQ</span>
                 </a>
              </li>
+             @endroleadmin
 
 
              <li class="sidebar-title">Data User</li>
@@ -116,14 +128,14 @@
                 </a>
              </li>
 
-             @if (Auth::user()->admin_role == 'super_admin')
+             @roleadmin(['super_admin'])
              <li class="sidebar-item">
                 <a href="{{route('admin.admin.list')}}" class='sidebar-link'>
                    <i class="bi bi-people-fill"></i>
                    <span>List User</span>
                 </a>
              </li>
-             @endif
+             @endroleadmin
 
 
 

@@ -21,7 +21,7 @@
       </h5>
    </div>
    <div class="card-body">
-      <div class="tabel-responsive">
+      <div class="table-responsive">
          <table class="table table-striped" id="table1">
             <thead>
                <tr class="bg-primary-subtle">
@@ -52,6 +52,7 @@
             </tbody>
          </table>
       </div>
+
       <div class="d-flex justify-content-center mt-3">
          {{ $groups->links('pagination::bootstrap-5') }}
       </div>
