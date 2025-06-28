@@ -30,8 +30,10 @@ class DashboardController extends Controller
         $data5 = $this->getnotive();
         // kebrangkatan per bulan
         $data6 = $this->getKeberangkatanPerBulan();
+        // data jemaah per paket
+        $data7 = $this->getJemaahPaket();
 
-        // return $data6;
+        // return $data7;
 
         return view('Admin.Dashboard.index', [
             'pageTitle' => 'Dashboard',
@@ -41,6 +43,7 @@ class DashboardController extends Controller
             'data4' => $data4,
             'data5' => $data5,
             'data6' => $data6,
+            'data7' => $data7,
         ]);
     }
 
@@ -88,5 +91,42 @@ class DashboardController extends Controller
             ->get();
 
         return $keberangkatanPerBulan;
+    }
+
+    public function getJemaahPaket()
+    {
+        $paket = Paket::with(['group.jemaah.BioJemaah', 'group.jemaah.pembayaran'])
+            ->whereHas('group', function ($query) {
+                $query->whereDate('tanggal_keberangkatan', '>=', Carbon::now());
+                // ->whereDate('tanggal_keberangkatan', '<=', Carbon::now()->addDays(60))
+            })
+            ->get();
+
+        $data = [];
+        foreach ($paket as $p) {
+            $jemaahLunas = 0;
+            $jemaahBelumLunas = 0;
+
+            foreach ($p->group as $group) {
+                foreach ($group->jemaah as $j) {
+                    $totalPembayaran = $j->pembayaran->sum('harga');
+
+                    if ($totalPembayaran >= $p->harga) {
+                        $jemaahLunas++;
+                    } else {
+                        $jemaahBelumLunas++;
+                    }
+                }
+            }
+
+            $data[] = [
+                'id' => $p->id,
+                'nama_paket' => $p->nama,
+                'jemaah_lunas' => $jemaahLunas,
+                'jemaah_belum_lunas' => $jemaahBelumLunas
+            ];
+        }
+
+        return $data;
     }
 }

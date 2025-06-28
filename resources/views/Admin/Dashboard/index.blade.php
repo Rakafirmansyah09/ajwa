@@ -100,7 +100,15 @@
    <div class="col-12 col-lg-8">
       <div class="card">
          <div class="card-body">
-            <div id="chart-pendaftaran-visit"></div>
+            <p><b>Perbandingan Paket</b></p>
+            <div class="row">
+               @foreach ($data7 as $item7)
+               <div class="col">
+                  <div id="chartPie-{{$item7['id']}}"></div>
+                  <p class="text-center"><b>{{$item7['nama_paket']}}</b></p>
+               </div>
+               @endforeach
+            </div>
          </div>
       </div>
    </div>
@@ -128,6 +136,15 @@
          </div>
       </div>
    </div>
+   <div class="col-12 col-lg-8">
+      <div class="card">
+         <div class="card-body">
+            <p><b>Grafik Pendaftaran</b></p>
+            <div id="chart-pendaftaran-visit"></div>
+         </div>
+      </div>
+   </div>
+
 
 </section>
 @endsection
@@ -136,52 +153,81 @@
 @section('js')
 <script src="{{ asset('mazer/extensions/apexcharts/apexcharts.min.js') }}"></script>
 <script>
-   const rawData = @json($data6);
+   const rawDataPendaftaran = @json($data6);
 
    // Inisialisasi array bulan dari Jan - Dec
    const bulanMap = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
    const dataChart = Array(12).fill(0); // default 0 untuk semua bulan
 
-   rawData.forEach(item => {
+   rawDataPendaftaran.forEach(item => {
       const index = parseInt(item.bulan) - 1;
       dataChart[index] = item.total;
    });
 
-   var optionsProfileVisit = {
-      annotations: {
-         position: "back",
+   var optionsPendaftaranVisit = {
+      chart: {
+         height: 300,
+         type: 'line'
       },
       dataLabels: {
-         enabled: false,
+         enabled: false
       },
-      chart: {
-         type: "bar",
-         height: 300,
-      },
-      fill: {
-         opacity: 1,
-      },
-      plotOptions: {
-         bar: {
-            borderRadius: 4,
-            horizontal: false,
-         }
+      stroke: {
+         curve: 'smooth'
       },
       series: [{
-         name: "Jemaah",
-         data: dataChart,
+         name: 'Jemaah',
+         data: dataChart
       }],
-      colors: ["#435ebe"],
       xaxis: {
-         categories: bulanMap,
+         categories: bulanMap
       },
-   }
+      colors: ['#435ebe']
+   };
 
-   var chartProfileVisit = new ApexCharts(
+   var chartPendaftaranVisit = new ApexCharts(
       document.querySelector("#chart-pendaftaran-visit"),
-      optionsProfileVisit
+      optionsPendaftaranVisit
    )
 
-   chartProfileVisit.render()
+   chartPendaftaranVisit.render()
+</script>
+
+<script>
+   const rawDataJemaahPaket = @json($data7);
+
+   document.addEventListener("DOMContentLoaded", function() {
+      rawDataJemaahPaket.forEach(item => {
+         createChart(item.id, item);
+      });
+   });
+
+   function createChart(id, data) {
+      let optionsPaketProfile = {
+         series: [data.jemaah_lunas, data.jemaah_belum_lunas],
+         labels: ["Lunas", "Belum Lunas"],
+         colors: ["#435ebe", "#55c6e8"],
+         chart: {
+            type: "donut",
+            height: 350,
+         },
+         legend: {
+            position: "bottom",
+         },
+         plotOptions: {
+            pie: {
+               donut: {
+                  size: "30%",
+               },
+            },
+         },
+      };
+
+      const chartJemaahPaket = new ApexCharts(
+         document.querySelector("#chartPie-" + id),
+         optionsPaketProfile
+      );
+      chartJemaahPaket.render();
+   }
 </script>
 @endsection
