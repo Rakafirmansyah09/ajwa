@@ -95,35 +95,26 @@ class DashboardController extends Controller
 
     public function getJemaahPaket()
     {
-        $paket = Paket::with(['group.jemaah.BioJemaah', 'group.jemaah.pembayaran'])
+        $paket = Paket::with(['group.jemaah', 'group'])
             ->whereHas('group', function ($query) {
                 $query->whereDate('tanggal_keberangkatan', '>=', Carbon::now());
-                // ->whereDate('tanggal_keberangkatan', '<=', Carbon::now()->addDays(60))
             })
             ->get();
 
         $data = [];
         foreach ($paket as $p) {
-            $jemaahLunas = 0;
-            $jemaahBelumLunas = 0;
-
+            $jumlahTerjual = 0;
             foreach ($p->group as $group) {
-                foreach ($group->jemaah as $j) {
-                    $totalPembayaran = $j->pembayaran->sum('harga');
-
-                    if ($totalPembayaran >= $p->harga) {
-                        $jemaahLunas++;
-                    } else {
-                        $jemaahBelumLunas++;
-                    }
-                }
+                $jumlahTerjual += $group->jemaah->count();
             }
+
+            $kuotaTersisa = max($p->kuota - $jumlahTerjual, 0);
 
             $data[] = [
                 'id' => $p->id,
                 'nama_paket' => $p->nama,
-                'jemaah_lunas' => $jemaahLunas,
-                'jemaah_belum_lunas' => $jemaahBelumLunas
+                'jumlah_terjual' => $jumlahTerjual,
+                'kuota_tersisa' => $kuotaTersisa
             ];
         }
 

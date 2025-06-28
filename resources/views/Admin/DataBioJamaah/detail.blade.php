@@ -152,56 +152,58 @@
       <h5><b>Riwayat Pendaftaran</b></h5>
    </div>
    <div class="card-body">
-      <table class="table table-striped" id="table1">
-         <thead>
-            <tr>
-               <th>Nama Paket</th>
-               <th>Keberangakatan</th>
-               <th>Durasi</th>
-               <th>Pembatalan</th>
-               <th>Pembayaran</th>
-               <th>Aksi</th>
-            </tr>
-         </thead>
-         <tbody>
-            @forelse ($data->jemaah as $p)
-            <tr>
-               <td>{{$p->group->nama}}</td>
-               <td>{{$p->group->tanggal_keberangkatan}}</td>
-               <td>{{$p->group->paket->durasi}} Hari</td>
-               <td>
-                  @if ($p->pembatalan)
-                  <span class="fw-bold text-danger">Dibatalkan</span>
-                  @else
-                  -
-                  @endif
-               </td>
+      <div class="table-responsive">
+         <table class="table table-striped" id="table1">
+            <thead>
+               <tr>
+                  <th>Nama Paket</th>
+                  <th>Keberangakatan</th>
+                  <th>Durasi</th>
+                  <th>Pembatalan</th>
+                  <th>Pembayaran</th>
+                  <th>Aksi</th>
+               </tr>
+            </thead>
+            <tbody>
+               @forelse ($data->jemaah as $p)
+               <tr>
+                  <td>{{$p->group->nama}}</td>
+                  <td>{{$p->group->tanggal_keberangkatan}}</td>
+                  <td>{{$p->group->paket->durasi}} Hari</td>
+                  <td>
+                     @if ($p->pembatalan)
+                     <span class="fw-bold text-danger">Dibatalkan</span>
+                     @else
+                     -
+                     @endif
+                  </td>
 
-               @php
-               $totalBayar = $p->pembayaran ? $p->pembayaran->sum('harga') : 0;
-               @endphp
-               <td>
-                  Rp. {{number_format($totalBayar, 0, ',', '.')}} /
-                  Rp. {{number_format($p->group->paket->harga, 0, ',', '.')}}
-               </td>
-               <td>
-                  <a href="{{route('admin.jemaah.detail', ['id'=>$p->id])}}" class="btn btn-sm btn-info">
-                     <!-- <i class="fas fa-info-circle"></i> -->
-                     <b>Detail</b>
-                  </a>
-               </td>
-            </tr>
-            @empty
-            <tr>
-               <td colspan="6" class="text-center">Tidak ada data</td>
-            </tr>
-            @endforelse
-         </tbody>
-      </table>
+                  @php
+                  $totalBayar = $p->pembayaran ? $p->pembayaran->sum('harga') : 0;
+                  @endphp
+                  <td>
+                     Rp. {{number_format($totalBayar, 0, ',', '.')}} /
+                     Rp. {{number_format($p->group->paket->harga, 0, ',', '.')}}
+                  </td>
+                  <td>
+                     <a href="{{route('admin.jemaah.detail', ['id'=>$p->id])}}" class="btn btn-sm btn-info">
+                        <!-- <i class="fas fa-info-circle"></i> -->
+                        <b>Detail</b>
+                     </a>
+                  </td>
+               </tr>
+               @empty
+               <tr>
+                  <td colspan="6" class="text-center">Tidak ada data</td>
+               </tr>
+               @endforelse
+            </tbody>
+         </table>
 
-      <!-- <div class="text-end">
+         <!-- <div class="text-end">
          <a href="" class="btn btn-sm btn-primary">Tambah Pendaftaran</a>
       </div> -->
+      </div>
    </div>
 
 

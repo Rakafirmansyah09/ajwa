@@ -101,52 +101,55 @@
    </div>
 
    <h4>Rincian Pembayaran</h4>
-   <table>
-      <thead>
-         <tr>
-            <th>Tanggal</th>
-            <th>Metode</th>
-            <th>Status</th>
-            <th class="right">Jumlah (Rp)</th>
-         </tr>
-      </thead>
-      <tbody>
-         @forelse ($jemaah->pembayaran as $pembayaran)
-         <tr>
-            <td>{{ \Carbon\Carbon::parse($pembayaran->created_at)->format('d-m-Y') }}</td>
-            <td>{{ ucfirst($pembayaran->method) }}</td>
-            <td>{{ ucfirst($pembayaran->status) }}</td>
-            <td class="right">{{ number_format($pembayaran->harga, 0, ',', '.') }}</td>
-         </tr>
-         @empty
-         <tr>
-            <td colspan="4" class="right">Belum ada pembayaran</td>
-         </tr>
-         @endforelse
-      </tbody>
-      <tfoot>
-         <tr>
-            <th colspan="3" class="right">Total Bayar:</th>
-            <th class="right">Rp {{ number_format($totalBayar, 0, ',', '.') }}</th>
-         </tr>
-      </tfoot>
-   </table>
-
-   <div class="status">
-      Status Pembayaran:
-      @if ($totalBayar >= $hargaPaket)
-      <span style="color: green;">LUNAS</span>
-      @else
-      <span style="color: red;">BELUM LUNAS</span>
-      @endif
+   <div class="table-responsive">
+      <table>
+         <thead>
+            <tr>
+               <th>Tanggal</th>
+               <th>Metode</th>
+               <th>Status</th>
+               <th class="right">Jumlah (Rp)</th>
+            </tr>
+         </thead>
+         <tbody>
+            @forelse ($jemaah->pembayaran as $pembayaran)
+            <tr>
+               <td>{{ \Carbon\Carbon::parse($pembayaran->created_at)->format('d-m-Y') }}</td>
+               <td>{{ ucfirst($pembayaran->method) }}</td>
+               <td>{{ ucfirst($pembayaran->status) }}</td>
+               <td class="right">{{ number_format($pembayaran->harga, 0, ',', '.') }}</td>
+            </tr>
+            @empty
+            <tr>
+               <td colspan="4" class="right">Belum ada pembayaran</td>
+            </tr>
+            @endforelse
+         </tbody>
+         <tfoot>
+            <tr>
+               <th colspan="3" class="right">Total Bayar:</th>
+               <th class="right">Rp {{ number_format($totalBayar, 0, ',', '.') }}</th>
+            </tr>
+         </tfoot>
+      </table>
    </div>
 
-   <div class="footer">
-      <p>Invoice ini dikeluarkan oleh:</p>
-      <p><strong>{{$namaPerusahaan}}</strong></p>
-      <p>{{$webPerusahaan}} | {{$emailPerusahaan}}</p>
-      <p>Telp: {{$noTelpPerusahaan}}</p>
-   </div>
+      <div class="status">
+         Status Pembayaran:
+         @if ($totalBayar >= $hargaPaket)
+         <span style="color: green;">LUNAS</span>
+         @else
+         <span style="color: red;">BELUM LUNAS</span>
+         @endif
+      </div>
+
+      <div class="footer">
+         <p>Invoice ini dikeluarkan oleh:</p>
+         <p><strong>{{$namaPerusahaan}}</strong></p>
+         <p>{{$webPerusahaan}} | {{$emailPerusahaan}}</p>
+         <p>Telp: {{$noTelpPerusahaan}}</p>
+      </div>
+  
 </body>
 
 </html>

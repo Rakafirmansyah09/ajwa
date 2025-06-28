@@ -49,44 +49,46 @@
       </a>
    </div>
    <div class="card-body">
-      <table class="table table-bordered">
-         <thead>
-            <tr>
-               <th>No</th>
-               <th>Nama</th>
-               <th>Jenis Kelamin</th>
-               <th>No HP</th>
-               <th>Status</th>
-               <th>Pembayaran</th>
-            </tr>
-         </thead>
-         <tbody>
-            @forelse ($jemaah as $i => $item)
-            <tr>
-               <td>{{ $i + 1 }}</td>
-               <td>{{ $item->bioJemaah->nama_lengkap }}</td>
-               <td>{{ $item->bioJemaah->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
-               <td>{{ $item->no_hp }}</td>
-               </td>
-               @php
-               $totalBayar = $item->pembayaran ? $item->pembayaran->sum('harga') : 0;
-               $status = $totalBayar >= $item->group->paket->harga ? 'Lunas' : 'Belum Lunas';
-               @endphp
-               <td>
-                  <span class="fw-bold text-{{ $status == 'LUNAS' ? 'success' : 'danger' }}">{{ $status }}</span>
-               </td>
-               <td>
-                  Rp. {{number_format($totalBayar, 0, ',', '.')}} /
-                  Rp. {{number_format($item->group->paket->harga, 0, ',', '.')}}
-               </td>
-            </tr>
-            @empty
-            <tr>
-               <td colspan="6" class="text-center">Tidak ada data jemaah.</td>
-            </tr>
-            @endforelse
-         </tbody>
-      </table>
+      <div class="table-responsive">
+         <table class="table table-bordered">
+            <thead>
+               <tr>
+                  <th>No</th>
+                  <th>Nama</th>
+                  <th>Jenis Kelamin</th>
+                  <th>No HP</th>
+                  <th>Status</th>
+                  <th>Pembayaran</th>
+               </tr>
+            </thead>
+            <tbody>
+               @forelse ($jemaah as $i => $item)
+               <tr>
+                  <td>{{ $i + 1 }}</td>
+                  <td>{{ $item->bioJemaah->nama_lengkap }}</td>
+                  <td>{{ $item->bioJemaah->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+                  <td>{{ $item->no_hp }}</td>
+                  </td>
+                  @php
+                  $totalBayar = $item->pembayaran ? $item->pembayaran->sum('harga') : 0;
+                  $status = $totalBayar >= $item->group->paket->harga ? 'Lunas' : 'Belum Lunas';
+                  @endphp
+                  <td>
+                     <span class="fw-bold text-{{ $status == 'LUNAS' ? 'success' : 'danger' }}">{{ $status }}</span>
+                  </td>
+                  <td>
+                     Rp. {{number_format($totalBayar, 0, ',', '.')}} /
+                     Rp. {{number_format($item->group->paket->harga, 0, ',', '.')}}
+                  </td>
+               </tr>
+               @empty
+               <tr>
+                  <td colspan="6" class="text-center">Tidak ada data jemaah.</td>
+               </tr>
+               @endforelse
+            </tbody>
+         </table>
+      </div>
    </div>
 </div>
 @endif

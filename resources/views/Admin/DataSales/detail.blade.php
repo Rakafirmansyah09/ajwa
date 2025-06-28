@@ -21,39 +21,41 @@
       <h5><b>List Jemaah Sales</b></h5>
    </div>
    <div class="card-body">
-      <table class="table table-striped" id="table1">
-         <thead>
-            <tr>
-               <td>No.</td>
-               <td>Nama</td>
-               <td>Paket</td>
-               <td>Detail</td>
-               <td>Tanggal</td>
-               <td></td>
-            </tr>
-         </thead>
-         <tbody>
-            @forelse ($jemaahSales as $jemaah)
-            <tr>
-               <td>{{ $loop->iteration }}</td>
-               <td>{{ $jemaah->bioJemaah->nama_lengkap }}</td>
-               <td>{{ $jemaah->group->nama }}</td>
-               <td>{{ $jemaah->detail_info }}</td>
-               <td>{{ $jemaah->created_at }}</td>
-               <td>
-                  <a href="{{route('admin.jemaah.detail', ['id'=> $jemaah->id])}}" class="btn btn-info btn-sm" target="_blank"><b>Lihat</b></a>
-               </td>
-            </tr>
-            @empty
-            <tr>
-               <td colspan="5" class="text-center">Tidak ada data</td>
-            </tr>
-            @endforelse
-         </tbody>
-         <div class="d-flex justify-content-center mt-3">
-            {{ $jemaahSales->links('pagination::bootstrap-5') }}
-         </div>
-      </table>
+      <div class="table-responsive">
+         <table class="table table-striped" id="table1">
+            <thead>
+               <tr>
+                  <td>No.</td>
+                  <td>Nama</td>
+                  <td>Paket</td>
+                  <td>Detail</td>
+                  <td>Tanggal</td>
+                  <td></td>
+               </tr>
+            </thead>
+            <tbody>
+               @forelse ($jemaahSales as $jemaah)
+               <tr>
+                  <td>{{ $loop->iteration }}</td>
+                  <td>{{ $jemaah->bioJemaah->nama_lengkap }}</td>
+                  <td>{{ $jemaah->group->nama }}</td>
+                  <td>{{ $jemaah->detail_info }}</td>
+                  <td>{{ $jemaah->created_at }}</td>
+                  <td>
+                     <a href="{{route('admin.jemaah.detail', ['id'=> $jemaah->id])}}" class="btn btn-info btn-sm" target="_blank"><b>Lihat</b></a>
+                  </td>
+               </tr>
+               @empty
+               <tr>
+                  <td colspan="5" class="text-center">Tidak ada data</td>
+               </tr>
+               @endforelse
+            </tbody>
+            <div class="d-flex justify-content-center mt-3">
+               {{ $jemaahSales->links('pagination::bootstrap-5') }}
+            </div>
+         </table>
+      </div>
    </div>
 </div>
 

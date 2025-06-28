@@ -76,36 +76,38 @@
    </div>
 
    <div class="card-body">
-      <table class="table table-borderless table-striped table-hover">
-         <thead>
-            <tr class="bg-primary-subtle">
-               <td>No.</td>
-               <td>Nama Hotel</td>
-               <td>Kota</td>
-               <td>Alamat</td>
-               <td>Tanggal Checkin</td>
-               <td>Tanggal Checkout</td>
-               <td>Rating</td>
-            </tr>
-         </thead>
-         <tbody>
-            @forelse ( $group->list_akomodasi as $akomodasi )
-            <tr>
-               <td>{{$loop->iteration}}</td>
-               <td>{{$akomodasi->nama_hotel}}</td>
-               <td>{{$akomodasi->kota}}</td>
-               <td>{{$akomodasi->alamat}}</td>
-               <td>{{$akomodasi->tanggal_checkin}}</td>
-               <td>{{$akomodasi->tanggal_checkout}}</td>
-               <td>{{$akomodasi->rating}}</td>
-            </tr>
-            @empty
-            <tr>
-               <td colspan="11" class="text-center">Tidak ada data</td>
-            </tr>
-            @endforelse
-         </tbody>
-      </table>
+      <div class="table-responsive">
+         <table class="table table-borderless table-striped table-hover">
+            <thead>
+               <tr class="bg-primary-subtle">
+                  <td>No.</td>
+                  <td>Nama Hotel</td>
+                  <td>Kota</td>
+                  <td>Alamat</td>
+                  <td>Tanggal Checkin</td>
+                  <td>Tanggal Checkout</td>
+                  <td>Rating</td>
+               </tr>
+            </thead>
+            <tbody>
+               @forelse ( $group->list_akomodasi as $akomodasi )
+               <tr>
+                  <td>{{$loop->iteration}}</td>
+                  <td>{{$akomodasi->nama_hotel}}</td>
+                  <td>{{$akomodasi->kota}}</td>
+                  <td>{{$akomodasi->alamat}}</td>
+                  <td>{{$akomodasi->tanggal_checkin}}</td>
+                  <td>{{$akomodasi->tanggal_checkout}}</td>
+                  <td>{{$akomodasi->rating}}</td>
+               </tr>
+               @empty
+               <tr>
+                  <td colspan="11" class="text-center">Tidak ada data</td>
+               </tr>
+               @endforelse
+            </tbody>
+         </table>
+      </div>
    </div>
 </div>
 

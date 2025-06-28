@@ -18,24 +18,19 @@
 @endsection
 
 @section('main')
-<header class="mb-3">
-   <a href="#" class="burger-btn d-block d-xl-none">
-      <i class="bi bi-justify fs-3"></i>
-   </a>
-</header>
 
 <section class="row">
    <div class="col-6 col-lg-3 col-md-6">
       <div class="card">
          <div class="card-body ">
             <div class="row">
-               <div class="col-md-4">
+               <div class="col-auto">
                   <div class="stats-icon lgreen1">
-                     <img src="{{asset('asset/picture/Group 121.png')}}" alt="icon" class="img-fluid">
+                     <!-- <img src="{{asset('asset/picture/Group 121.png')}}" alt="icon" class="img-fluid"> -->
+                     - <i class="fas fa-user-check" style="color: #00B074"></i>
                   </div>
-
                </div>
-               <div class="col-md-8">
+               <div class="col">
                   <h6 class="text-muted font-semibold">Pendaftaran</h6>
                   <h6 class="font-extrabold mb-0">{{$data1}}</h6>
                </div>
@@ -47,12 +42,13 @@
       <div class="card">
          <div class="card-body ">
             <div class="row">
-               <div class="col-md-4">
+               <div class="col-auto">
                   <div class="stats-icon lgreen1">
-                     <img src="{{asset('asset/picture/Group 121.png')}}" alt="icon" class="img-fluid">
+                     <!-- <img src="{{asset('asset/picture/Group 121.png')}}" alt="icon" class="img-fluid"> -->
+                     <i class="fas fa-plane-departure" style="color: #00B074"></i>
                   </div>
                </div>
-               <div class="col-md-8">
+               <div class="col">
                   <h6 class="text-muted font-semibold">Keberangkatan</h6>
                   <h6 class="font-extrabold mb-0">{{$data2}}</h6>
                </div>
@@ -64,12 +60,13 @@
       <div class="card">
          <div class="card-body ">
             <div class="row">
-               <div class="col-md-4">
+               <div class="col-auto">
                   <div class="stats-icon lgreen1">
-                     <img src="{{asset('asset/picture/Group 121.png')}}" alt="icon" class="img-fluid">
+                     <!-- <img src="{{asset('asset/picture/Group 121.png')}}" alt="icon" class="img-fluid"> -->
+                     <i class="fas fa-cube" style="color: #00B074"></i>
                   </div>
                </div>
-               <div class="col-md-8">
+               <div class="col">
                   <h6 class="text-muted font-semibold">Total Paket</h6>
                   <h6 class="font-extrabold mb-0">{{$data3}}</h6>
                </div>
@@ -81,12 +78,13 @@
       <div class="card">
          <div class="card-body ">
             <div class="row">
-               <div class="col-md-4">
+               <div class="col-auto">
                   <div class="stats-icon lgreen1">
-                     <img src="{{asset('asset/picture/Group 121.png')}}" alt="icon" class="img-fluid">
+                     <!-- <img src="{{asset('asset/picture/Group 121.png')}}" alt="icon" class="img-fluid"> -->
+                     <i class="fas fa-user-times" style="color: #00B074"></i>
                   </div>
                </div>
-               <div class="col-md-8">
+               <div class="col">
                   <h6 class="text-muted font-semibold">Pembatalan </h6>
                   <h6 class="font-extrabold mb-0">{{$data4}}</h6>
                </div>
@@ -204,9 +202,9 @@
 
    function createChart(id, data) {
       let optionsPaketProfile = {
-         series: [data.jemaah_lunas, data.jemaah_belum_lunas],
-         labels: ["Lunas", "Belum Lunas"],
-         colors: ["#435ebe", "#55c6e8"],
+         series: [data.jumlah_terjual, data.kuota_tersisa],
+         labels: ["Terjual", "Kosong"],
+         colors: ["#435ebe", "#2D9CDB26"],
          chart: {
             type: "donut",
             height: 350,
