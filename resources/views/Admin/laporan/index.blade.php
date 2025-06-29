@@ -74,7 +74,7 @@
                   $status = $totalBayar >= $item->group->paket->harga ? 'Lunas' : 'Belum Lunas';
                   @endphp
                   <td>
-                     <span class="fw-bold text-{{ $status == 'LUNAS' ? 'success' : 'danger' }}">{{ $status }}</span>
+                     <span class="fw-bold text-{{ $status == 'lunas' ? 'success' : 'danger' }}">{{ $status }}</span>
                   </td>
                   <td>
                      Rp. {{number_format($totalBayar, 0, ',', '.')}} /
