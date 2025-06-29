@@ -55,7 +55,7 @@
 
              <li class="sidebar-title">Data Master</li>
 
-             @roleadmin(['admin', 'front_office', 'super_admin'])
+             @roleadmin(['admin', 'super_admin'])
              <li class="sidebar-item">
                 <a href="{{route('admin.biojemaah.list')}}" class='sidebar-link'>
                    <i class="bi bi-people-fill"></i>
@@ -92,9 +92,9 @@
              @endroleadmin
 
 
+             @roleadmin(['admin', 'super_admin'])
              <li class="sidebar-title">Data Mobile</li>
 
-             @roleadmin(['admin', 'super_admin'])
              <li class="sidebar-item">
                 <a href="{{route('admin.news.list')}}" class='sidebar-link'>
                    <i class="bi bi-newspaper"></i>
@@ -120,6 +120,7 @@
                 </a>
              </li>
 
+             @roleadmin(['super_admin'])
              <li class="sidebar-item">
                 <a href="{{route('admin.laporan')}}" class='sidebar-link'>
                    <!-- <i class="far fa-save"></i> -->
@@ -128,7 +129,6 @@
                 </a>
              </li>
 
-             @roleadmin(['super_admin'])
              <li class="sidebar-item">
                 <a href="{{route('admin.admin.list')}}" class='sidebar-link'>
                    <i class="bi bi-people-fill"></i>
