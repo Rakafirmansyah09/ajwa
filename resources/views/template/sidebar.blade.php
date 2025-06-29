@@ -44,7 +44,7 @@
                 </a>
              </li>
 
-             @roleadmin(['admin', 'super_admin'])
+             @roleadmin(['front_office', 'super_admin'])
              <li class="sidebar-item">
                 <a href="{{route('admin.pendaftaran')}}" class='sidebar-link'>
                    <i class="bi bi-person-plus-fill"></i>
