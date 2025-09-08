@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>{{$pageTitle ?? 'Dashboard'}} - AJWA</title>
+   <link rel="shortcut icon" href="{{asset('asset/picture/logoajwa.png')}}" type="image/x-icon">
+
+   <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+   <style>
+      body {
+         font-family: 'Poppins' !important;
+      }
+   </style>
+
+   <link rel="stylesheet" href="{{ asset('mazer/compiled/css/app.css') }}">
+   <link rel="stylesheet" href="{{ asset('mazer/compiled/css/app-dark.css') }}">
+   <link rel="stylesheet" href="{{ asset('mazer/compiled/css/iconly.css') }}">
+   <link rel="stylesheet" href="{{ asset('mazer/extensions/@fortawesome/fontawesome-free/css/all.css') }}">
+   <style>
+      /* template toast */
+      .toast-container {
+         position: fixed;
+         top: 1rem;
+         right: 1rem;
+         z-index: 1050;
+      }
+
+      /* page conten */
+      #main .card .card-header {
+         padding-bottom: 10px;
+      }
+
+      #main .card {
+         margin-bottom: 20px;
+      }
+
+      #main-body {
+         min-height: calc(100vh - 110px);
+      }
+   </style>
+   @yield('css')
+</head>
+
+<body>
+   <script src="{{ asset('mazer/static/js/initTheme.js') }}"></script>
+   <div id="app">
+      @include('template.sidebar')
+
+      <div id="main">
+         <div id="main-body">
+            <header class="mb-3">
+               <a href="#" class="burger-btn d-block d-xl-none">
+                  <i class="bi bi-justify fs-3"></i>
+               </a>
+            </header>
+
+            @yield('main')
+         </div>
+
+         @include('template.footer')
+      </div>
+   </div>
+   @include('template.notif')
+   <script src="{{ asset('mazer/extensions/jquery/jquery.js') }}"></script>
+   <script src="{{ asset('mazer/static/js/components/dark.js') }}"></script>
+   <script src="{{ asset('mazer/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+
+   <script src="{{ asset('mazer/compiled/js/app.js') }}"></script>
+
+   @include('template.form')
+   @include('template.alert')
+   @yield('js')
+
+
+
+
+
+</body>
+
+</html>

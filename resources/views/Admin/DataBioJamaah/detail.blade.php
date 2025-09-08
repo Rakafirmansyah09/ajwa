@@ -1,0 +1,213 @@
+@extends('template.index')
+
+@section('css')
+<style>
+   /* style untuk tabel */
+   .table-custom td {
+      padding-top: 2px;
+      padding-bottom: 2px;
+   }
+</style>
+@endsection
+
+@section('main')
+<div class="page-title">
+   <div class="row">
+      <div class="col-12 col-md-6 order-md-1 order-last">
+         <h3>Detail Jamaah </h3>
+         <p class="text-subtitle text-muted">Jamaah Umroh Ajwa Tour</p>
+      </div>
+   </div>
+</div>
+
+<div class="row">
+   <div class="col-12 col-md-8">
+      <div class="card ">
+         <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><b>Biodata : {{$data->nama_lengkap}}</b></h5>
+            <a href="{{route('admin.biojemaah.edit', ['id' => $data->id])}}" class="btn btn-sm btn-primary"><b>Edit Jemaah</b></a>
+         </div>
+         <div class="card-body">
+            <div class="row">
+               <div class="col-12 col-md-6">
+                  <table class="table table-borderless table-custom">
+                     <tr>
+                        <td>NIK</td>
+                        <td>:</td>
+                        <td>{{$data->nik}}</td>
+                     </tr>
+                     <tr>
+                        <td>Tempat Lahir</td>
+                        <td>:</td>
+                        <td>{{$data->tempat_lahir}}</td>
+                     </tr>
+                     <tr>
+                        <td>Tanggal Lahir</td>
+                        <td>:</td>
+                        <td>{{$data->tanggal_lahir}}</td>
+                     </tr>
+                     <tr>
+                        <td>Jenis Kelamin</td>
+                        <td>:</td>
+                        <td>{{$data->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan'}}</td>
+                     </tr>
+                  </table>
+               </div>
+               <div class="col-12 col-md-6">
+                  <table class="table table-borderless table-custom">
+                     <tr>
+                        <td>File KTP</td>
+                        <td>:</td>
+                        <td>
+                           @if ($data->file_ktp)
+                           <small class="text-muted">
+                              <a href="{{ asset($data->file_ktp) }}" target="_blank"><b>Lihat File</b></a>
+                           </small>
+                           @else
+                           <form action="{{ route('admin.biojemaah.uploadKtp') }}" method="post" enctype="multipart/form-data">
+                              @csrf
+                              <input type="hidden" name="id" value="{{ $data->id }}">
+                              <label class="btn btn-sm btn-warning mb-1">
+                                 Upload File KTP
+                                 <input type="file" name="file_ktp" hidden onchange="this.form.submit()">
+                              </label>
+                           </form>
+                           @endif
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>File Paspor</td>
+                        <td>:</td>
+                        <td>
+                           @if ($data->file_paspor)
+                           <small class="text-muted">
+                              <a href="{{ asset($data->file_paspor) }}" target="_blank"><b>Lihat File</b></a>
+                           </small>
+                           @else
+                           <form action="{{ route('admin.biojemaah.uploadPaspor') }}" method="post" enctype="multipart/form-data">
+                              @csrf
+                              <input type="hidden" name="id" value="{{ $data->id }}">
+                              <label class="btn btn-sm btn-warning mb-1">
+                                 Upload File Paspor
+                                 <input type="file" name="file_paspor" hidden onchange="this.form.submit()">
+                              </label>
+                           </form>
+                           @endif
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-auto col-md-4">
+      <div class="card">
+         <div class="card-header d-flex justify-content-between align-items-center">
+            <h5><b>Akun Jemaah</b></h5>
+            @if ($data->user)
+            <span class="badge bg-success">Aktif</span>
+            @else
+            <span class="badge bg-danger">Tidak Aktif</span>
+            @endif
+         </div>
+         <div class="card-body">
+            <form id="form-email" action="{{route($data->user ? 'admin.biojemaah.deleteAkun' : 'admin.biojemaah.updateAkun')}}" method="post">
+               @csrf
+               <div class="form-group mb-3">
+                  <input type="hidden" name="id" value="{{$data->id}}">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" name="email" value="{{$data->email}}" class="form-control" placeholder="Masukkan Email" {{$data->user ? 'readonly' : ''}}>
+                  @error('email')
+                  <div class="invalid-feedback">
+                     {{$message}}
+                  </div>
+                  @enderror
+               </div>
+            </form>
+            <div class="d-flex justify-content-between">
+               @if ($data->user)
+               <div></div>
+               <button type="submit"
+                  class="btn btn-danger btn-sm"
+                  onclick="confirmDanger('Hapus akun jemaah',
+                           'Yakin akan menghapus akun {{ $data->email }}?!',
+                           () => { window.formAction('form-email', 'submit'); })"> Hapus
+               </button>
+               @else
+               <div></div>
+               <button type="submit" class="btn btn-primary" form="form-email">Buat Akun</button>
+               @endif
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+
+<div class="card">
+   <div class="card-header">
+      <h5><b>Riwayat Pendaftaran</b></h5>
+   </div>
+   <div class="card-body">
+      <div class="table-responsive">
+         <table class="table table-striped" id="table1">
+            <thead>
+               <tr>
+                  <th>Nama Paket</th>
+                  <th>Keberangakatan</th>
+                  <th>Durasi</th>
+                  <th>Pembatalan</th>
+                  <th>Pembayaran</th>
+                  <th>Aksi</th>
+               </tr>
+            </thead>
+            <tbody>
+               @forelse ($data->jemaah as $p)
+               <tr>
+                  <td>{{$p->group->nama}}</td>
+                  <td>{{$p->group->tanggal_keberangkatan}}</td>
+                  <td>{{$p->group->paket->durasi}} Hari</td>
+                  <td>
+                     @if ($p->pembatalan)
+                     <span class="fw-bold text-danger">Dibatalkan</span>
+                     @else
+                     -
+                     @endif
+                  </td>
+
+                  @php
+                  $totalBayar = $p->pembayaran ? $p->pembayaran->sum('harga') : 0;
+                  @endphp
+                  <td>
+                     Rp. {{number_format($totalBayar, 0, ',', '.')}} /
+                     Rp. {{number_format($p->group->paket->harga, 0, ',', '.')}}
+                  </td>
+                  <td>
+                     <a href="{{route('admin.jemaah.detail', ['id'=>$p->id])}}" class="btn btn-sm btn-info">
+                        <!-- <i class="fas fa-info-circle"></i> -->
+                        <b>Detail</b>
+                     </a>
+                  </td>
+               </tr>
+               @empty
+               <tr>
+                  <td colspan="6" class="text-center">Tidak ada data</td>
+               </tr>
+               @endforelse
+            </tbody>
+         </table>
+
+         <!-- <div class="text-end">
+         <a href="" class="btn btn-sm btn-primary">Tambah Pendaftaran</a>
+      </div> -->
+      </div>
+   </div>
+
+
+   @endsection
+
+   @section('js')
+   @endsection

@@ -1,0 +1,69 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+
+class group extends Model
+{
+
+    protected $table = 'group';
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    protected $appends = [
+        'list_penerbangan',
+        'list_akomodasi',
+    ];
+
+    protected $fillable = [
+        'paket_id',
+        'nama',
+        // tutp pekndaftaran
+        'tanggal_keberangkatan',
+        'tanggal_kepulangan',
+        'jadwal_penerbangan',
+        'akomodasi',
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->id)) {
+                $model->id = Str::uuid();
+            }
+        });
+    }
+
+    public function paket()
+    {
+        return $this->belongsTo(paket::class);
+    }
+
+    public function jemaah()
+    {
+        return $this->hasMany(jemaah::class, 'group_id');
+    }
+
+    public function getListPenerbanganAttribute()
+    {
+        $data = json_decode($this->jadwal_penerbangan);
+
+        return is_array($data) || is_object($data)
+            ? collect($data)
+            : collect(); // fallback jika null atau gagal decode
+    }
+
+
+    public function getListAkomodasiAttribute()
+    {
+        $data = json_decode($this->akomodasi);
+        return is_array($data) || is_object($data)
+            ? collect($data)
+            : collect(); // fallback jika null atau gagal decode
+    }
+}
